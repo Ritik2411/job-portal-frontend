@@ -1,0 +1,51 @@
+.account-form-div{
+    width: 60%;
+    padding: 18px 30px;
+    margin: 50px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: white;
+    border-radius: 5px;
+
+    .account-text{
+        margin-bottom: 15px;
+        font-weight: 600;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .input-div{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        
+        .account-input{
+            width: 100%;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 10px;
+            border-radius: 5px;
+            border: 1px solid black;
+        }
+
+        .account-input:focus{
+            outline: none;
+        }
+    }
+
+    .div-role{
+        display: flex;
+        margin-top: 2px;
+        margin-bottom: 12px;
+    }
+
+    .account-form-btn{
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+}

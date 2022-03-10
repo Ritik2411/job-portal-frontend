@@ -1,0 +1,111 @@
+<div class="register-div">
+    <form #registerForm="ngForm" class="register-form-div" (ngSubmit)="registerUser(registerForm.value)">
+        <div class="register-text">
+            Register
+        </div>
+        
+        <div class="input-div">
+            <input #username="ngModel" 
+                type="email" 
+                placeholder="Enter Username" 
+                name="UserName"
+                class="register-input" 
+                ngModel 
+                required/>
+            
+            <span *ngIf="username.invalid && username.touched" class="error-message">UserName is required</span>
+        </div>
+
+        <div class="input-div">
+            <input #firstName="ngModel" 
+                type="text" 
+                placeholder="Enter First Name" 
+                name="firstName"
+                class="register-input"
+                ngModel
+                required/>
+
+            <span *ngIf="firstName.invalid && firstName.touched" class="error-message">FirstName is required</span>
+        </div>
+
+        <div class="input-div">
+            <input #lastName="ngModel"
+                type="text" 
+                placeholder="Enter Last Name"
+                name="lastName" 
+                class="register-input"
+                ngModel
+                required/>
+
+            <span *ngIf="lastName.invalid && lastName.touched"  class="error-message">LastName is required</span>    
+        </div>
+
+        <div class="input-div">
+            <input #Email="ngModel"
+                type="email" 
+                placeholder="Enter Email"
+                name="email" 
+                class="register-input"
+                ngModel
+                required/>
+        
+            <span *ngIf="Email.invalid && Email.touched" class="error-message">Email is required</span>
+        </div>
+
+        <div class="div-role"> 
+            <div>
+                Select Role:
+            </div> 
+
+            <div style="margin-left: 10px;">    
+                <input #Role="ngModel"
+                    type="radio" 
+                    name="role" 
+                    value='Employee'
+                    ngModel
+                    required/>&nbsp;
+                <label for="Employee">Employee</label>
+            </div>        
+
+            <div style="margin-left: 10px;">
+                <input #Role="ngModel"
+                    type="radio" 
+                    value='JobSeeker' 
+                    name="role" 
+                    ngModel
+                    required/>&nbsp;
+                <label for="JobSeeker">JobSeeker</label>
+            </div>    
+
+            <span *ngIf="Role.invalid && Role.touched" class="error-message">Role is required</span>
+        </div>
+
+        <div class="input-div">
+            <input #password="ngModel"
+                type="password" 
+                placeholder="Enter Password"
+                name="password" 
+                class="register-input"
+                ngModel
+                required/>
+            
+            <span *ngIf="password.invalid && password.touched" class="error-message">Password is required</span>
+        </div>
+
+        <div class="input-div">
+            <input #confirmPassword="ngModel"
+                type="password" 
+                placeholder="Confirm Password" 
+                name="conformPassword"
+                class="register-input"
+                ngModel
+                required/>
+            
+            <span *ngIf="confirmPassword.invalid && confirmPassword.touched" class="error-message">This Field is required</span>
+        </div>
+
+        <div>
+            <button [disabled]="registerForm.invalid" class="btn btn-primary">Register</button>
+        </div>
+    </form>
+</div>

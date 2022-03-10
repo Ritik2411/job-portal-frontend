@@ -1,0 +1,35 @@
+<div class="login-div">
+    <form #loginForm="ngForm" (ngSubmit)="login(loginForm.value)" class="login-form-div">
+        <div class="login-text">
+            Login
+        </div>
+
+        <div class="input-div">
+            <input #name="ngModel" 
+                type='text' 
+                placeholder="Enter Email" 
+                name="email"
+                class="login-input" 
+                ngModel 
+                required/>
+            
+            <span *ngIf="name.invalid && name.touched" class="error-message">Name is Required</span>
+        </div>
+        
+        <div class="input-div">
+            <input #password="ngModel" 
+                type="password" 
+                placeholder="Enter Password" 
+                name="password" 
+                class="login-input"
+                ngModel 
+                required/>
+            
+            <span *ngIf="password.invalid && password.touched" class="error-message">Password is Required</span>
+        </div>
+
+        <div class="login-form-btn">
+            <button [disabled]="loginForm.invalid" class="btn btn-primary">Login</button>
+        </div>
+    </form>
+</div>

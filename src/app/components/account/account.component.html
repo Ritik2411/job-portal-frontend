@@ -1,0 +1,79 @@
+<div class="account-div">
+    <form class="account-form-div">
+        <div class="account-text">
+            Your Account
+        </div>
+        
+        <div class="input-div">
+            <label>UserName</label>
+            <input type="email" 
+                placeholder="Enter Username" 
+                name="UserName"
+                class="account-input" 
+                value={{userData?.userName}}
+                disabled
+                required/>
+        </div>
+
+        <div class="input-div">
+            <label>First Name</label>
+            <input type="text" 
+                placeholder="Enter First Name" 
+                name="firstName"
+                class="account-input"
+                value={{userData?.firstName}}
+                disabled
+                required/>
+        </div>
+
+        <div class="input-div">
+            <label>last Name</label>
+            <input type="text" 
+                placeholder="Enter Last Name"
+                name="lastName" 
+                class="account-input"
+                value={{userData?.lastName}}
+                disabled
+                required/> 
+        </div>
+
+        <div class="input-div">
+            <label>Email</label>
+            <input type="email" 
+                placeholder="Enter Email"
+                name="email" 
+                class="account-input"
+                value={{userData?.email}}
+                disabled
+                required/>
+        </div>
+
+        <div class="input-div"> 
+            <label>Role</label>
+            <input type="text" 
+            placeholder="Enter Role"
+            name="Role" 
+            class="account-input"
+            value={{userData?.role}}
+            disabled
+            required/>
+        </div>
+
+        <div class="input-div">
+            <label>Password</label>
+            <input type="password" 
+                placeholder="Enter Password"
+                name="password"
+                maxlength="10"
+                class="account-input"
+                value={{userData?.passwordHash.toString().slice(0,20)}}
+                disabled
+                required/>
+        </div>
+
+        <div>
+            <button class="btn btn-primary mr-3" routerLink="/">Go Back</button>
+            <button class="btn btn-primary change-password" [routerLink]="['/changepassword',userData?.id]">Change Password</button>
+        </div>
+    </form>
+</div>
