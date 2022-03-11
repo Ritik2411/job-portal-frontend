@@ -11,6 +11,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AccountComponent } from './components/account/account.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
+import { AddEmployeerDetailComponent } from './components/add-employeer-detail/add-employeer-detail.component';
+import { AddVacancyComponent } from './components/add-vacancy/add-vacancy.component';
+import { VacanciesComponent } from './components/vacancies/vacancies.component';
+import { UpdateEmployeeComponent } from './components/update-employee/update-employee.component';
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { VacancyComponent } from './vacancy/vacancy.component';
+import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy.component';
+
 
 @NgModule({
   declarations: [
@@ -20,7 +28,14 @@ import { ChangepasswordComponent } from './components/changepassword/changepassw
     HomeComponent,
     RegisterComponent,
     AccountComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+    AddEmployeerDetailComponent,
+    AddVacancyComponent,
+    VacanciesComponent,
+    UpdateEmployeeComponent,
+    AddEmployeeComponent,
+    VacancyComponent,
+    JobseekerVacancyComponent    
   ],
   imports: [
     BrowserModule,

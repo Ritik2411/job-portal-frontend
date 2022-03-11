@@ -1,0 +1,21 @@
+<div *ngIf="loading then loadingBlock else formBlock"></div>
+
+<ng-template #formBlock>
+    <div *ngIf="updateForm; then ifBlock else elseBlock"></div>
+</ng-template>
+
+<ng-template #ifBlock>
+    <app-update-employee [userData]="employeeData"></app-update-employee>
+</ng-template>
+
+<ng-template #elseBlock>
+    <app-add-employeer-detail></app-add-employeer-detail>
+</ng-template>
+
+<ng-template #loadingBlock>
+    <div class="spinner">
+        <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

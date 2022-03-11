@@ -1,79 +1,103 @@
-<div class="account-div">
-    <form class="account-form-div">
-        <div class="account-text">
-            Your Account
+<div *ngIf="load; then ifBlock else elseBlock"></div>
+
+<ng-template #ifBlock>
+    <div style="text-align: center;margin:100px auto">
+        <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
+            <span class="sr-only">Loading...</span>
         </div>
-        
-        <div class="input-div">
-            <label>UserName</label>
-            <input type="email" 
-                placeholder="Enter Username" 
-                name="UserName"
-                class="account-input" 
-                value={{userData?.userName}}
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div class="account-div">
+        <form class="account-form-div">
+            <div class="account-text">
+                Your Account
+            </div>
+    
+            <div class="input-div">
+                <label>User ID</label>
+                <input type="email" 
+                    placeholder="Enter Username" 
+                    name="UserName"
+                    class="account-input" 
+                    value={{userData?.id}}
+                    disabled
+                    required/>
+            </div>
+    
+            <div class="input-div">
+                <label>User Name</label>
+                <input type="email" 
+                    placeholder="Enter Username" 
+                    name="UserName"
+                    class="account-input" 
+                    value={{userData?.userName}}
+                    disabled
+                    required/>
+            </div>
+    
+            <div class="input-div">
+                <label>First Name</label>
+                <input type="text" 
+                    placeholder="Enter First Name" 
+                    name="firstName"
+                    class="account-input"
+                    value={{userData?.firstName}}
+                    disabled
+                    required/>
+            </div>
+    
+            <div class="input-div">
+                <label>Last Name</label>
+                <input type="text" 
+                    placeholder="Enter Last Name"
+                    name="lastName" 
+                    class="account-input"
+                    value={{userData?.lastName}}
+                    disabled
+                    required/> 
+            </div>
+    
+            <div class="input-div">
+                <label>Email</label>
+                <input type="email" 
+                    placeholder="Enter Email"
+                    name="email" 
+                    class="account-input"
+                    value={{userData?.email}}
+                    disabled
+                    required/>
+            </div>
+    
+            <div class="input-div"> 
+                <label>Role</label>
+                <input type="text" 
+                placeholder="Enter Role"
+                name="Role" 
+                class="account-input"
+                value={{userData?.role}}
                 disabled
                 required/>
-        </div>
+            </div>
+    
+            <div class="input-div">
+                <label>Password</label>
+                <input type="password" 
+                    placeholder="Enter Password"
+                    name="password"
+                    maxlength="10"
+                    class="account-input"
+                    value={{userData?.passwordHash.toString().slice(0,20)}}
+                    disabled
+                    required/>
+            </div>
+    
+            <div>
+                <button class="btn btn-primary mr-3" routerLink="/">Go Back</button>
+                <button class="btn btn-primary change-password" [routerLink]="['/changepassword',userData?.id]">Change Password</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
 
-        <div class="input-div">
-            <label>First Name</label>
-            <input type="text" 
-                placeholder="Enter First Name" 
-                name="firstName"
-                class="account-input"
-                value={{userData?.firstName}}
-                disabled
-                required/>
-        </div>
-
-        <div class="input-div">
-            <label>last Name</label>
-            <input type="text" 
-                placeholder="Enter Last Name"
-                name="lastName" 
-                class="account-input"
-                value={{userData?.lastName}}
-                disabled
-                required/> 
-        </div>
-
-        <div class="input-div">
-            <label>Email</label>
-            <input type="email" 
-                placeholder="Enter Email"
-                name="email" 
-                class="account-input"
-                value={{userData?.email}}
-                disabled
-                required/>
-        </div>
-
-        <div class="input-div"> 
-            <label>Role</label>
-            <input type="text" 
-            placeholder="Enter Role"
-            name="Role" 
-            class="account-input"
-            value={{userData?.role}}
-            disabled
-            required/>
-        </div>
-
-        <div class="input-div">
-            <label>Password</label>
-            <input type="password" 
-                placeholder="Enter Password"
-                name="password"
-                maxlength="10"
-                class="account-input"
-                value={{userData?.passwordHash.toString().slice(0,20)}}
-                disabled
-                required/>
-        </div>
-
-        <div>
-            <button class="btn btn-primary mr-3" routerLink="/">Go Back</button>
-            <button class="btn btn-primary change-password" [routerLink]="['/changepassword',userData?.id]">Change Password</button>
-        </div>
-    </form>
-</div>

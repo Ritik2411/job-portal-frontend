@@ -1,0 +1,55 @@
+.vacancy-div{
+    margin: 20px;
+    padding: 20px 20px 15px 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    border-radius: 5px;
+
+    .publisher-info{
+        font-size: 18px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+
+        .publisher-name-div{
+            flex: 1;
+        }
+    }
+
+    .info-1-div{
+        display: flex;
+        justify-content: flex-start;
+        margin-top: 20px;
+        
+
+        .info-1-qua{
+            font-size: 15px;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+
+        .info-1-exp{
+            font-size: 15px;
+            font-weight: 600;
+            margin-left: 20px;
+        }
+    }
+
+    .info-2-div{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        .info-2{
+            font-size: 15px;
+            font-weight: 600;
+            margin-right: 20px;
+        }
+    }
+
+    .des-div{
+        margin-top: 20px;
+        font-size: 15px;
+        font-weight: 600;
+        
+    }
+}

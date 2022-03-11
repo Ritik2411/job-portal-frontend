@@ -1,0 +1,87 @@
+.vacancy-div{
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
+    .vacancy-form-div{
+        width: 60%;
+        border-radius: 5px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+
+        .vacancy-text{
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-div{
+            display: flex;
+            flex-direction: row;
+
+            .input-id{
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                margin: 10px 20px;
+
+                .input-type{
+                    padding:  5px 10px;
+                }
+
+                .input-type:focus{
+                    outline: none;
+                }
+
+                .error-message{
+                    color: red;
+                }
+            }
+
+            .input-box{
+                display: flex;
+                flex-direction: column;
+                width: 50%;
+                margin: 10px 20px;
+
+                .input-type{
+                    padding:  5px 10px;
+                }
+
+                .input-type:focus{
+                    outline: none;
+                }
+
+                .error-message{
+                    color: red;
+                }
+            }
+        }
+
+        .input-text-div{
+            display: flex;
+            flex-direction: column;
+            margin: 10px 20px;
+
+            .input-text-type{
+                padding:  5px 10px;
+            }
+
+            .input-text-type:focus{
+                outline: none;
+            }
+
+            .error-message{
+                color: red;
+            }
+        }
+
+        .vacancy-post{
+            margin: 10px 20px;
+        }
+    }
+}

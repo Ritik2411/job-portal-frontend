@@ -1,0 +1,64 @@
+<div class="vacancy-div">
+    <div class="publisher-info">
+        <div class="publisher-name-div">
+            <span>{{vacancyData?.publishedBy}}</span><br/>
+            
+            <span style="font-size: 16px;">Published on: 
+                <span style="color: gray;">
+                    {{vacancyData?.published_Date}}
+                </span>
+            </span>
+        </div>
+
+        <div *ngIf="role === 'Employee' then ifBlock else elseBlock"></div>
+        
+        <ng-template #ifBlock>
+            Number of applicants: <span style="color: gray;">&nbsp;5</span>
+        </ng-template>
+
+        <ng-template #elseBlock>
+            <button class="btn btn-primary">Apply</button>
+        </ng-template>
+    </div>
+
+    <div class="info-1-div">
+        <div class="info-1-qua">
+            <span>Minimum Qualification</span>
+            <br/><span style="color: gray;">{{vacancyData?.minimum_qualification}}</span>
+        </div>
+        <div class="info-1-exp">
+            <span>Experience</span><br/>
+            <span style="color: gray;">{{vacancyData?.experience}}</span>
+        </div>
+    </div>
+
+    <div class="info-2-div">
+        <div class="info-2">
+            <span>Minimum Salary</span><br/>
+            <span style="color: gray;">{{vacancyData?.min_Salary}}</span>
+        </div>
+        <div class="info-2">
+            <span>Maximum Salary</span><br/>
+            <span style="color: gray;">{{vacancyData?.max_Salary}}</span>
+        </div>
+        <div class="info-2">
+            <span>Vacancies</span><br/>
+            <span style="color: gray;">{{vacancyData?.no_of_Vacancies}}</span>
+        </div>
+        <div class="info-2">
+            <span>Last Date</span><br/>
+            <span style="color: gray;">{{vacancyData?.last_Date}}</span>
+        </div>
+    </div>
+
+    <div class="des-div">
+        <div style="display: flex;align-items: center;justify-content: space-between;">
+            <div>Description</div>
+            <div *ngIf="role === 'Employee'">
+                <button class="btn btn-danger">Delete</button>
+            </div>
+        </div>
+        
+        <div style="color: gray;">{{vacancyData?.job_Description}}</div>
+    </div>
+</div>

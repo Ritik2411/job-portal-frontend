@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AccountComponent implements OnInit {
   id:string
   userData:any = {}
+  load:boolean = true
 
   constructor(private route:ActivatedRoute,private http:HttpClient) { }
 
@@ -19,5 +20,9 @@ export class AccountComponent implements OnInit {
       this.userData = res
       console.log(this.userData)
     })
+
+    setTimeout(()=>{
+      this.load = false
+    },2000)
   }
 }

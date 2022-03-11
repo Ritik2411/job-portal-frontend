@@ -1,0 +1,144 @@
+<div class="employee-div"> 
+    
+    <form #EmployeeForm="ngForm" class="employee-form" (ngSubmit)="updateEmployee(EmployeeForm.value)">
+        <div class="details-text">
+            Update Details
+        </div>
+
+        <div style="display: flex;">
+            <div class="input-box-organization">
+                <label>Organization Name</label>
+                <input type="text" 
+                    #organization="ngModel"
+                    placeholder="Enter Organization" 
+                    name="organization"
+                    class="input-type"
+                    [(ngModel)]="data[0].organization"
+                    ngModel
+                    required/>
+                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Organization Name is required</span>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div class="input-box">
+                <label>Select Organization Type</label>
+                <select class="input-type" 
+                    #organizationType="ngModel"
+                    name="orgnizationType"
+                    [(ngModel)]="data[0].organizationType"
+                    ngModel
+                    required>
+                    <option value="">
+                        Select Organization
+                    </option>
+                    <option value="type-1">
+                        Type-1
+                    </option>
+                    <option value="type-2">
+                        Type-2
+                    </option>
+                    <option value="type-3">
+                        Type-3
+                    </option>
+                </select>
+                
+                <span class="error-msg" *ngIf="organizationType.invalid && organizationType.touched">Organization type is required</span>
+            </div>
+            
+            <div class="input-box">
+                <label>Company Email</label>
+                <input type="email" 
+                    #email="ngModel"
+                    placeholder="Enter Company Email" 
+                    name="companyEmail"
+                    class="input-type" 
+                    [(ngModel)]="data[0].companyEmail"
+                    ngModel    
+                    required/>
+                <span class="error-msg" *ngIf="email.invalid && email.touched">Company email is required</span>
+            </div>    
+        </div>
+        
+        <div style="display: flex;">
+            <div class="input-box">
+                <label>Company Phone Number</label>
+                <input type="tel" 
+                    #telephone="ngModel"
+                    placeholder="Enter Company Phone Number" 
+                    class="input-type"
+                    name="companyPhone"
+                    [(ngModel)]="data[0].companyPhone"
+                    ngModel
+                    required/>
+                <span class="error-msg" *ngIf="telephone.invalid && telephone.touched">Company Phone Number is required</span>
+            </div>
+        
+            <div class="input-box">
+                <label>Number Of Employees</label>
+                <input type="number" 
+                    #NumberOfEmployee="ngModel"
+                    placeholder="Enter Number Of Employee" 
+                    class="input-type"
+                    name="noOfEmployees"
+                    [(ngModel)]="data[0].noOfEmployee"
+                    ngModel
+                    required/>
+                <span class="error-msg" *ngIf="NumberOfEmployee.invalid && NumberOfEmployee.touched">Number of Employee is required</span>
+            </div>
+        </div>
+
+        <div style="display: flex;">
+            <div class="input-box">
+                <label>Start Year</label>
+                <input type="month" 
+                    #startYear="ngModel"
+                    placeholder="Enter Start year" 
+                    class="input-type"
+                    name="startYear"
+                    [(ngModel)]="data[0].startYear"
+                    ngModel
+                    required/>
+                <span class="error-msg" *ngIf="startYear.invalid && startYear.touched">Start year is required</span>
+            </div>
+
+            <div class="input-box">
+                <label>Created By</label>
+                <input type="text" 
+                    #createdBy="ngModel"
+                    placeholder="Enter Founders name" 
+                    class="input-type"
+                    name="createdBy"
+                    [(ngModel)]="data[0].createdBy"
+                    ngModel
+                    required/>
+                <span class="error-msg" *ngIf="createdBy.invalid && createdBy.touched">Created By is required</span>
+            </div>
+        </div>
+        
+
+        <div class="input-text-area">
+            <label>About</label>
+            <textarea cols="50" rows="5" 
+                #about="ngModel"
+                placeholder="Enter Some Description about your company..."
+                class="input-text-type"
+                name="about"
+                [(ngModel)]="data[0].about"
+                ngModel
+                required
+            ></textarea>
+            <span class="error-msg" *ngIf="about.invalid && about.touched">About is required</span>
+        </div>
+
+        <div class="employee-btn">
+            <button [disabled]="EmployeeForm.invalid" class="btn btn-primary mr-3" >
+                Update
+            </button>
+            
+            <button type="reset" class="btn btn-primary">
+                Cancel
+            </button>
+        </div>
+    </form>
+</div>

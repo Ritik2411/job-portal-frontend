@@ -1,0 +1,192 @@
+<div class="vacancy-div">
+    <form #AddVacancyForm="ngForm" class="vacancy-form-div" (ngSubmit)="AddVacancy(AddVacancyForm.value)">
+         <div class="vacancy-text">
+            Post Vacancy
+         </div>
+
+         <div class="input-div">
+             <div class="input-id">
+                 <label>Employee Id</label>
+                 <input #employeeId="ngModel" 
+                    type="text" 
+                    class="input-type"
+                    name="user_id"
+                    [(ngModel)] = "id"
+                    placeholder="Get your if from account page"
+                    ngModel
+                    readonly
+                    required/>
+                <span class="error-message" *ngIf="employeeId.invalid && employeeId.touched">Employee ID is required</span>
+             </div>
+         </div>   
+
+         <div class="input-div">
+            <div class="input-box">
+                <label>Publisher Name</label>
+                <input #publisherName="ngModel"
+                    type="text" 
+                    placeholder="Enter Publisher" 
+                    class="input-type"
+                    name="publishedBy"
+                    ngModel
+                    required/>
+                <span class="error-message" *ngIf="publisherName.invalid && publisherName.touched">Publisher name is required</span>
+            </div>
+
+             <div class="input-box">
+                <label>Published Date</label>
+                <input #publishedDate="ngModel"
+                    type="datetime-local" 
+                    class="input-type"
+                    name="published_Date"
+                    ngModel
+                    required/>
+                <span class="error-message" *ngIf="publishedDate.invalid && publishedDate.touched">Published date is required</span>
+             </div>
+         </div>
+
+         <div class="input-div">
+             <div class="input-box">
+                 <label>Minimum Qualification</label>
+                 <select #minqualification="ngModel"
+                    class="input-type"
+                    name="minimum_qualification"
+                    ngModel
+                    required>
+                     <option value="">
+                        Select Qualification
+                     </option>
+                     <option value="type-1">
+                        Type-1
+                    </option>
+                    <option value="type-2">
+                        Type-2
+                    </option>
+                 </select>
+                 <span class="error-message" *ngIf="minqualification.invalid && minqualification.touched">Qualification is required</span>
+             </div>
+
+             <div class="input-box">
+                 <label>Experience</label>
+                 <select #experience="ngModel"
+                    class="input-type"
+                    name="experience"
+                    ngModel
+                    required>
+                     <option value="">
+                        Select Experience
+                     </option>
+
+                     <option value="Freshers">
+                        Hiring Freshers
+                     </option>
+
+                     <option value="Freshers">
+                        1 Year
+                     </option>
+                     
+                     <option value="Freshers">
+                        2 Years
+                     </option>
+                 </select>
+                 <span class="error-message" *ngIf="experience.invalid && experience.touched">Experience is required</span>
+             </div>
+         </div>
+
+         <div class="input-div">
+            <div class="input-box">
+                <label>Number of vacancy</label>
+                <input #numofvacancy="ngModel" 
+                    type="number" 
+                    placeholder="Enter number of vacancy" 
+                    class="input-type"
+                    name="no_of_Vacancies"
+                    ngModel
+                    required/>
+                <span class="error-message" *ngIf="numofvacancy.invalid && numofvacancy.touched">This field is required</span>
+            </div>
+
+            <div class="input-box">
+                <label>Last Date</label>
+                <input #lastDate="ngModel"
+                    type="datetime-local" 
+                    class="input-type"
+                    name="last_Date"
+                    ngModel
+                    required/>
+                <span class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last data is required</span>
+            </div>
+         </div>
+
+         <div class="input-div">
+             <div class="input-box">
+                <label>Minimum Salary</label>
+                <select #minSalary="ngModel"
+                    class="input-type"
+                    name="min_Salary"
+                    ngModel
+                    required>
+                    <option value="">
+                        Select Minimum Salary
+                    </option>
+   
+                    <option value="30000">
+                       30,000
+                    </option>
+   
+                    <option value="45000">
+                       45,000
+                    </option>
+   
+                    <option value="60000">
+                       60,000
+                    </option>
+                </select>
+                <span class="error-message" *ngIf="minSalary.invalid && minSalary.touched">This field is required</span>
+            </div>
+             
+             <div class="input-box">
+                <label>Maximum Salary</label>
+                <select #maxSalary="ngModel"
+                    class="input-type"
+                    name="max_Salary"
+                    ngModel
+                    required>
+                    <option value="">
+                        Select Minimum Salary
+                    </option>
+   
+                    <option value="45000">
+                       45,000
+                    </option>
+   
+                    <option value="60000">
+                       60,000
+                    </option>
+   
+                    <option value="75000">
+                       75,000
+                    </option>
+                </select>
+                <span class="error-message" *ngIf="maxSalary.invalid && maxSalary.touched">This field is required</span> 
+            </div>
+         </div>
+
+         <div class="input-text-div">
+             <label>Job Description</label>
+             <textarea cols="50" rows="5" 
+                #jobdescription="ngModel"
+                placeholder="Enter Job Description" 
+                class="input-text-type"
+                name="job_Description"
+                ngModel
+                required></textarea>
+             <span class="error-message" *ngIf="jobdescription.invalid && jobdescription.touched">Job description is required</span>
+         </div>
+
+         <div class="vacancy-post">
+             <button class="btn btn-primary mr-3" [disabled]="AddVacancyForm.invalid">Post</button>
+             <button class="btn btn-primary" type="reset">Cancel</button>
+         </div>
+    </form>
+</div>

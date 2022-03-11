@@ -1,0 +1,30 @@
+<div>
+    <div *ngIf="load; then ifBlock else elseBlock"></div>
+</div>
+
+<ng-template #ifBlock>
+    <div style="text-align: center;margin:100px auto">
+        <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div *ngIf="vacancies.length > 0; then vacancyBlock else nodataBlock"></div>
+</ng-template>
+
+<ng-template #vacancyBlock>
+    <div class="vacancies-div">
+        <div *ngFor="let data of vacancies" style="width: 70%;">
+            <app-vacancy [data]="data"></app-vacancy>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #nodataBlock>
+    <div style="text-align: center;margin: 100px auto;">
+        <h2>You haven't posted any vacancy.</h2>
+    </div>
+</ng-template>
+
