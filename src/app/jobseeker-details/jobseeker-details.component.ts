@@ -18,10 +18,20 @@ export class JobseekerDetailsComponent implements OnInit {
   update:boolean = false
 
   jobSeeker(data:any){
+    
     const confirm = window.confirm('Save Changes?')
     if(confirm){
-      console.log(data)
-      this.http.post('http://localhost:5500/JobSeeker', data, {
+      this.http.post('http://localhost:5500/JobSeeker', {
+        id: localStorage.getItem('UserId'),
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+        phone: data.phone,
+        address: data.address,
+        total_expericence: data.total_expericence,
+        expected_salary: data.expected_salary,
+        dob: data.dob
+    }, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('TKN')
@@ -53,6 +63,10 @@ export class JobseekerDetailsComponent implements OnInit {
               if(this.jobseekerDetail.length > 0){
                     this.update = true
                     this.load = false          
+              }
+              else{
+                this.update = false
+                this.load = false
               }
           })
         }

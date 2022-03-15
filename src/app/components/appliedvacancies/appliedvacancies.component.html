@@ -15,34 +15,45 @@
 <ng-template #datablock>
     <div class="applied-vacancies-div">
         <div *ngFor="let data of vacancyDetail" class="applied-vacancies-list">
-            <div class="vacancy-data-1">
-                <p>
-                    <span style="font-size: 18px;font-weight: 600;">Published By</span><br/>
-                    <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.published_by}}</span>
-                </p>
-                <p>
-                    <span style="font-size: 18px;font-weight: 600;">Applied On</span><br/>
-                    <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.applied_on}}</span>
-                </p>
-            </div>
+            <div *ngIf="data.published_by === null; then removeBlock else dataBlock"></div>
+            <ng-template #removeBlock>
+                <div style="display: flex;justify-content: space-between;align-items: center;">
+                    <span style="font-size: 15px;font-weight: 600;color: gray;">Sorry, this vacancy has been removed by publisher.</span>
+                    <span style="font-weight: bold;cursor: pointer;" (click)="deleteReq(data.id)">X</span>
+                </div>
+            </ng-template>
+            
+            <ng-template #dataBlock>
+                <div class="vacancy-data-1">
+                    <p>
+                        <span style="font-size: 18px;font-weight: 600;">Published By</span><br/>
+                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.published_by}}</span>
+                    </p>
+                    <p>
+                        <span style="font-size: 18px;font-weight: 600;">Applied On</span><br/>
+                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.applied_on}}</span>
+                    </p>
+                </div>
+        
+                <div class="vacancy-data-2">
+                    <div class="vacancy-data-2-1">
+                        <div style="font-size: 18px;font-weight: 600;">
+                            Description
+                        </div>
+                        
+                        <div>
+                            <button *ngIf="data.awating_approval" class="btn btn-secondary" disabled>Awaiting Approval</button>
+                            <button *ngIf="data.awating_approval === false && data.approved === true" class="btn btn-success" disabled>Approved</button>
+                            <button *ngIf="data.awating_approval === false && data.approved === false" class="btn btn-danger" disabled>Rejected</button>
+                        </div>
+                    </div>
     
-            <div class="vacancy-data-2">
-                <div class="vacancy-data-2-1">
-                    <div style="font-size: 18px;font-weight: 600;">
-                        Description
-                    </div>
-                    
                     <div>
-                        <button *ngIf="data.awating_approval" class="btn btn-secondary" disabled>Awaiting Approval</button>
-                        <button *ngIf="data.awating_approval === false && data.approved === true" class="btn btn-success" disabled>Approved</button>
-                        <button *ngIf="data.awating_approval === false && data.approved === false" class="btn btn-danger" disabled>Rejected</button>
+                        <p  style="font-size: 15px;font-weight: 600;color: gray;line-height: 0;">{{data.description}}</p>
                     </div>
                 </div>
-
-                <div>
-                    <p  style="font-size: 15px;font-weight: 600;color: gray;line-height: 0;">{{data.description}}</p>
-                </div>
-            </div>
+            </ng-template>
+            
         </div>
     </div>
 </ng-template>

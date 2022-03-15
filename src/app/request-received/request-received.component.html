@@ -14,36 +14,36 @@
 
 <ng-template #reqrecblock>
     <div class="reqRec-div">
-        <div *ngFor="let data of vacancyDetail" class="reqRec-loop-div">
+        <div *ngFor="let data of reqRec" class="reqRec-loop-div">
             <div>
                 <span>Published By</span><br/>
-                <span style="font-size: 15px;color: gray;">{{data?.vacanyData?.publisher_name}}</span>
+                <span style="font-size: 15px;color: gray;">{{data?.publisher_name}}</span>
             </div>
 
             <div>
                 <span>Applied By</span><br/>
-                <span style="font-size: 15px;color: gray;">{{data?.userName}}</span>
+                <span style="font-size: 15px;color: gray;">{{data?.vacancyDetail?.user_name}}</span>
             </div>
 
             <div>
                 <span>Applied On</span><br/>
-                <span style="font-size: 15px;color: gray;">{{data?.vacanyData?.vacancyDetail?.applied_on}}</span>
+                <span style="font-size: 15px;color: gray;">{{data?.vacancyDetail?.applied_on}}</span>
             </div>
 
             <div>
-                <button *ngIf="data?.vacanyData?.vacancyDetail?.awaiting_approval === true" class="btn btn-success mr-2" (click)="approve(data)">
+                <button *ngIf="data?.vacancyDetail?.awaiting_approval === true" class="btn btn-success mr-2" (click)="approve(data)">
                     Approve
                 </button>
 
-                <button *ngIf="data?.vacanyData?.vacancyDetail?.awaiting_approval === true" class="btn btn-danger ml-2" (click)="reject(data)">
+                <button *ngIf="data?.vacancyDetail?.awaiting_approval === true" class="btn btn-danger ml-2" (click)="reject(data)">
                     Reject
                 </button>
 
-                <button *ngIf="data?.vacanyData?.vacancyDetail?.awaiting_approval === false && data?.vacanyData?.vacancyDetail?.approved === true" class="btn btn-success" disabled>
+                <button *ngIf="data?.vacancyDetail?.awaiting_approval === false && data?.vacancyDetail?.approved === true" class="btn btn-success" disabled>
                     Approved
                 </button>
 
-                <button *ngIf="data?.vacanyData?.vacancyDetail?.awaiting_approval === false && data?.vacanyData?.vacancyDetail?.approved === false" class="btn btn-danger" disabled>
+                <button *ngIf="data?.vacancyDetail?.awaiting_approval === false && data?.vacancyDetail?.approved === false" class="btn btn-danger" disabled>
                     Rejected
                 </button>
             </div>
@@ -52,7 +52,7 @@
 </ng-template>
 
 <ng-template #nodatablock>
-    <div>
+    <div style="text-align: center;margin-top: 20px;">
         <h2>You haven't got any requests yet.</h2>
     </div>
 </ng-template>

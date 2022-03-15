@@ -20,7 +20,7 @@ export class RequestReceivedComponent implements OnInit {
   approve(data:any){
     const approved = window.confirm("Continue to apporve this vacancy?") 
     if(approved){
-      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.vacanyData.vacancyDetail.id}`, [
+      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.vacancyDetail.id}`, [
         {
           op: 'replace',
           path: 'awaiting_approval',
@@ -51,7 +51,7 @@ export class RequestReceivedComponent implements OnInit {
   reject(data:any){
     const rejected = window.confirm("Continue to reject this vacancy?") 
     if(rejected){
-      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.vacanyData.vacancyDetail.id}`, [
+      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.vacancyDetail.id}`, [
         {
           op: 'replace',
           path: 'awaiting_approval',
@@ -87,7 +87,8 @@ export class RequestReceivedComponent implements OnInit {
       })
     }).subscribe(res => {
       this.vacancyData = res
-      if(this.vacancyData.length > 0){
+      console.log(this.vacancyData)
+      if(this.vacancyData.length >= 0){
         this.http.get(`http://localhost:5500/VacancyDetail/${this.route.snapshot.paramMap.get('id')}`,{
           headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -95,6 +96,7 @@ export class RequestReceivedComponent implements OnInit {
           })  
         }).subscribe(res => {
             this.userVac = res
+            console.log(this.userVac)
             if(this.userVac.length > this.vacancyData.length){
               console.log("if")
               for(let i=0; i<this.userVac.length; i++){
@@ -102,28 +104,13 @@ export class RequestReceivedComponent implements OnInit {
                   if(this.userVac[i].id === parseInt(this.vacancyData[j].vacancy_id)){
                      this.reqRec.push({
                        vacancyDetail: this.vacancyData[j],
-                       publisher_name: this.userVac[i].published_by
+                       publisher_name: this.userVac[i].publishedBy
                       }) 
-                     this.load = false
                   }
                 }
-
-                for(let i=0; i<this.vacancyData.length; i++){
-                  
-                  this.http.get(`http://localhost:5500/getAllUsersById/${this.reqRec[i].vacancyDetail.user_id}`, {
-                    headers : new HttpHeaders({
-                      'Content-Type': 'application/json',
-                      Authorization: 'Bearer ' + localStorage.getItem('TKN')
-                    })
-                  }).subscribe(res => {
-                      this.userData.push(res)
-                      this.vacancyDetail.push({
-                        vacanyData: this.reqRec[i],
-                        userName: this.userData[i].firstName +' '+ this.userData[i].lastName
-                      })
-                  })  
-                }
               }
+              
+              this.load = false
             }
 
             else{
@@ -138,25 +125,7 @@ export class RequestReceivedComponent implements OnInit {
                 }
               }
 
-              for(let i=0; i<this.reqRec.length; i++){
-                this.http.get(`http://localhost:5500/getAllUsersById/${this.reqRec[i].vacancyDetail.user_id}`, {
-                  headers : new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + localStorage.getItem('TKN')
-                  })
-                }).subscribe(res => {
-                    this.userData.push(res)
-                    this.vacancyDetail.push({
-                      vacanyData: this.reqRec[i],
-                      userName: this.userData[i]?.email
-                    })
-                })
-              }
-
-              setTimeout(()=>{
-                  this.load = false
-                  console.log(this.vacancyDetail) 
-              },4000)
+             this.load = false
             }
         })
       }

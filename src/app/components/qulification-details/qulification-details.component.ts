@@ -20,7 +20,14 @@ export class QulificationDetailsComponent implements OnInit {
     const confirm = window.confirm('Save Changes?')
     
     if(confirm){
-      this.http.post('http://localhost:5500/Qualification', qualificationForm, {
+      this.http.post('http://localhost:5500/Qualification', {
+        grade: qualificationForm.grade,
+        name: qualificationForm.name,
+        qualification: qualificationForm.qualification,
+        university: qualificationForm.university,
+        userId: localStorage.getItem('UserId'),
+        yearOfCompletion: qualificationForm.yearOfCompletion
+      }, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
           Authorization: 'Bearer ' + localStorage.getItem('TKN')
@@ -51,6 +58,10 @@ export class QulificationDetailsComponent implements OnInit {
             this.quaData = res
             if(this.quaData.length > 0){
               this.update = true
+              this.load = false
+            }
+            else{
+              this.update = false
               this.load = false
             }
           })

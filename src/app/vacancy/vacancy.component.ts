@@ -7,16 +7,19 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './vacancy.component.html',
   styleUrls: ['./vacancy.component.scss']
 })
-export class VacancyComponent implements OnInit {
+export class VacancyComponent implements OnInit, DoCheck {
   @ Input() data = []
   @ Input() applied
 
   vacancyData:any = []
   vacancyReq:any = []
   requestsData:any
+  copyVacancyData:any = []
+  getVacancyData:any
+  copyData:any
+  reload:boolean = false
 
   constructor(private http:HttpClient, private router:Router, private route:ActivatedRoute) { }
-  
   
   role:string = localStorage.getItem('Role')
 
@@ -29,7 +32,8 @@ export class VacancyComponent implements OnInit {
         user_id: localStorage.getItem('UserId'),
         applied_on: new Date().toISOString(),
         awaiting_approval: true,
-        approved: false
+        approved: false,
+        user_name: localStorage.getItem('Email')
       }, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -42,6 +46,11 @@ export class VacancyComponent implements OnInit {
                 "op": "replace",
                 "path": "no_of_vacancies",
                 "value": data.no_of_Vacancies - 1
+              },
+              {
+                "op": "replace",
+                "path": "no_of_applications",
+                "value": data.no_of_applications + 1
               }
             ],{
               headers: {
@@ -70,33 +79,38 @@ export class VacancyComponent implements OnInit {
       })
     }).subscribe(res => {
         if(res){
-          this.http.get('http://localhost:5500/VacancyRequests', {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + localStorage.getItem('TKN')
-            }
-          }).subscribe(res =>{
-              this.vacancyReq = res
-              for(let i=0; i<this.vacancyReq.length; i++){
-                if(parseInt(this.vacancyReq[i].vacancy_id) === id){
-                  this.http.delete(`http://localhost:5500/VacancyRequests/${this.vacancyReq[i].id}`,{
-                    headers: {
-                      'Content-Type': 'application/json',
-                      Authorization: 'Bearer ' + localStorage.getItem('TKN')
-                    }
-                  }).subscribe(res => {
-                    if(res){
-                      window.location.reload()
-                    }
-                  })
-                }
-              }
-          })
+          window.location.reload()
+          // this.http.get('http://localhost:5500/VacancyRequests', {
+          //   headers: {
+          //     'Content-Type': 'application/json',
+          //     Authorization: 'Bearer ' + localStorage.getItem('TKN')
+          //   }
+          // }).subscribe(res =>{
+          //     this.vacancyReq = res
+          //     for(let i=0; i<this.vacancyReq.length; i++){
+          //       if(parseInt(this.vacancyReq[i].vacancy_id) === id){
+          //         this.http.delete(`http://localhost:5500/VacancyRequests/${this.vacancyReq[i].id}`,{
+          //           headers: {
+          //             'Content-Type': 'application/json',
+          //             Authorization: 'Bearer ' + localStorage.getItem('TKN')
+          //           }
+          //         }).subscribe(res => {
+          //           if(res){
+          //             window.location.reload()
+          //           }
+          //         })
+          //       }
+          //     }
+          // })
         }
     })  
   }
 
   ngOnInit(): void {
-       this.vacancyData = this.data
+      this.vacancyData = this.data      
+  }
+
+  ngDoCheck(): void {
+      this.copyData = this.vacancyData
   }
 }

@@ -12,19 +12,21 @@
             </div>
     
             <div class="input-div">
-                <div class="element-div">
-                    <label style="font-size: 15px;font-weight: 600;">JobSeeker ID</label>
-                    <input #jobseeker_id="ngModel"
-                        type="text" 
-                        class="input-style" 
-                        placeholder="Get your Id from account page"
-                        [(ngModel)]="jobseekerData[0].id"
-                        name="id"
+                <div class="element-div-email">
+                    <label style="font-size: 15px;font-weight: 600;">Email</label>
+                    <input #email="ngModel"
+                        type="email" 
+                        placeholder="Enter Email" 
+                        class="input-style"
+                        [(ngModel)]="jobseekerData[0].email"
+                        name="email"
                         readonly
                         required/>
-                    <span *ngIf="jobseeker_id.invalid && jobseeker_id.touched" style="color:red">JobSeeker Id is required</span>
+                    <span *ngIf="email.invalid && email.touched" style="color:red">Email is required</span>
                 </div>
-    
+            </div>
+            
+            <div class="input-div">
                 <div class="element-div">
                     <label style="font-size: 15px;font-weight: 600;">First Name</label>
                     <input #firstName="ngModel" 
@@ -37,9 +39,7 @@
                         required/>
                     <span *ngIf="firstName.invalid && firstName.touched" style="color:red">FirstName is required</span>
                 </div>
-            </div>
-            
-            <div class="input-div">
+
                 <div class="element-div">
                     <label style="font-size: 15px;font-weight: 600;">Last Name</label>
                     <input #lastName="ngModel"
@@ -53,18 +53,7 @@
                      <span *ngIf="lastName.invalid && lastName.touched" style="color:red">LastName is required</span>
                 </div>
     
-                <div class="element-div">
-                    <label style="font-size: 15px;font-weight: 600;">Email</label>
-                    <input #email="ngModel"
-                        type="email" 
-                        placeholder="Enter Email" 
-                        class="input-style"
-                        [(ngModel)]="jobseekerData[0].email"
-                        name="email"
-                        readonly
-                        required/>
-                    <span *ngIf="email.invalid && email.touched" style="color:red">Email is required</span>
-                </div>
+                
             </div>
             
             <div class="input-div">

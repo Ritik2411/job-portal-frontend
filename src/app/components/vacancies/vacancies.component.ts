@@ -11,6 +11,7 @@ export class VacanciesComponent implements OnInit {
 
   vacancies:any
   load:boolean = true
+  vacancyReq:any
 
   constructor(private http:HttpClient, private router:ActivatedRoute) { }
 
@@ -24,13 +25,20 @@ export class VacanciesComponent implements OnInit {
       })
     }).subscribe(res => {
       this.vacancies = res
-      if(this.vacancies.length>0){
-        this.load = false 
-      }
-      else{
-        this.load = false    
-      }
+      this.http.get('http://localhost:5500/VacancyRequests', {
+        headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: 'Bearer ' + localStorage.getItem('TKN')
+        })
+      }).subscribe(res => {
+        this.vacancyReq = res
+        if(this.vacancies.length>0){
+          this.load = false 
+        }
+        else{
+          this.load = false    
+        }
+      })
     })
   }
-
 }

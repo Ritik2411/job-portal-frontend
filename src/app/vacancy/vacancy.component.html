@@ -13,7 +13,7 @@
         <div *ngIf="role === 'Employee' then ifBlock else elseBlock"></div>
         
         <ng-template #ifBlock>
-            Number of applicants: <span style="color: gray;">&nbsp;5</span>
+            Number of applicants: <span style="color: gray;">&nbsp;{{vacancyData?.no_of_applications}}</span>
         </ng-template>
 
         <ng-template #elseBlock>

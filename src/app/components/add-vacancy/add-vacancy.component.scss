@@ -15,7 +15,7 @@
         .vacancy-text{
             font-size: 24px;
             text-align: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
             font-weight: 600;
         }
 
@@ -50,6 +50,8 @@
 
                 .input-type{
                     padding:  5px 10px;
+                    border-radius: 5px;
+                    border: 1px solid gray
                 }
 
                 .input-type:focus{
@@ -69,6 +71,8 @@
 
             .input-text-type{
                 padding:  5px 10px;
+                border-radius: 5px;
+                border: 1px solid gray;
             }
 
             .input-text-type:focus{

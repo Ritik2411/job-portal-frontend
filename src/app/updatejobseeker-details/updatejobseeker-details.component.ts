@@ -16,7 +16,6 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
   load:boolean = true
 
   updatejobSeeker(data:any){
-    console.log(data)
     this.http.put(`http://localhost:5500/JobSeeker/${this.id}`, {
       first_name: data.first_name,
       last_name: data.last_name,

@@ -53,10 +53,11 @@
                     placeholder="Enter Company Email" 
                     name="companyEmail"
                     class="input-type" 
+                    email
                     [(ngModel)]="data[0].companyEmail"
                     ngModel    
                     required/>
-                <span class="error-msg" *ngIf="email.invalid && email.touched">Company email is required</span>
+                <span class="error-msg" *ngIf="email.invalid && email.touched">Invalid Email</span>
             </div>    
         </div>
         
@@ -68,10 +69,11 @@
                     placeholder="Enter Company Phone Number" 
                     class="input-type"
                     name="companyPhone"
+                    pattern="[0-9]{10}"
                     [(ngModel)]="data[0].companyPhone"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="telephone.invalid && telephone.touched">Company Phone Number is required</span>
+                <span class="error-msg" *ngIf="telephone.invalid && telephone.touched">Invalid Phone Number</span>
             </div>
         
             <div class="input-box">

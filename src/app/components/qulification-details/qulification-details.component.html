@@ -26,26 +26,13 @@
             </div>
     
             <div class="input-div">
-                <div class="element-div">
-                    <label style="font-size: 15px;font-weight: 600;">JobSeeker ID</label>
-                    <input #user_id="ngModel"
-                        type="text" 
-                        class="input-style" 
-                        placeholder="Get your Id from account page"
-                        [(ngModel)]="userData.id"
-                        name="userId"
-                        readonly
-                        required/>
-                    <span *ngIf="user_id.invalid && user_id.touched" style="color:red">This field is required</span>
-                </div>
-
-                <div class="element-div">
+                <div class="element-div-email">
                     <label style="font-size: 15px;font-weight: 600;">UserName</label>
                     <input #userName="ngModel" 
                         type="text" 
                         class="input-style" 
                         placeholder='Enter User Name'
-                        [(ngModel)]='userData.firstName +" "+ userData.lastName'
+                        [(ngModel)]='userData.email'
                         name="name"
                         readonly
                         required/>
@@ -76,10 +63,12 @@
                         type="text" 
                         placeholder="Enter University" 
                         class="input-style"
+                        minlength="3"
+                        pattern="[A-Za-z ]{3,60}"
                         ngModel
                         name="university"
                         required/>
-                    <span *ngIf="university.invalid && university.touched" style="color:red">This field is required</span>
+                    <span *ngIf="university.invalid && university.touched" style="color:red">University must contain 3 or more and less than 60 characters</span>
                 </div>
             </div>
             

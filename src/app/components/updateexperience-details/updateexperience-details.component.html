@@ -18,29 +18,19 @@
             </div>
     
             <div class="input-div">
-                <div class="element-div">
-                    <label style="font-size: 15px;font-weight: 600;">JobSeeker ID</label>
-                    <input #user_id="ngModel"
-                        type="text" 
-                        class="input-style" 
-                        placeholder="Get your Id from account page"
-                        [(ngModel)]="expData[0].user_ID"
-                        name="user_id"
-                        readonly
-                        required/>
-                    <span *ngIf="user_id.invalid && user_id.touched" style="color:red">This field is required</span>
-                </div>
-    
-                <div class="element-div">
+                <div class="element-div-company">
                     <label style="font-size: 15px;font-weight: 600;">Company Name</label>
                     <input #companyName="ngModel" 
                         type="text" 
                         class="input-style" 
                         placeholder='Enter Company Name'
                         name="company_name"
+                        minlength="2"
+                        maxlength="50"
+                        pattern="[A-Za-z ]{2,50}"
                         [(ngModel)]="expData[0].company_name"
                         required/>
-                    <span *ngIf="companyName.invalid && companyName.touched" style="color:red">This field is required</span>
+                    <span *ngIf="companyName.invalid && companyName.touched" style="color:red">Company name cannot contain number and cannot be empty</span>
                 </div>   
             </div>
             
@@ -80,9 +70,10 @@
                         class="input-style" 
                         placeholder="Enter your Company URL"
                         name="companyUrl"
+                        pattern="https?://.+"
                         [(ngModel)]="expData[0].companyUrl"
                         required/>
-                    <span *ngIf="url.invalid && url.touched" style="color:red">This field is required</span>    
+                    <span *ngIf="url.invalid && url.touched" style="color:red">Invalid URL</span>    
                 </div>
     
                 <div class="element-div">
@@ -91,9 +82,10 @@
                         class="input-style" 
                         name="designation"
                         placeholder="Enter Designation"
+                        minlength="5"
                         [(ngModel)]="expData[0].designation"
                         required/>
-                    <span *ngIf="designation.invalid && designation.touched" style="color:red">This field is required</span>
+                    <span *ngIf="designation.invalid && designation.touched" style="color:red">Five or more characters are must</span>
                 </div>
             </div>
         
