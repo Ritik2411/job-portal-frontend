@@ -16,10 +16,16 @@
           <a class="nav-link" [routerLink]="['/vacancies',userData?.UserId]">Vacancies</a>
         </li>
         <li *ngIf="userData?.UserId !== null && userData?.Role === 'JobSeeker'" class="nav-item">
-          <a class="nav-link" href="#">JobSeeker Detail</a>
+          <a class="nav-link" [routerLink]="[userData?.UserId, 'details']">JobSeeker Details</a>
         </li>
         <li *ngIf="userData?.UserId !== null && userData?.Role === 'JobSeeker'" class="nav-item">
-          <a class="nav-link" routerLink="/allvacancies">Apply for Vacancies</a>
+          <a class="nav-link" [routerLink]="[userData?.UserId, 'experience']">Experience Details</a>
+        </li>
+        <li *ngIf="userData?.UserId !== null && userData?.Role === 'JobSeeker'" class="nav-item">
+          <a class="nav-link" [routerLink]="[userData?.UserId, 'qualification']">Qualification Details</a>
+        </li>
+        <li *ngIf="userData?.UserId !== null && userData?.Role === 'JobSeeker'" class="nav-item">
+          <a class="nav-link" [routerLink]="['allvacancies',userData?.UserId]">Apply for Vacancies</a>
         </li>
       </ul>
       <form class="form-inline my-2 my-lg-0">
@@ -51,6 +57,8 @@
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" [routerLink]="['account',userData?.UserId]">Account</a>
+            <a *ngIf="userData?.Role === 'JobSeeker';" class="dropdown-item" [routerLink]="['appliedvacancies',userData?.UserId]">Applied Vacancies</a>
+            <a *ngIf="userData?.Role === 'Employee';" class="dropdown-item" [routerLink]="['vacanciesRequests',userData?.UserId]">Vacancies Requests</a>
             <a class="dropdown-item" (click)="signOut()" style="cursor: pointer;">Log Out</a>
           </div>
         </div>

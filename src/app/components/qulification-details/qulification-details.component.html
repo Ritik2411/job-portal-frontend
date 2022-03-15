@@ -1,0 +1,127 @@
+<div *ngIf="load; then ifBlock else elseBlock"></div>
+
+<ng-template #ifBlock> 
+    <div>
+        <div style="text-align: center;margin:100px auto">
+            <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div *ngIf="update; then updateData else addForm"></div>
+</ng-template>
+
+<ng-template #updateData>
+    <app-updatequlification-details [quaData]='quaData'></app-updatequlification-details>
+</ng-template>
+
+<ng-template #addForm>
+    <div class="qualification-div">
+        <form #qualificationForm="ngForm" class="qualification-input-div" (ngSubmit)="qualifications(qualificationForm.value)">
+            <div class="qualification-text">
+                Qualification Details
+            </div>
+    
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">JobSeeker ID</label>
+                    <input #user_id="ngModel"
+                        type="text" 
+                        class="input-style" 
+                        placeholder="Get your Id from account page"
+                        [(ngModel)]="userData.id"
+                        name="userId"
+                        readonly
+                        required/>
+                    <span *ngIf="user_id.invalid && user_id.touched" style="color:red">This field is required</span>
+                </div>
+
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">UserName</label>
+                    <input #userName="ngModel" 
+                        type="text" 
+                        class="input-style" 
+                        placeholder='Enter User Name'
+                        [(ngModel)]='userData.firstName +" "+ userData.lastName'
+                        name="name"
+                        readonly
+                        required/>
+                    <span *ngIf="userName.invalid && userName.touched" style="color:red">This field is required</span>
+                </div>   
+            </div>
+            
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Qualification</label>
+                    <select #qualification="ngModel"
+                        type="text" 
+                        class="input-style" 
+                        ngModel
+                        name="qualification"
+                        required>
+                            <option value="">Select Qualification</option>
+                            <option value="B.Tech">B.Tech</option>
+                            <option value="M.Tech">M.Tech</option>                    
+                            <option value="M.B.A">M.B.A</option>
+                    </select>
+                     <span *ngIf="qualification.invalid && qualification.touched" style="color:red">This field is required</span>
+                </div>
+
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">University</label>
+                    <input #university="ngModel"
+                        type="text" 
+                        placeholder="Enter University" 
+                        class="input-style"
+                        ngModel
+                        name="university"
+                        required/>
+                    <span *ngIf="university.invalid && university.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+            
+            <div class="input-div">                
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Year Of Completion</label>
+                    <input #year="ngModel"
+                        type="month" 
+                        class="input-style" 
+                        placeholder="Enter your Completion Year"
+                        name="yearOfCompletion"
+                        ngModel
+                        required/>
+                    <span *ngIf="year.invalid && year.touched" style="color:red">This field is required</span>    
+                </div>
+
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Grade</label>
+                    <select #grade="ngModel"
+                        class="input-style" 
+                        name="grade"
+                        ngModel
+                        required>
+                        <option value="">Select Grade</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                    </select>
+                    <span *ngIf="grade.invalid && grade.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+    
+            <div class="btn-div">
+                <button type="submit" class="btn btn-primary mr-2" [disabled]="qualificationForm.invalid">
+                    Save 
+                </button>
+    
+                <button type="reset" class="btn btn-primary">
+                    Clear
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

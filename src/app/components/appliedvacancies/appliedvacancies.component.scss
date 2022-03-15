@@ -1,0 +1,28 @@
+.applied-vacancies-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    .applied-vacancies-list{
+        padding: 20px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        margin: 20px;
+        border-radius: 5px;
+        width: 70%;
+    
+        .vacancy-data-1{
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .vacancy-data-2{
+            .vacancy-data-2-1{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin: 10px 0px;
+            }
+        }
+    }
+}
+

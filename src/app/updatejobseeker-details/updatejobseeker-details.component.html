@@ -1,0 +1,154 @@
+<div *ngIf="load; then ifBlock else elseBlock"></div>
+
+<ng-template #ifBlock>
+
+</ng-template>
+
+<ng-template #elseBlock>
+    <div class="jobseeker-div">
+        <form #updatejobSeekerForm="ngForm" class="jobseeker-input-div" (ngSubmit)="updatejobSeeker(updatejobSeekerForm.value)">
+            <div class="jobseeker-text">
+                JobSeeker Details
+            </div>
+    
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">JobSeeker ID</label>
+                    <input #jobseeker_id="ngModel"
+                        type="text" 
+                        class="input-style" 
+                        placeholder="Get your Id from account page"
+                        [(ngModel)]="jobseekerData[0].id"
+                        name="id"
+                        readonly
+                        required/>
+                    <span *ngIf="jobseeker_id.invalid && jobseeker_id.touched" style="color:red">JobSeeker Id is required</span>
+                </div>
+    
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">First Name</label>
+                    <input #firstName="ngModel" 
+                        type="text" 
+                        class="input-style" 
+                        placeholder='Get your First Name from account page'
+                        [(ngModel)]="jobseekerData[0].first_name"
+                        name="first_name"
+                        readonly
+                        required/>
+                    <span *ngIf="firstName.invalid && firstName.touched" style="color:red">FirstName is required</span>
+                </div>
+            </div>
+            
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Last Name</label>
+                    <input #lastName="ngModel"
+                        type="text" 
+                        class="input-style" 
+                        placeholder='Get your last Name from account page'
+                        [(ngModel)]="jobseekerData[0].last_name"
+                        name="last_name"
+                        readonly
+                        required/>
+                     <span *ngIf="lastName.invalid && lastName.touched" style="color:red">LastName is required</span>
+                </div>
+    
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Email</label>
+                    <input #email="ngModel"
+                        type="email" 
+                        placeholder="Enter Email" 
+                        class="input-style"
+                        [(ngModel)]="jobseekerData[0].email"
+                        name="email"
+                        readonly
+                        required/>
+                    <span *ngIf="email.invalid && email.touched" style="color:red">Email is required</span>
+                </div>
+            </div>
+            
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Phone</label>
+                    <input #number="ngModel"
+                        type="tel" 
+                        class="input-style" 
+                        placeholder="Enter your number"
+                        name="phone"
+                        [(ngModel)]="jobseekerData[0].phone"
+                        required/>
+                    <span *ngIf="number.invalid && number.touched" style="color:red">Phone Number is required</span>    
+                </div>
+    
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Expected Salary</label>
+                    <select #salary="ngModel"
+                        class="input-style" 
+                        name="expected_salary"
+                        [(ngModel)]="jobseekerData[0].expected_salary"
+                        required>
+                        <option value="">Select Salary</option>
+                        <option value="30000">30,000</option>
+                        <option value="45000">45,000</option>
+                        <option value="60000">60,000</option>
+                    </select>
+                    <span *ngIf="salary.invalid && salary.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+        
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Date of birth</label>
+                    <input #dob="ngModel" 
+                        type="date" 
+                        class="input-style"
+                        name="dob"
+                        [(ngModel)]="jobseekerData[0].dob"
+                        required/>
+                    <span *ngIf="dob.invalid && dob.touched" style="color:red">Date of birth is required</span>
+                </div>
+                
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Total Experience</label>
+                    <select #experience="ngModel"  
+                        class="input-style"
+                        name="total_expericence"
+                        [(ngModel)]="jobseekerData[0].total_expericence"
+                        required>
+                        <option value="">Select Experience</option>
+                        <option value="fresher">Fresher</option>
+                        <option value="1 year">1 Year</option>
+                        <option value="2 years">2 Years</option>
+                        <option value="3 years">3 Years</option>
+                    </select>
+                    <span *ngIf="experience.invalid && experience.touched" style="color:red">Experience is required</span>
+                </div>
+            </div>
+        
+            <div class="input-div">
+                <div class="input-text-area">
+                    <label style="font-size: 15px;font-weight: 600;">Address</label>
+                    <textarea cols="50" rows="5" 
+                        #address="ngModel"
+                        placeholder="Enter Some Description about your company..."
+                        class="input-style"
+                        name="address"
+                        [(ngModel)]="jobseekerData[0].address"
+                        required
+                    ></textarea>
+                    <span *ngIf="address.invalid && address.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+    
+            <div class="btn-div">
+                <button type="submit" class="btn btn-primary mr-2" [disabled]="updatejobSeekerForm.invalid">
+                    Update
+                </button>
+    
+                <button type="reset" class="btn btn-primary">
+                    Clear
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

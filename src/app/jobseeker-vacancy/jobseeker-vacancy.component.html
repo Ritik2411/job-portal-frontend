@@ -9,17 +9,17 @@
 </ng-template>
 
 <ng-template #elseBlock>
-    <div *ngIf="data.length > 0; then datablock else noDataBlock"></div>
+    <div *ngIf="vacancies.length > 0; then datablock else noDataBlock"></div>
 </ng-template>
 
 <ng-template #datablock>
     <div class="all-vacancies-div">
-        <div *ngFor="let vac_data of data" style="width: 70%;">
-            <app-vacancy [data]="vac_data"></app-vacancy>
+        <div *ngFor="let vac_data of vacancies" style="width: 70%;">
+            <app-vacancy [data]="vac_data" [applied]="applied"></app-vacancy>
         </div>
    </div>
 </ng-template>
 
 <ng-template #noDataBlock>
-    <h2>Sorry, Currently there are no vacancies to apply.</h2>
+    <h2 style="text-align: center;margin: 100px auto;">Sorry, Currently there are no vacancies to apply.</h2>
 </ng-template>

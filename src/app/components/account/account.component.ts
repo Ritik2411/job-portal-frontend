@@ -18,11 +18,13 @@ export class AccountComponent implements OnInit {
     this.id = this.route.snapshot.paramMap.get('id')
     this.http.get(`http://localhost:5500/getAllUsersById/${this.id}`).subscribe(res => {
       this.userData = res
-      console.log(this.userData)
+      if(this.userData.length > 0){
+        this.load = false
+      }
+      else{
+        this.load = false
+      }
+      //console.log(this.userData)
     })
-
-    setTimeout(()=>{
-      this.load = false
-    },2000)
   }
 }

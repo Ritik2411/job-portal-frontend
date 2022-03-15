@@ -17,7 +17,19 @@
         </ng-template>
 
         <ng-template #elseBlock>
-            <button class="btn btn-primary">Apply</button>
+            <button *ngIf="vacancyData?.applied === true" class='btn btn-secondary' disabled>Applied</button>
+            <button *ngIf="vacancyData.applied === undefined"  class='btn btn-primary' (click)="apply(vacancyData)">Apply</button>
+        </ng-template>
+
+        <ng-template #appliedBtn>
+            <button class='btn btn-secondary' disabled>Applied</button>
+        </ng-template>
+
+        <ng-template #unappliedbtn>
+            <button 
+                class='btn btn-primary'
+                (click)="apply(vacancyData)"
+                >Apply</button>
         </ng-template>
     </div>
 
@@ -55,7 +67,7 @@
         <div style="display: flex;align-items: center;justify-content: space-between;">
             <div>Description</div>
             <div *ngIf="role === 'Employee'">
-                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger" (click)="deleteVacancy(vacancyData.id)">Delete</button>
             </div>
         </div>
         

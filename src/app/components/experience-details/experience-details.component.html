@@ -1,0 +1,132 @@
+<div *ngIf="load; then ifBlock else elseBlock"></div>
+
+<ng-template #ifBlock> 
+    <div>
+        <div style="text-align: center;margin:100px auto">
+            <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div *ngIf="update; then updateBlock else addBlock"></div>
+</ng-template>
+
+<ng-template #updateBlock>
+    <app-updateexperience-details [expData]="expData"></app-updateexperience-details>
+</ng-template>
+
+<ng-template #addBlock>
+    <div class="experience-div">
+        <form #experienceForm="ngForm" class="experience-input-div" (ngSubmit)="experience(experienceForm.value)">
+            <div class="experience-text">
+                Experience Details
+            </div>
+    
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">JobSeeker ID</label>
+                    <input #user_id="ngModel"
+                        type="text" 
+                        class="input-style" 
+                        placeholder="Get your Id from account page"
+                        [(ngModel)]="userData.id"
+                        name="user_id"
+                        readonly
+                        required/>
+                    <span *ngIf="user_id.invalid && user_id.touched" style="color:red">This field is required</span>
+                </div>
+
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Company Name</label>
+                    <input #companyName="ngModel" 
+                        type="text" 
+                        class="input-style" 
+                        placeholder='Enter Company Name'
+                        name="company_name"
+                        ngModel
+                        required/>
+                    <span *ngIf="companyName.invalid && companyName.touched" style="color:red">This field is required</span>
+                </div>   
+            </div>
+            
+            <div class="input-div">
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Start Year</label>
+                    <input #startYear="ngModel"
+                        type="date" 
+                        class="input-style" 
+                        ngModel
+                        name="start_year"
+                        placeholder="Enter Start Year"
+                        required/>
+                     <span *ngIf="startYear.invalid && startYear.touched" style="color:red">This field is required</span>
+                </div>
+
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">End Year</label>
+                    <input #endYear="ngModel"
+                        type="date" 
+                        placeholder="Enter End Year" 
+                        class="input-style"
+                        ngModel
+                        name="end_year"
+                        required/>
+                    <span *ngIf="endYear.invalid && endYear.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+            
+            <div class="input-div">                
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Company URL</label>
+                    <input #url="ngModel"
+                        type="url" 
+                        class="input-style" 
+                        placeholder="Enter your Company URL"
+                        name="companyUrl"
+                        ngModel
+                        required/>
+                    <span *ngIf="url.invalid && url.touched" style="color:red">This field is required</span>    
+                </div>
+
+                <div class="element-div">
+                    <label style="font-size: 15px;font-weight: 600;">Desigination</label>
+                    <input #designation="ngModel"
+                        class="input-style" 
+                        name="designation"
+                        placeholder="Enter Designation"
+                        ngModel
+                        required/>
+                    <span *ngIf="designation.invalid && designation.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+        
+            <div class="input-div">
+                <div class="input-text-area">
+                    <label style="font-size: 15px;font-weight: 600;">Job Description</label>
+                    <textarea cols="50" rows="5" 
+                        #jobDescription="ngModel"
+                        placeholder="Enter Some Description about your company..."
+                        class="input-style"
+                        name="jobDescription"
+                        ngModel
+                        required
+                    ></textarea>
+                    <span *ngIf="jobDescription.invalid && jobDescription.touched" style="color:red">This field is required</span>
+                </div>
+            </div>
+    
+            <div class="btn-div">
+                <button type="submit" class="btn btn-primary mr-2" [disabled]="experienceForm.invalid">
+                    Save 
+                </button>
+    
+                <button type="reset" class="btn btn-primary">
+                    Clear
+                </button>
+            </div>
+        </form>
+    </div>
+</ng-template>

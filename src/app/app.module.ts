@@ -18,6 +18,14 @@ import { UpdateEmployeeComponent } from './components/update-employee/update-emp
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { VacancyComponent } from './vacancy/vacancy.component';
 import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy.component';
+import { AppliedvacanciesComponent } from './components/appliedvacancies/appliedvacancies.component';
+import { RequestReceivedComponent } from './request-received/request-received.component';
+import { JobseekerDetailsComponent } from './jobseeker-details/jobseeker-details.component';
+import { ExperienceDetailsComponent } from './components/experience-details/experience-details.component';
+import { QulificationDetailsComponent } from './components/qulification-details/qulification-details.component';
+import { UpdatequlificationDetailsComponent } from './components/updatequlification-details/updatequlification-details.component';
+import { UpdateexperienceDetailsComponent } from './components/updateexperience-details/updateexperience-details.component';
+import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updatejobseeker-details.component';
 
 
 @NgModule({
@@ -35,7 +43,15 @@ import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy
     UpdateEmployeeComponent,
     AddEmployeeComponent,
     VacancyComponent,
-    JobseekerVacancyComponent    
+    JobseekerVacancyComponent,
+    AppliedvacanciesComponent,
+    RequestReceivedComponent,
+    JobseekerDetailsComponent,
+    ExperienceDetailsComponent,
+    QulificationDetailsComponent,
+    UpdatequlificationDetailsComponent,
+    UpdateexperienceDetailsComponent,
+    UpdatejobseekerDetailsComponent    
   ],
   imports: [
     BrowserModule,

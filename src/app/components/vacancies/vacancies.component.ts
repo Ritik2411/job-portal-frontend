@@ -24,12 +24,13 @@ export class VacanciesComponent implements OnInit {
       })
     }).subscribe(res => {
       this.vacancies = res
-      console.log(this.vacancies)
+      if(this.vacancies.length>0){
+        this.load = false 
+      }
+      else{
+        this.load = false    
+      }
     })
-
-    setTimeout(() => {
-      this.load = false
-    }, 2000)
   }
 
 }

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './add-employee.component.html',
   styleUrls: ['./add-employee.component.scss']
 })
-export class AddEmployeeComponent implements OnInit, DoCheck {
+export class AddEmployeeComponent implements OnInit {
 
   constructor(private http:HttpClient, private router:ActivatedRoute) { }
   
@@ -28,19 +28,13 @@ export class AddEmployeeComponent implements OnInit, DoCheck {
          
          if(this.employeeData.length > 0){
             this.updateForm = true
+            this.loading = false
             console.log(this.employeeData)
          }
          else{
            this.updateForm = false
+           this.loading = false
          }
     })
-
-    setTimeout(()=>{
-      this.loading = false
-    },2000)
-  }
-
-   ngDoCheck(): void {
-    
   }
 }
