@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -31,12 +31,7 @@ export class JobseekerDetailsComponent implements OnInit {
         total_expericence: data.total_expericence,
         expected_salary: data.expected_salary,
         dob: data.dob
-    }, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
-      }).subscribe(res => {
+    }).subscribe(res => {
           if(res){
             window.location.reload()
           }
@@ -45,20 +40,10 @@ export class JobseekerDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(`http://localhost:5500/getAllUsersById/${this.id}`,{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get(`http://localhost:5500/getUsersById/${this.id}`).subscribe(res => {
         this.userData = res
         if(this.userData !== null){
-          this.http.get(`http://localhost:5500/JobSeeker/${this.id}`, {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + localStorage.getItem('TKN')
-            })
-          }).subscribe(res => {
+          this.http.get(`http://localhost:5500/JobSeeker/${this.id}`).subscribe(res => {
               this.jobseekerDetail = res
               if(this.jobseekerDetail.length > 0){
                     this.update = true

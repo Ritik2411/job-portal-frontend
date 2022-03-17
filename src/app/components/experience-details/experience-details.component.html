@@ -101,11 +101,13 @@
                         #jobDescription="ngModel"
                         placeholder="Enter Some Description about your company..."
                         class="input-style"
+                        minlength="10"
+                        maxlength="500"
                         name="jobDescription"
                         ngModel
                         required
                     ></textarea>
-                    <span *ngIf="jobDescription.invalid && jobDescription.touched" style="color:red">This field is required</span>
+                    <span *ngIf="jobDescription.invalid && jobDescription.touched" style="color:red">This field must contain 10 or more and less than 500 characters</span>
                 </div>
             </div>
     

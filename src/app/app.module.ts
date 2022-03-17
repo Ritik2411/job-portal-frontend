@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { LoginComponent } from './components/login/login.component';
 import { HomeComponent } from './components/home/home.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RegisterComponent } from './components/register/register.component';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -26,6 +26,8 @@ import { QulificationDetailsComponent } from './components/qulification-details/
 import { UpdatequlificationDetailsComponent } from './components/updatequlification-details/updatequlification-details.component';
 import { UpdateexperienceDetailsComponent } from './components/updateexperience-details/updateexperience-details.component';
 import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updatejobseeker-details.component';
+import { InterceptorService } from './services/interceptor.service';
+import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
 
 
 @NgModule({
@@ -51,7 +53,8 @@ import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updat
     QulificationDetailsComponent,
     UpdatequlificationDetailsComponent,
     UpdateexperienceDetailsComponent,
-    UpdatejobseekerDetailsComponent    
+    UpdatejobseekerDetailsComponent,
+    UploadedCVsComponent    
   ],
   imports: [
     BrowserModule,
@@ -60,7 +63,11 @@ import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updat
     FormsModule,
     RouterModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: InterceptorService,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

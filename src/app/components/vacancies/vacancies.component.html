@@ -16,7 +16,16 @@
 
 <ng-template #vacancyBlock>
     <div class="vacancies-div">
-        <div *ngFor="let data of vacancies" style="width: 70%;">
+        <div class="search-filter">
+            <input type="search" 
+                placeholder="Search by publisher name" 
+                class="search-input" 
+                (search)="clearSearch()"
+                #event
+                (keyup)="searchChange(event.value)"/>
+        </div>
+
+        <div *ngFor="let data of copyData" style="width: 70%;">
             <app-vacancy [data]="data"></app-vacancy>
         </div>
     </div>

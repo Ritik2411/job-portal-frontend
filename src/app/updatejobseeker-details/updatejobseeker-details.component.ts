@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { format } from 'url';
 
 @Component({
   selector: 'app-updatejobseeker-details',
@@ -9,6 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UpdatejobseekerDetailsComponent implements OnInit {
   @ Input() jobseekerData
+  data:any
 
   constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router) { }
 
@@ -16,6 +18,7 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
   load:boolean = true
 
   updatejobSeeker(data:any){
+    
     this.http.put(`http://localhost:5500/JobSeeker/${this.id}`, {
       first_name: data.first_name,
       last_name: data.last_name,
@@ -24,12 +27,7 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
       address: data.address,
       total_expericence: data.total_expericence,
       expected_salary: data.expected_salary,
-      dob: data.dob
-    }, {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
+      dob: new Date(data.dob).toISOString()
     }).subscribe(res => {
       if(res){
         alert("Updated Successfully")
@@ -40,6 +38,7 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
   ngOnInit(): void {
     if(this.jobseekerData.length > 0){
       this.load = false
+      console.log(this.jobseekerData)
     }
   }
 }

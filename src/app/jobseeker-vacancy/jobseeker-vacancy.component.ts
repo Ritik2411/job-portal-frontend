@@ -18,21 +18,11 @@ export class JobseekerVacancyComponent implements OnInit {
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:5500/VacancyDetail', {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get('http://localhost:5500/VacancyDetail').subscribe(res => {
       this.vacancies = res
 
       if(this.vacancies.length > 0){
-        this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}`, {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('TKN')
-          })
-        }).subscribe(res => {
+        this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}`).subscribe(res => {
             this.vacancyReq = res
             if(this.vacancyReq.length > 0){
               for(let i=0; i<this.vacancies.length; i++){

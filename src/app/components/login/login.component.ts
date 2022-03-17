@@ -19,24 +19,27 @@ export class LoginComponent implements OnInit {
     this.http.post("http://localhost:5500/login", item).subscribe((result) => {
         if(result !== null){
           this.token = result
-          this.http.get(`http://localhost:5500/getUsersByEmail/${item.email}`).subscribe((res) => {
+          this.http.get(`http://localhost:5500/getUserByUsername/${item.username}`).subscribe((res) => {
             this.data = res;
             localStorage.setItem("TKN", this.token.msg)
-            localStorage.setItem("Email", this.data.email)
+            localStorage.setItem("Username", this.data.userName)
             localStorage.setItem("UserId", this.data.id)
             localStorage.setItem("Role", this.data.role)
 
             this.userInfo.addUser({
               UserId : localStorage.getItem("UserId"),
-              Email: localStorage.getItem("Email"),
+              Username: localStorage.getItem("Username"),
               Role: localStorage.getItem("Role")
             })
           })
+          
+          alert("Successully Logged in")
           this.router.navigate(["/"])
-          setTimeout(()=>{
-            alert("Successully Logged in")
-          },1000)
         }
+    },(error) => {
+      if(error.status === 401){
+        alert("Invalid login credentials.")
+      }
     })
   }
 

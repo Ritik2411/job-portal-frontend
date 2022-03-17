@@ -16,11 +16,16 @@ export class AddEmployeerDetailComponent implements OnInit {
   employeeid:string = this.router.snapshot.paramMap.get("id")
 
   addEmployee(data:any){
-    this.http.post('http://localhost:5500/EmployeeDetail', data,{
-      headers:new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
+    this.http.post('http://localhost:5500/EmployeeDetail', {
+      id: localStorage.getItem('UserId'),
+      organization: data.organization,
+      organizationType: data.organizationType,
+      companyEmail: data.companyEmail,
+      companyPhone: data.companyPhone,
+      noOfEmployee: data.noOfEmployee,
+      startYear: data.startYear,
+      about: data.about,
+      createdBy: data.createdBy
     }).subscribe(res => {
       if(res){
         window.location.reload()

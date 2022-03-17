@@ -18,6 +18,30 @@
             margin-bottom: 10px;
         }
 
+        .input-box-companyname{
+            display: flex;
+            flex-direction: column;
+            margin: 10px 20px;
+            width: 100%;
+
+            .input-type{
+                border-radius: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+                border: 1px solid gray;
+                outline: none;
+            }
+    
+            .input-type:focus{
+                outline: none;    
+            }
+
+            .error-msg{
+                color: red;
+            }
+        }
+
         .input-box{
             display: flex;
             flex-direction: column;

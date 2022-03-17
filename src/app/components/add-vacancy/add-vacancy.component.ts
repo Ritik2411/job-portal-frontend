@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -12,7 +12,11 @@ export class AddVacancyComponent implements OnInit {
   constructor(private router:ActivatedRoute,private http:HttpClient,private route:Router) { }
 
   id:string = this.router.snapshot.paramMap.get('id')
-  todayDate:string = new Date().toUTCString()
+  publishedDate:string
+  text:String = new Date().toLocaleString()
+  ISODate:any = new Date().toISOString().split('T')
+  ISOTime:any
+  ISOPattern:any
 
   AddVacancy(data:any){
     if(data.min_Salary > data.max_Salary){
@@ -38,11 +42,6 @@ export class AddVacancyComponent implements OnInit {
         publishedBy: data.publishedBy,
         published_Date: new Date(data.published_Date).toISOString(),
         user_id: localStorage.getItem('UserId')
-      }, {
-        headers:new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
       }).subscribe(res => {
           if(res){
             alert("Vacancy posted successfully")
@@ -53,6 +52,7 @@ export class AddVacancyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+    this.ISOTime = this.ISODate[1].split('.')
+    this.ISOPattern = this.ISODate[0]+'T'+this.ISOTime[0]
   }
 }

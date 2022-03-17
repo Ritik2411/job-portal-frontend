@@ -87,6 +87,33 @@
                 <button class="btn btn-primary change-password" [routerLink]="['/changepassword',userData?.id]">Change Password</button>
             </div>
         </form>
+
+        <div *ngIf="role === 'JobSeeker'" class="cv-upload-div">
+            <form  #cvform="ngForm" class="cv-upload-form" (submit)="cvformData()">
+                <div class="cv-text">
+                    Upload CV
+                </div>
+
+                <div class="upload-input">
+                    <label>Select a file *</label>
+                    <input #cv="ngModel"
+                        type="file"
+                        class="input-type"
+                        name="files"
+                        [(ngModel)]="currentInput"
+                        (change)="onFileSelected($event)"
+                        accept=".pdf"
+                        required/>
+                    <span *ngIf="cv.invalid && cv.touched" style="color: red;">Upload a PDF document</span>    
+                </div>
+                
+                <div>
+                    <button type="submit" class="btn btn-primary" [disabled]="cvform.invalid">
+                        Upload
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </ng-template>
 

@@ -7,13 +7,14 @@
         <div class="input-div">
             <input #name="ngModel" 
                 type='text' 
-                placeholder="Enter Email" 
-                name="email"
+                placeholder="Enter UserName"
+                pattern="[A-Za-z0-9]{2,30}"
                 class="login-input" 
+                name="username"
                 ngModel 
                 required/>
             
-            <span *ngIf="name.invalid && name.touched" class="error-message">Name is Required</span>
+            <span *ngIf="name.invalid && name.touched" class="error-message">UserName must contain lowercase aplhabets, uppercase aplhabets and must not contain any space</span>
         </div>
         
         <div class="input-div">
@@ -22,10 +23,11 @@
                 placeholder="Enter Password" 
                 name="password" 
                 class="login-input"
+                pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*_=+-]).{8,16}"
                 ngModel 
                 required/>
             
-            <span *ngIf="password.invalid && password.touched" class="error-message">Password is Required</span>
+            <span *ngIf="password.invalid && password.touched" class="error-message">At least one uppercase letter(A-Z), one lowercase letter(a-z). At least one numeric value(0-9).At least one special symbol(!@#$%^&*=+-_)The total length should be greater than or equal to 8 and less or equal to 16.</span>
         </div>
 
         <div class="login-form-btn">

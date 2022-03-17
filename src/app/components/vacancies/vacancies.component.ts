@@ -12,33 +12,35 @@ export class VacanciesComponent implements OnInit {
   vacancies:any
   load:boolean = true
   vacancyReq:any
+  copyData:any
+  const
 
   constructor(private http:HttpClient, private router:ActivatedRoute) { }
 
   id = this.router.snapshot.paramMap.get('id')
 
+  searchChange(value){
+    let newData = this.vacancies.filter( data => data.publishedBy.toLowerCase().includes(value.toLowerCase()))
+    this.copyData = newData
+    console.log(this.copyData)
+  }  
+
+  clearSearch(){
+    this.copyData = this.vacancies
+  }
+  
   ngOnInit(): void {
-    this.http.get(`http://localhost:5500/VacancyDetail/${this.id}`,{
-      headers:new HttpHeaders({
-        'Content-type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get(`http://localhost:5500/VacancyDetail/${this.id}`).subscribe(res => {
       this.vacancies = res
-      this.http.get('http://localhost:5500/VacancyRequests', {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
-      }).subscribe(res => {
-        this.vacancyReq = res
-        if(this.vacancies.length>0){
-          this.load = false 
-        }
-        else{
-          this.load = false    
-        }
-      })
+      this.copyData = this.vacancies
+
+      if(this.vacancies.length > 0){
+        console.log(this.vacancies)
+        this.load = false
+      }
+      else{
+        this.load = false
+      }
     })
   }
 }

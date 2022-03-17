@@ -33,7 +33,7 @@ export class VacancyComponent implements OnInit, DoCheck {
         applied_on: new Date().toISOString(),
         awaiting_approval: true,
         approved: false,
-        user_name: localStorage.getItem('Email')
+        user_name: localStorage.getItem('Username')
       }, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -72,36 +72,9 @@ export class VacancyComponent implements OnInit, DoCheck {
   }
 
   deleteVacancy(id:number){
-    this.http.delete(`http://localhost:5500/VacancyDetail/${id}`,{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.delete(`http://localhost:5500/VacancyDetail/${id}`).subscribe(res => {
         if(res){
           window.location.reload()
-          // this.http.get('http://localhost:5500/VacancyRequests', {
-          //   headers: {
-          //     'Content-Type': 'application/json',
-          //     Authorization: 'Bearer ' + localStorage.getItem('TKN')
-          //   }
-          // }).subscribe(res =>{
-          //     this.vacancyReq = res
-          //     for(let i=0; i<this.vacancyReq.length; i++){
-          //       if(parseInt(this.vacancyReq[i].vacancy_id) === id){
-          //         this.http.delete(`http://localhost:5500/VacancyRequests/${this.vacancyReq[i].id}`,{
-          //           headers: {
-          //             'Content-Type': 'application/json',
-          //             Authorization: 'Bearer ' + localStorage.getItem('TKN')
-          //           }
-          //         }).subscribe(res => {
-          //           if(res){
-          //             window.location.reload()
-          //           }
-          //         })
-          //       }
-          //     }
-          // })
         }
     })  
   }

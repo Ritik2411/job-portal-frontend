@@ -11,6 +11,8 @@ import { RolesService } from 'src/app/services/roles.service';
 export class HeaderComponent implements OnInit, DoCheck {
   title = 'ABC'
   userData:any
+  userInfo:any
+  load:boolean = true
 
   constructor(private userService:RolesService, private http:HttpClient, private route:Router) { }
   
@@ -28,17 +30,21 @@ export class HeaderComponent implements OnInit, DoCheck {
   ngOnInit(): void {
       if(localStorage.getItem("UserId") !== null){
         this.userService.addUser({
+          Username: localStorage.getItem("Username"),
           UserId : localStorage.getItem("UserId"),
-          Email: localStorage.getItem("Email"),
           Role: localStorage.getItem("Role")
         })
-  
+        
         this.userData = (this.userService.getUser())
         console.log(this.userData)
       }
       else{
         console.log(this.userData)
       }
+
+      setTimeout(()=>{
+        this.load = false
+      },2000)
   }
 
   ngDoCheck(): void {

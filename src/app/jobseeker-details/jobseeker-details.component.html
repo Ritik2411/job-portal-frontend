@@ -80,7 +80,7 @@
                         pattern="[0-9]{10}"
                         ngModel
                         required/>
-                    <span *ngIf="number.invalid && number.touched" style="color:red">Phone Number is required</span>    
+                    <span *ngIf="number.invalid && number.touched" style="color:red">Phone Number must contain 10 digits only</span>    
                 </div>
 
                 <div class="element-div">
@@ -136,10 +136,12 @@
                         placeholder="Enter Some Description about your company..."
                         class="input-style"
                         name="address"
+                        minlength="10"
+                        maxlength="500"
                         ngModel
                         required
                     ></textarea>
-                    <span *ngIf="address.invalid && address.touched" style="color:red">This field is required</span>
+                    <span *ngIf="address.invalid && address.touched" style="color:red">Address must contain 10 or more and less than 500 characters</span>
                 </div>
             </div>
     

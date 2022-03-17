@@ -32,12 +32,7 @@ export class RequestReceivedComponent implements OnInit {
           path: 'approved',
           value: true
         }
-      ],{
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
-      }).subscribe(res => {
+      ]).subscribe(res => {
           if(res){
             window.location.reload()
           }
@@ -63,12 +58,7 @@ export class RequestReceivedComponent implements OnInit {
           path: 'approved',
           value: false
         }
-      ],{
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
-      }).subscribe(res => {
+      ]).subscribe(res => {
           if(res){
             window.location.reload()
           }
@@ -80,23 +70,12 @@ export class RequestReceivedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:5500/VacancyRequests', {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get('http://localhost:5500/VacancyRequests').subscribe(res => {
       this.vacancyData = res
       console.log(this.vacancyData)
       if(this.vacancyData.length >= 0){
-        this.http.get(`http://localhost:5500/VacancyDetail/${this.route.snapshot.paramMap.get('id')}`,{
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            Authorization: 'Bearer ' + localStorage.getItem('TKN')
-          })  
-        }).subscribe(res => {
+        this.http.get(`http://localhost:5500/VacancyDetail/${this.route.snapshot.paramMap.get('id')}`).subscribe(res => {
             this.userVac = res
-            console.log(this.userVac)
             if(this.userVac.length > this.vacancyData.length){
               console.log("if")
               for(let i=0; i<this.userVac.length; i++){
@@ -130,5 +109,9 @@ export class RequestReceivedComponent implements OnInit {
         })
       }
     })
+
+    setTimeout(()=>{
+      console.log(this.reqRec)
+    },2000)
   }
 }

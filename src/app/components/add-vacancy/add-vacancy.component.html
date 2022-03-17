@@ -22,10 +22,11 @@
              <div class="input-box">
                 <label>Published Date</label>
                 <input #publishedDate="ngModel"
+                    type="text"
                     class="input-type"
                     name="published_Date"
                     placeholder="Reload the page to get current date"
-                    [(ngModel)]="todayDate"
+                    [(ngModel)]="text"
                     readonly
                     required/>
                 <span class="error-message" *ngIf="publishedDate.invalid && publishedDate.touched">Published date is required</span>
@@ -87,12 +88,12 @@
                     type="number" 
                     placeholder="Enter number of vacancy" 
                     class="input-type"
-                    min="1"
+                    min="2"
                     max="50"
                     name="no_of_Vacancies"
                     ngModel
                     required/>
-                <span class="error-message" *ngIf="numofvacancy.invalid && numofvacancy.touched">This field is required</span>
+                <span class="error-message" *ngIf="numofvacancy.invalid && numofvacancy.touched">Number of vacancies must be more than 1 and less than 50</span>
             </div>
 
             <div class="input-box">
@@ -101,6 +102,7 @@
                     type="datetime-local" 
                     class="input-type"
                     name="last_Date"
+                    min={{ISOPattern}}
                     ngModel
                     required/>
                 <span class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last data is required</span>
@@ -168,9 +170,11 @@
                 placeholder="Enter Job Description" 
                 class="input-text-type"
                 name="job_Description"
+                minlength="5"
+                maxlength="500"
                 ngModel
                 required></textarea>
-             <span class="error-message" *ngIf="jobdescription.invalid && jobdescription.touched">Job description is required</span>
+             <span class="error-message" *ngIf="jobdescription.invalid && jobdescription.touched">Job description must contain more than 5 and less than 500 character</span>
          </div>
 
          <div class="vacancy-post">

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-changepassword',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChangepasswordComponent implements OnInit {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient, private route:Router) { }
 
   changePassword(data:any){
       console.log(data)
@@ -17,7 +18,10 @@ export class ChangepasswordComponent implements OnInit {
       }
       else{
         this.http.post('http://localhost:5500/ChangePassword',data).subscribe(res => {
-          console.log(res)
+          if(res){
+            alert("Password changed successfully")
+            this.route.navigate(['/'])
+          }
         })
       }
   }

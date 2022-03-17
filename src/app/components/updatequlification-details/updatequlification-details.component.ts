@@ -21,11 +21,6 @@ export class UpdatequlificationDetailsComponent implements OnInit {
       university: data.university,
       yearOfCompletion: data.yearOfCompletion,
       grade: data.grade
-    },{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
     }).subscribe(res => {
       if(res){
         alert('Updated Succesfully')

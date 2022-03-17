@@ -20,16 +20,10 @@ export class UpdateEmployeeComponent implements OnInit {
   employeeid:string = this.router.snapshot.paramMap.get("id")
 
   updateEmployee(data:any){
-    console.log(data)
     this.organizationType = typeof(data.orgnizationType)
 
     console.log(this.organizationType, data.orgnizationType)
-    this.http.put(`http://localhost:5500/EmployeeDetail/${this.employeeid}`, data ,{
-      headers:new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.put(`http://localhost:5500/EmployeeDetail/${this.employeeid}`, data).subscribe(res => {
       alert("Details Updated Successfully")
     })
   }

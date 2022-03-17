@@ -98,9 +98,11 @@
                         class="input-style"
                         name="jobDescription"
                         [(ngModel)]="expData[0].jobDescription"
+                        minlength="10"
+                        maxlength="500"
                         required
                     ></textarea>
-                    <span *ngIf="jobDescription.invalid && jobDescription.touched" style="color:red">This field is required</span>
+                    <span *ngIf="jobDescription.invalid && jobDescription.touched" style="color:red">Must contain 10 or more character</span>
                 </div>
             </div>
     

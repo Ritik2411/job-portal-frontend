@@ -12,17 +12,14 @@ export class RegisterComponent implements OnInit {
   constructor(private http:HttpClient, private router:Router) { }
 
   registerUser(data:any){
-    if(data.UserName !== data.email){
-      alert("UserName and Email must be same")
-    }
-
-    else if(data.password !== data.conformPassword){
+    if(data.password !== data.conformPassword){
       alert("Password and Confirm Password must be same")
     }
 
     else{
       this.http.post('http://localhost:5500/register', data).subscribe(res=>{
         if(res){
+          alert("Registerd Successfully")
           this.router.navigate(['/login'])
         }
       })

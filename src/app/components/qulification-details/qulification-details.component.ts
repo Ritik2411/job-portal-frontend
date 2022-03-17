@@ -41,20 +41,10 @@ export class QulificationDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(`http://localhost:5500/getAllUsersById/${this.id}`,{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get(`http://localhost:5500/getUsersById/${this.id}`).subscribe(res => {
         this.userData = res
         if(this.userData != null){
-          this.http.get(`http://localhost:5500/Qualification/${this.id}`, {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + localStorage.getItem('TKN')
-            })
-          }).subscribe(res => {
+          this.http.get(`http://localhost:5500/Qualification/${this.id}`).subscribe(res => {
             this.quaData = res
             if(this.quaData.length > 0){
               this.update = true

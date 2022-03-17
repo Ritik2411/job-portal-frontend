@@ -17,7 +17,7 @@ export class ExperienceDetailsComponent implements OnInit {
   expData:any 
 
   experience(data:any){
-    const confirm = window.confirm('Save Changes?')
+    const confirm = window.confirm('Add Details?')
     
     if(confirm){
       this.http.post('http://localhost:5500/Experience', {
@@ -28,11 +28,6 @@ export class ExperienceDetailsComponent implements OnInit {
         companyUrl: data.companyUrl,
         designation: data.designation,
         jobDescription: data.jobDescription
-      }, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
       }).subscribe(res => {
         if(res){
           window.location.reload()
@@ -42,12 +37,7 @@ export class ExperienceDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get(`http://localhost:5500/getAllUsersById/${this.id}`,{
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get(`http://localhost:5500/getUsersById/${this.id}`).subscribe(res => {
         this.userData = res
         if(this.userData !== null){
           this.http.get(`http://localhost:5500/Experience/${this.id}`, {

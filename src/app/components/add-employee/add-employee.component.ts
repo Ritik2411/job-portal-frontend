@@ -18,12 +18,7 @@ export class AddEmployeeComponent implements OnInit {
   employeeid = this.router.snapshot.paramMap.get('id')
 
   ngOnInit(): void {
-    this.http.get(`http://localhost:5500/EmployeeDetail/${this.employeeid}`,{
-      headers:new HttpHeaders({
-        'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('TKN')
-      })
-    }).subscribe(res => {
+    this.http.get(`http://localhost:5500/EmployeeDetail/${this.employeeid}`).subscribe(res => {
          this.employeeData = res 
          
          if(this.employeeData.length > 0){

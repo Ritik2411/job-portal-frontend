@@ -14,9 +14,10 @@
                     name="organization"
                     class="input-type"
                     [(ngModel)]="data[0].organization"
+                    pattern="[A-Za-z ]{2,50}"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Organization Name is required</span>
+                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Invalid Organization Name</span>
             </div>
         </div>
 
@@ -84,9 +85,10 @@
                     class="input-type"
                     name="noOfEmployees"
                     [(ngModel)]="data[0].noOfEmployee"
+                    minlength="2"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="NumberOfEmployee.invalid && NumberOfEmployee.touched">Number of Employee is required</span>
+                <span class="error-msg" *ngIf="NumberOfEmployee.invalid && NumberOfEmployee.touched">Number of Employee must be 2 or more</span>
             </div>
         </div>
 
@@ -111,10 +113,11 @@
                     placeholder="Enter Founders name" 
                     class="input-type"
                     name="createdBy"
+                    pattern="[A-Za-z ]{3,30}"
                     [(ngModel)]="data[0].createdBy"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="createdBy.invalid && createdBy.touched">Created By is required</span>
+                <span class="error-msg" *ngIf="createdBy.invalid && createdBy.touched">Invalid Name</span>
             </div>
         </div>
         
@@ -127,10 +130,12 @@
                 class="input-text-type"
                 name="about"
                 [(ngModel)]="data[0].about"
+                minlength="10"
+                maxlength="500"
                 ngModel
                 required
             ></textarea>
-            <span class="error-msg" *ngIf="about.invalid && about.touched">About is required</span>
+            <span class="error-msg" *ngIf="about.invalid && about.touched">Must contain more than 10 and less than 500 characters</span>
         </div>
 
         <div class="employee-btn">

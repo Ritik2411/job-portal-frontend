@@ -64,9 +64,10 @@
                         class="input-style" 
                         placeholder="Enter your number"
                         name="phone"
+                        pattern="[0-9]{10}"
                         [(ngModel)]="jobseekerData[0].phone"
                         required/>
-                    <span *ngIf="number.invalid && number.touched" style="color:red">Phone Number is required</span>    
+                    <span *ngIf="number.invalid && number.touched" style="color:red">Phone Number must contain 10 digits</span>    
                 </div>
     
                 <div class="element-div">

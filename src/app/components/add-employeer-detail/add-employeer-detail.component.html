@@ -6,27 +6,17 @@
         </div>
 
         <div style="display: flex;">
-            <div class="input-box">
-                <label>Employee ID</label>
-                <input type="text"      
-                    #id="ngModel"
-                    class="input-type" 
-                    name="id"
-                    [(ngModel)]="employeeid"
-                    readonly
-                    required/>
-            </div>
-    
-            <div class="input-box">
+            <div class="input-box-companyname">
                 <label>Organization Name</label>
                 <input type="text" 
                     #organization="ngModel"
                     placeholder="Enter Organization" 
                     name="organization"
                     class="input-type"
+                    pattern="[A-Za-z ]{2,60}"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Organization Name is required</span>
+                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Organization Name must contain 2 or more and less than 60 characters</span>
             </div>
         </div>
 
@@ -61,9 +51,10 @@
                     placeholder="Enter Company Email" 
                     name="companyEmail"
                     class="input-type" 
+                    email
                     ngModel    
                     required/>
-                <span class="error-msg" *ngIf="email.invalid && email.touched">Company email is required</span>
+                <span class="error-msg" *ngIf="email.invalid && email.touched">Invalid Email</span>
             </div>    
         </div>
         
@@ -75,9 +66,10 @@
                     placeholder="Enter Company Phone Number" 
                     class="input-type"
                     name="companyPhone"
+                    pattern="[0-9]{10}"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="telephone.invalid && telephone.touched">Company Phone Number is required</span>
+                <span class="error-msg" *ngIf="telephone.invalid && telephone.touched">Phone Number must contain 10 digits only</span>
             </div>
         
             <div class="input-box">
@@ -87,9 +79,11 @@
                     placeholder="Enter Number Of Employee" 
                     class="input-type"
                     name="noOfEmployee"
+                    minlength="2"
+                    pattern="[0-9]{2,}"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="NumberOfEmployee.invalid && NumberOfEmployee.touched">Number of Employee is required</span>
+                <span class="error-msg" *ngIf="NumberOfEmployee.invalid && NumberOfEmployee.touched">Number of Employee must be more than 2</span>
             </div>
         </div>
 
@@ -113,9 +107,11 @@
                     placeholder="Enter Founders name" 
                     class="input-type"
                     name="createdBy"
+                    minlength="2"
+                    pattern="[A-Za-z ]{2,30}"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="createdBy.invalid && createdBy.touched">Created By is required</span>
+                <span class="error-msg" *ngIf="createdBy.invalid && createdBy.touched">Must contain 2 or more and less than 30 character</span>
             </div>
         </div>
         
@@ -127,10 +123,12 @@
                 placeholder="Enter Some Description about your company..."
                 class="input-text-type"
                 name="about"
+                minlength="10"
+                maxlength="500"
                 ngModel
                 required
             ></textarea>
-            <span class="error-msg" *ngIf="about.invalid && about.touched">About is required</span>
+            <span class="error-msg" *ngIf="about.invalid && about.touched">Must contain 10 and less than 500 character</span>
         </div>
 
         <div class="employee-btn">

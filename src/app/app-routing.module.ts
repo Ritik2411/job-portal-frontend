@@ -15,6 +15,7 @@ import { VacanciesComponent } from './components/vacancies/vacancies.component';
 import { JobseekerDetailsComponent } from './jobseeker-details/jobseeker-details.component';
 import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy.component';
 import { RequestReceivedComponent } from './request-received/request-received.component';
+import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
 
 const routes: Routes = [
   {
@@ -85,6 +86,11 @@ const routes: Routes = [
   {
     path: ':id/qualification',
     component: QulificationDetailsComponent
+  },
+
+  {
+    path: ':id/cvuploaded',
+    component: UploadedCVsComponent
   }
 ];
 
