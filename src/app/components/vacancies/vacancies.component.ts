@@ -13,7 +13,7 @@ export class VacanciesComponent implements OnInit {
   load:boolean = true
   vacancyReq:any
   copyData:any
-  const
+  date:any
 
   constructor(private http:HttpClient, private router:ActivatedRoute) { }
 
@@ -25,7 +25,18 @@ export class VacanciesComponent implements OnInit {
     console.log(this.copyData)
   }  
 
+  searchBydate(event){
+    this.date = event.target.value
+    let newData = this.vacancies.filter(data => data.published_Date.toLowerCase().includes(this.date.toLowerCase()))
+    this.copyData = newData
+  }
+
   clearSearch(){
+    this.copyData = this.vacancies
+  }
+
+  cleardate(){
+    this.date = null
     this.copyData = this.vacancies
   }
   

@@ -19,7 +19,7 @@ export class JobseekerDetailsComponent implements OnInit {
 
   jobSeeker(data:any){
     
-    const confirm = window.confirm('Save Changes?')
+    const confirm = window.confirm('Add Details?')
     if(confirm){
       this.http.post('http://localhost:5500/JobSeeker', {
         id: localStorage.getItem('UserId'),

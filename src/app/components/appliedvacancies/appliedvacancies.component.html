@@ -14,7 +14,35 @@
 
 <ng-template #datablock>
     <div class="applied-vacancies-div">
-        <div *ngFor="let data of vacancyDetail" class="applied-vacancies-list">
+        <div class="radio-search">
+            <div style="display: flex;flex-direction: column;">
+                <label style="font-weight: 600;font-size: 18px;">Search by status</label>
+                
+                <div style="display:flex">
+                    <div style="margin: 0px 10px;">
+                        <input type="radio" value="all" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;All</label>
+                    </div>
+
+                    <div style="margin: 0px 10px;">
+                        <input type="radio" value="approved" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Approved</label>
+                    </div>
+        
+                    <div style="margin: 0px 10px;">
+                        <input type="radio" value="rejected" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Rejected</label>
+                    </div>
+        
+                    <div style="margin: 0px 10px;">
+                        <input type="radio" value="awaiting_approval" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Awaiting Approval</label>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div *ngFor="let data of copyData" class="applied-vacancies-list">
             <div *ngIf="data.published_by === null; then removeBlock else dataBlock"></div>
             <ng-template #removeBlock>
                 <div style="display: flex;justify-content: space-between;align-items: center;">

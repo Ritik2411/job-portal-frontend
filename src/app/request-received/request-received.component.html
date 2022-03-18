@@ -14,7 +14,19 @@
 
 <ng-template #reqrecblock>
     <div class="reqRec-div">
-        <div *ngFor="let data of reqRec" class="reqRec-loop-div">
+        <div class="search-div">
+            <div class="date-search-req">
+                <div class="date-div-req">
+                    <label style="color: black;font-weight: 600;">Search by applied date</label>
+                    <input type="date" class="input-type-date" value={{date}} (change)="dateSearch($event)"/>
+                </div>
+    
+                <div>
+                    <button class="clear-btn" (click)="clearDate()">Clear</button>
+                </div>
+            </div>
+        </div>
+        <div *ngFor="let data of copyData" class="reqRec-loop-div">
             <div>
                 <span>Published By</span><br/>
                 <span style="font-size: 15px;color: gray;">{{data?.publisher_name}}</span>

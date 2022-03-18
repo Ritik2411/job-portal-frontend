@@ -28,6 +28,7 @@ import { UpdateexperienceDetailsComponent } from './components/updateexperience-
 import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updatejobseeker-details.component';
 import { InterceptorService } from './services/interceptor.service';
 import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
     UpdatequlificationDetailsComponent,
     UpdateexperienceDetailsComponent,
     UpdatejobseekerDetailsComponent,
-    UploadedCVsComponent    
+    UploadedCVsComponent,
+    NotFoundComponent    
   ],
   imports: [
     BrowserModule,

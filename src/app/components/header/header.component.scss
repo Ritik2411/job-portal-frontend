@@ -6,3 +6,13 @@
     outline: none;
     font-size: 14px;
 }
+
+.dropdown-pos{
+    margin-left: -65px;
+}
+
+@media screen and (max-width: 991px) {
+    .dropdown-pos{
+        margin-left: 0px;
+    }
+}

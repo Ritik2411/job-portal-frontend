@@ -14,7 +14,25 @@
 
 <ng-template #datablock>
     <div class="all-vacancies-div">
-        <div *ngFor="let vac_data of vacancies" style="width: 70%;">
+        <div class="search-salary">
+            <select class="select-salary" (change)="searchMinSalary($event)" style="margin-right: 10px;">
+                <option value="">Search by minimum salary</option>
+                <option value="30000">30,000</option>
+                <option value="45000">45,000</option>
+                <option value="60000">60,000</option>
+                <option value="75000">75,000</option>
+            </select>
+
+            <select class="select-salary" (change)="searchMaxSalary($event)" style="margin-left: 10px;">
+                <option value="">Search by maximum salary</option>
+                <option value="30000">30,000</option>
+                <option value="45000">45,000</option>
+                <option value="60000">60,000</option>
+                <option value="75000">75,000</option>
+            </select>
+        </div>
+
+        <div *ngFor="let vac_data of copyData" style="width: 70%;">
             <app-vacancy [data]="vac_data" [applied]="applied"></app-vacancy>
         </div>
    </div>

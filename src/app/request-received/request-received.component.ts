@@ -14,8 +14,21 @@ export class RequestReceivedComponent implements OnInit {
   load:boolean = true
   userData:any = [] 
   vacancyDetail:any = []
+  copyData:any 
+  date:any
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
+
+  dateSearch(data){
+    this.date = data.target.value
+    let newData = this.reqRec.filter(data => data.vacancyDetail.applied_on.toLowerCase().includes(this.date.toLowerCase()))
+    this.copyData = newData
+  }
+
+  clearDate(){
+    this.date = null
+    this.copyData = this.reqRec
+  }
 
   approve(data:any){
     const approved = window.confirm("Continue to apporve this vacancy?") 
@@ -88,7 +101,7 @@ export class RequestReceivedComponent implements OnInit {
                   }
                 }
               }
-              
+              this.copyData = this.reqRec
               this.load = false
             }
 
@@ -103,7 +116,8 @@ export class RequestReceivedComponent implements OnInit {
                   }
                 }
               }
-
+             
+             this.copyData = this.reqRec
              this.load = false
             }
         })

@@ -1,1 +1,23 @@
-<p>home works!</p>
+<div class="home-div">
+    <div class="home-top-div">
+        <div style="margin: 150px auto;">
+            <div class="home-heading">
+                <h1>Le Lorem Ipsum</h1>
+                <h1>est simplement du faux</h1>
+            </div>
+    
+            <div class="home-body">
+                <p>
+                    <span> Le Lorem Ipsum est le faux texte standard</span><br/>
+                    <span>de l'imprimerie depuis les années 1500,</span><br/>
+                    <span>quand un imprimeur anonyme assembla</span>
+                </p>
+            </div>
+
+            <div *ngIf="tkn === null" class="home-btns">
+                <button class="btn btn-primary mr-2" routerLink="/login">Login</button>
+                <button class="btn btn-primary ml-2" routerLink="/register">Register</button>
+            </div>
+        </div>
+    </div>
+</div>

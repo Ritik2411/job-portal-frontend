@@ -12,6 +12,7 @@ export class AppliedvacanciesComponent implements OnInit {
   vacancyDetail:any = []
   load:boolean = true
   removed:boolean = false
+  copyData:any
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
@@ -23,6 +24,27 @@ export class AppliedvacanciesComponent implements OnInit {
     })
   }
 
+  status(event){
+    if(event.target.value === 'all'){
+      this.copyData = this.vacancyDetail
+    }
+
+    if(event.target.value === 'approved'){
+      let newData = this.vacancyDetail.filter(data => data.approved === true && data.awating_approval === false)
+      this.copyData = newData
+    }
+    
+    if(event.target.value === 'rejected'){
+      let newData = this.vacancyDetail.filter(data => data.approved === false && data.awating_approval === false)
+      this.copyData = newData
+    }
+
+    if(event.target.value === 'awaiting_approval'){
+      let newData = this.vacancyDetail.filter(data => data.awating_approval === true)
+      this.copyData = newData
+    }
+  }
+  
   ngOnInit(): void {
     this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}`).subscribe((res) => {
         this.vacancyReq = res
@@ -46,6 +68,7 @@ export class AppliedvacanciesComponent implements OnInit {
                 }
             })
           }
+          this.copyData = this.vacancyDetail
         }
          
         setTimeout(()=>{

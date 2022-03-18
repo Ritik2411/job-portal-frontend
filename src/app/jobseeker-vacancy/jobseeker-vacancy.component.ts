@@ -14,8 +14,19 @@ export class JobseekerVacancyComponent implements OnInit {
   load:boolean = true
   vacancyReq:any
   applied:boolean = false
+  copyData:any
   
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
+
+  searchMinSalary(event){
+    let newData = this.vacancies.filter(data => data.min_Salary.toLowerCase().includes(event.target.value))
+    this.copyData = newData
+  }
+
+  searchMaxSalary(event){
+    let newData = this.vacancies.filter(data => data.max_Salary.toLowerCase().includes(event.target.value))
+    this.copyData = newData
+  }
 
   ngOnInit(): void {
     this.http.get('http://localhost:5500/VacancyDetail').subscribe(res => {
@@ -34,6 +45,8 @@ export class JobseekerVacancyComponent implements OnInit {
               }
             }          
           })
+
+        this.copyData = this.vacancies
         this.load = false
       }
       else{

@@ -1,0 +1,11 @@
+.main-div{
+    display: flex;
+    justify-content: center;
+
+    .notfound-div{
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        margin: 100px auto;
+        padding: 20px 40px;
+        border-radius: 5px;
+    }
+}

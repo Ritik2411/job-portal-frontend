@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
     <a class="navbar-brand" routerLink="/" style="text-transform: uppercase;">Job-Portal</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -55,7 +55,7 @@
                 {{userData?.Username}}
             </span>
           </button>
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="margin-left: -65px;">
+          <div class="dropdown-menu dropdown-pos" aria-labelledby="dropdownMenuButton">
             <a class="dropdown-item" [routerLink]="['account',userData?.UserId]">Account</a>
             <a *ngIf="userData?.Role === 'JobSeeker';" class="dropdown-item" [routerLink]="['appliedvacancies',userData?.UserId]">Applied Vacancies</a>
             <a *ngIf="userData?.Role === 'Employee';" class="dropdown-item" [routerLink]="['vacanciesRequests',userData?.UserId]">Vacancies Requests</a>
