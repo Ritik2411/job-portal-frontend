@@ -50,12 +50,7 @@ export class AppliedvacanciesComponent implements OnInit {
         this.vacancyReq = res
         if(this.vacancyReq.length > 0){
           for(let i=0; i<this.vacancyReq.length; i++){
-            this.http.get(`http://localhost:5500/VacancyDetail/vacancy/${parseInt(this.vacancyReq[i].vacancy_id)}`,{
-              headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('TKN')
-              })
-            }).subscribe((res) => {          
+            this.http.get(`http://localhost:5500/VacancyDetail/vacancy/${parseInt(this.vacancyReq[i].vacancy_id)}`).subscribe((res) => {          
                 if(res){
                   this.vacancyDetail.push({
                     id: this.vacancyReq[i].id,

@@ -17,8 +17,9 @@
         </ng-template>
 
         <ng-template #elseBlock>
-            <button *ngIf="vacancyData?.applied === true" class='btn btn-secondary' disabled>Applied</button>
-            <button *ngIf="vacancyData.applied === undefined"  class='btn btn-primary' (click)="apply(vacancyData)">Apply</button>
+            <button *ngIf="vacancyData.No_more_requests === undefined && vacancyData?.applied === true" class='btn btn-secondary' disabled>Applied</button>
+            <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined"  class='btn btn-primary' (click)="apply(vacancyData)">Apply</button>
+            <button *ngIf="vacancyData.No_more_requests === true" class="btn btn-warning" disabled>Accepting no more requests</button>
         </ng-template>
 
         <ng-template #appliedBtn>

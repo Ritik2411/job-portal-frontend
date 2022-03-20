@@ -11,7 +11,6 @@ export class VacanciesComponent implements OnInit {
 
   vacancies:any
   load:boolean = true
-  vacancyReq:any
   copyData:any
   date:any
 

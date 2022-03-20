@@ -13,7 +13,6 @@ export class HomeComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
     this.tkn = localStorage.getItem('TKN')
-    console.log(this.tkn)
   }
 
   ngDoCheck(): void {

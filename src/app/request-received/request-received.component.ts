@@ -30,6 +30,29 @@ export class RequestReceivedComponent implements OnInit {
     this.copyData = this.reqRec
   }
 
+  selectStatus(event){
+    console.log(event.target.value)
+    if(event.target.value === 'all'){
+      let newData = this.reqRec
+      this.copyData = newData
+    }
+
+    if(event.target.value === 'approved'){
+      let newData = this.reqRec.filter(data => data.vacancyDetail.awaiting_approval === false && data.vacancyDetail.approved === true)
+      this.copyData = newData
+    }
+
+    if(event.target.value === 'rejected'){
+      let newData = this.reqRec.filter(data => data.vacancyDetail.awaiting_approval === false && data.vacancyDetail.approved === false)
+      this.copyData = newData
+    }
+
+    if(event.target.value === 'awaiting_approval'){
+      let newData = this.reqRec.filter(data => data.vacancyDetail.awaiting_approval === true)
+      this.copyData = newData
+    }
+  }
+
   approve(data:any){
     const approved = window.confirm("Continue to apporve this vacancy?") 
     if(approved){

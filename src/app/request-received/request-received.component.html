@@ -16,20 +16,56 @@
     <div class="reqRec-div">
         <div class="search-div">
             <div class="date-search-req">
-                <div class="date-div-req">
-                    <label style="color: black;font-weight: 600;">Search by applied date</label>
-                    <input type="date" class="input-type-date" value={{date}} (change)="dateSearch($event)"/>
+                <div style="display: flex;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 5px;margin-right: 20px;width: 35%;padding:10px">
+                    <div class="date-div-req">
+                        <label style="color: black;font-weight: 600;">Search by applied date</label>
+                        <input type="date" class="input-type-date" value={{date}} (change)="dateSearch($event)"/>
+                    </div>
+        
+                    <div>
+                        <button class="clear-btn" (click)="clearDate()">Clear</button>
+                    </div>
                 </div>
+
+                <div style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 5px;width: 65%;padding:10px">
+                    <div style="margin-bottom: 5px;font-weight: 600;">
+                        Search by filter
+                    </div>
+                    
+                    <div style="display: flex;align-items: center;justify-content: space-between;"> 
+                        <div>
+                            <input type="radio" name="status" value="all" (change)="selectStatus($event)" checked/>
+                            <label style="color: gray;font-weight:600">&nbsp;All</label>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="status" value="approved" (change)="selectStatus($event)"/>
+                            <label style="color: gray;font-weight:600">&nbsp;Approved</label>
+                        </div>
+                        
+                        <div>
+                            <input type="radio" name="status" value="rejected" (change)="selectStatus($event)"/>                       
+                            <label style="color: gray;font-weight:600">&nbsp;Rejected</label>
+                        </div>
     
-                <div>
-                    <button class="clear-btn" (click)="clearDate()">Clear</button>
+                        <div>
+                            <input type="radio" name="status" value="awaiting_approval" (change)="selectStatus($event)"/>
+                            <label style="color: gray;font-weight:600">&nbsp;Awaiting Approval</label>
+                        </div>
+                    </div>
+
+                    <!-- <div style="text-align: right;">
+                        <button class="clear-btn">
+                            Clear
+                        </button>
+                    </div> -->
                 </div>
             </div>
         </div>
         <div *ngFor="let data of copyData" class="reqRec-loop-div">
             <div>
                 <span>Published By</span><br/>
-                <span style="font-size: 15px;color: gray;">{{data?.publisher_name}}</span>
+                <span style="font-size: 15px;color: gray;font-weight:600">{{data?.publisher_name}}</span>
             </div>
 
             <div>

@@ -36,10 +36,6 @@ export class HeaderComponent implements OnInit, DoCheck {
         })
         
         this.userData = (this.userService.getUser())
-        console.log(this.userData)
-      }
-      else{
-        console.log(this.userData)
       }
 
       setTimeout(()=>{

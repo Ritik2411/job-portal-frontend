@@ -9,7 +9,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class VacancyComponent implements OnInit, DoCheck {
   @ Input() data = []
-  @ Input() applied
 
   vacancyData:any = []
   vacancyReq:any = []
@@ -34,11 +33,6 @@ export class VacancyComponent implements OnInit, DoCheck {
         awaiting_approval: true,
         approved: false,
         user_name: localStorage.getItem('Username')
-      }, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
       }).subscribe(res => {
           if(res){
             this.http.patch(`http://localhost:5500/VacancyDetail/${data.id}`, [
@@ -52,12 +46,7 @@ export class VacancyComponent implements OnInit, DoCheck {
                 "path": "no_of_applications",
                 "value": data.no_of_applications + 1
               }
-            ],{
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + localStorage.getItem('TKN')
-              }
-            }).subscribe(res => {
+            ]).subscribe(res => {
               if(res){
                 alert('Applied Successfully')
                 this.router.navigate(['/appliedvacancies', localStorage.getItem('UserId')])

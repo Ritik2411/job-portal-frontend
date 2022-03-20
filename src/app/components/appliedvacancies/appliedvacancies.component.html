@@ -15,12 +15,12 @@
 <ng-template #datablock>
     <div class="applied-vacancies-div">
         <div class="radio-search">
-            <div style="display: flex;flex-direction: column;">
+            <div style="display: flex;flex-direction: column">
                 <label style="font-weight: 600;font-size: 18px;">Search by status</label>
                 
-                <div style="display:flex">
+                <div style="display:flex;">
                     <div style="margin: 0px 10px;">
-                        <input type="radio" value="all" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                        <input type="radio" value="all" name="status" (change)="status($event)" style="cursor: pointer;" checked/>
                         <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;All</label>
                     </div>
 

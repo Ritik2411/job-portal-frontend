@@ -40,12 +40,7 @@ export class ExperienceDetailsComponent implements OnInit {
     this.http.get(`http://localhost:5500/getUsersById/${this.id}`).subscribe(res => {
         this.userData = res
         if(this.userData !== null){
-          this.http.get(`http://localhost:5500/Experience/${this.id}`, {
-            headers: new HttpHeaders({
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ' + localStorage.getItem('TKN')
-            })
-          }).subscribe(res => {
+          this.http.get(`http://localhost:5500/Experience/${this.id}`).subscribe(res => {
             this.expData = res
             if(this.expData.length > 0){
               this.update = true

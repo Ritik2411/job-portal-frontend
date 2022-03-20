@@ -33,6 +33,12 @@ export class JobseekerVacancyComponent implements OnInit {
       this.vacancies = res
 
       if(this.vacancies.length > 0){
+        for(let i=0; i<this.vacancies.length; i++){
+          if(this.vacancies[i].no_of_Vacancies === 0){
+            this.vacancies[i]["No_more_requests"] = true 
+          }
+        }
+
         this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}`).subscribe(res => {
             this.vacancyReq = res
             if(this.vacancyReq.length > 0){
@@ -53,5 +59,9 @@ export class JobseekerVacancyComponent implements OnInit {
         this.load = false
       }
     })
+
+    setTimeout(()=>{
+      console.log(this.vacancies)
+    },2000)
   }
 }
