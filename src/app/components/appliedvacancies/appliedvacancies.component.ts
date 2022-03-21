@@ -13,6 +13,8 @@ export class AppliedvacanciesComponent implements OnInit {
   load:boolean = true
   removed:boolean = false
   copyData:any
+  page:number = 1
+  totalRecords:string
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
@@ -63,13 +65,15 @@ export class AppliedvacanciesComponent implements OnInit {
                 }
             })
           }
+
+          this.load = false
+          this.totalRecords = this.vacancyDetail.length
           this.copyData = this.vacancyDetail
         }
          
-        setTimeout(()=>{
+        else{
           this.load = false
-          console.log(this.vacancyDetail)
-        },2000)
+        }
     })
   }
 }

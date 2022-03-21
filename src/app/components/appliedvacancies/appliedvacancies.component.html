@@ -42,7 +42,11 @@
             </div>
             
         </div>
-        <div *ngFor="let data of copyData" class="applied-vacancies-list">
+        <div *ngFor="let data of copyData | paginate: { id: 'applied-vacancies',
+                                                        itemsPerPage: 5,
+                                                        currentPage: page,
+                                                        totalItems: totalRecords }" 
+        class="applied-vacancies-list">
             <div *ngIf="data.published_by === null; then removeBlock else dataBlock"></div>
             <ng-template #removeBlock>
                 <div style="display: flex;justify-content: space-between;align-items: center;">
@@ -83,6 +87,20 @@
             </ng-template>
             
         </div>
+
+        <div>
+            <pagination-controls  id="applied-vacancies"
+                (pageChange)="page = ($event)"
+                (pageBoundsCorrection)="page = ($event)"
+                maxSize="9"
+                directionLinks="true"
+                responsive="true"
+                previousLabel="Previous"
+                nextLabel="Next"
+            >
+            </pagination-controls>
+        </div>
+        
     </div>
 </ng-template>
 

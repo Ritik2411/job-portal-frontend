@@ -12,9 +12,24 @@ export class UploadedCVsComponent implements OnInit {
   httpclient:any
   load:boolean = true
   data:any
+  filename:string = null
+  copyData:any
+  page:number = 1
+  totalRecords:string
 
   constructor(private http:HttpClient, private httpbackend:HttpBackend, private route:ActivatedRoute) {
       this.httpclient = new HttpClient(httpbackend)
+  }
+
+  searchFilename(event){
+    this.filename = event.target.value
+    const newData = this.cvData.filter(data => data.name.toLowerCase().includes(this.filename.toLowerCase()))
+    this.copyData = newData
+  }
+
+  clearSearch(){
+    this.filename = ""
+    this.copyData = this.cvData
   }
 
   download(data,type){
@@ -52,6 +67,8 @@ export class UploadedCVsComponent implements OnInit {
     this.http.get(`http://localhost:5500/Cv/user/${this.route.snapshot.paramMap.get('id')}`).subscribe(res=>{
       this.cvData = res
       if(this.cvData.length > 0){
+        this.copyData = this.cvData
+        this.totalRecords = this.cvData.length
         this.load = false
       }
       else{

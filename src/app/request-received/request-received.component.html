@@ -62,7 +62,11 @@
                 </div>
             </div>
         </div>
-        <div *ngFor="let data of copyData" class="reqRec-loop-div">
+        <div *ngFor="let data of copyData | paginate: { id: 'reqRec',
+                                                        itemsPerPage: 6,
+                                                        currentPage: page,
+                                                        totalItems: totalRecords }" 
+            class="reqRec-loop-div">
             <div>
                 <span>Published By</span><br/>
                 <span style="font-size: 15px;color: gray;font-weight:600">{{data?.publisher_name}}</span>
@@ -95,6 +99,19 @@
                     Rejected
                 </button>
             </div>
+        </div>
+
+        <div>
+            <pagination-controls  id="reqRec"
+                      (pageChange)="page = ($event)"
+                      (pageBoundsCorrection)="page = ($event)"
+                      maxSize="9"
+                      directionLinks="true"
+                      responsive="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+            >
+            </pagination-controls>
         </div>
     </div>
 </ng-template>

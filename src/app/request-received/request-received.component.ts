@@ -16,6 +16,8 @@ export class RequestReceivedComponent implements OnInit {
   vacancyDetail:any = []
   copyData:any 
   date:any
+  page:number = 1
+  totalRecords:string
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
 
@@ -124,6 +126,8 @@ export class RequestReceivedComponent implements OnInit {
                   }
                 }
               }
+
+              this.totalRecords = this.reqRec.length
               this.copyData = this.reqRec
               this.load = false
             }

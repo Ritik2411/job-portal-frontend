@@ -29,6 +29,8 @@ import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updat
 import { InterceptorService } from './services/interceptor.service';
 import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { EditVacancyComponent } from './edit-vacancy/edit-vacancy.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -56,14 +58,16 @@ import { NotFoundComponent } from './not-found/not-found.component';
     UpdateexperienceDetailsComponent,
     UpdatejobseekerDetailsComponent,
     UploadedCVsComponent,
-    NotFoundComponent    
+    NotFoundComponent,
+    EditVacancyComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

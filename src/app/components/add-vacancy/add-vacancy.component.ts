@@ -17,6 +17,8 @@ export class AddVacancyComponent implements OnInit {
   ISODate:any = new Date().toISOString().split('T')
   ISOTime:any
   ISOPattern:any
+  publisher_name:string
+  userName:string = localStorage.getItem('Username')
 
   AddVacancy(data:any){
     if(data.min_Salary > data.max_Salary){

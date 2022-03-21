@@ -22,7 +22,20 @@
 
 <ng-template #datablock>
     <div class="uploaded-cv">
-        <div *ngFor="let data of cvData" class="upload-cv-data">
+        <div style="width: 70%;margin-bottom: 20px;margin-top: 10px;">
+            <input type="search" 
+            placeholder="Search by filename"
+            class="search-bar"
+            [(ngModel)]="filename"
+            (search)="clearSearch()"
+            (keyup)="searchFilename($event)"/>
+        </div>
+
+        <div *ngFor="let data of copyData | paginate: { id: 'upload',
+                                                        itemsPerPage: 10,
+                                                        currentPage: page,
+                                                        totalItems: totalRecords }" 
+            class="upload-cv-data">
             <div class="doc-text">
                 <span style="color: black;">{{data.name}}</span><br/>
                 <span>{{(data.file_size/1000000).toFixed(2)}}MB</span>
@@ -32,6 +45,19 @@
                 <button class="btn btn-success mr-2" (click)="download(data.name, data.fileType)">View</button>
                 <button class="btn btn-danger ml-2" (click)="deletecv(data.id, data.name)">Delete</button>
             </div>
+        </div>
+
+        <div>
+            <pagination-controls  id="upload"
+                      (pageChange)="page = ($event)"
+                      (pageBoundsCorrection)="page = ($event)"
+                      maxSize="9"
+                      directionLinks="true"
+                      responsive="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+            >
+            </pagination-controls>
         </div>
     </div>
 </ng-template>

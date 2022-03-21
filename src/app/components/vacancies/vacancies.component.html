@@ -16,14 +16,15 @@
 
 <ng-template #vacancyBlock>
     <div class="vacancies-div">
-        <div style="width: 70%;display: flex;align-items: center;margin-top: 20px;">
-            <div class="search-filter">
-                <input type="search" 
-                    placeholder="Search by publisher name" 
-                    class="search-input" 
-                    (search)="clearSearch()"
-                    #event
-                    (keyup)="searchChange(event.value)"/>
+        <div style="width: 70%;display: flex;align-items: center;margin-top: 40px;padding-left: 20px;justify-content: space-between;">
+            <div class="experience-filter">
+                <label>Search by experience</label>
+                <select (change)="changeExp($event)" class='exp-select'>
+                    <option value="">Select Experience</option>
+                    <option value="Freshers">Hiring-Freshers</option>
+                    <option value="1 Years">1 Years</option>
+                    <option value="2 Years">2 Years</option>
+                </select>
             </div>
     
             <div class="date-filter">
@@ -43,8 +44,25 @@
             </div>
         </div>
 
-        <div *ngFor="let data of copyData" style="width: 70%;">
-            <app-vacancy [data]="data"></app-vacancy>
+        <div *ngFor="let item of copyData | paginate: { id: 'employeer-vacancies',
+                                                itemsPerPage: 4,
+                                                currentPage: page,
+                                                totalItems: totalRecords }" 
+        style="width: 70%;">
+            <app-vacancy [data]="item"></app-vacancy>
+        </div>
+
+        <div>
+            <pagination-controls class="my-pagination" id="employeer-vacancies"
+                      (pageChange)="page = ($event)"
+                      (pageBoundsCorrection)="page = ($event)"
+                      maxSize="9"
+                      directionLinks="true"
+                      responsive="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+            >
+            </pagination-controls>
         </div>
     </div>
 </ng-template>

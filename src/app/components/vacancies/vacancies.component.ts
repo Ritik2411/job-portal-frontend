@@ -13,6 +13,8 @@ export class VacanciesComponent implements OnInit {
   load:boolean = true
   copyData:any
   date:any
+  page:number = 1
+  totalRecords:string
 
   constructor(private http:HttpClient, private router:ActivatedRoute) { }
 
@@ -39,9 +41,16 @@ export class VacanciesComponent implements OnInit {
     this.copyData = this.vacancies
   }
   
+  changeExp(event){
+    let txt = event.target.value
+    let newData = this.vacancies.filter(data => data.experience.toLowerCase().includes(txt.toLowerCase()))
+    this.copyData = newData
+  }
+
   ngOnInit(): void {
     this.http.get(`http://localhost:5500/VacancyDetail/${this.id}`).subscribe(res => {
       this.vacancies = res
+      this.totalRecords = this.vacancies.length
       this.copyData = this.vacancies
 
       if(this.vacancies.length > 0){

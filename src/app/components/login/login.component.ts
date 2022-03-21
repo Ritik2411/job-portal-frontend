@@ -12,10 +12,12 @@ export class LoginComponent implements OnInit {
 
   data:any = {}
   token:any = {}
+  load:any = false
 
   constructor(private http:HttpClient, private userInfo:RolesService,private router:Router) { }
 
   login(item:any){
+    this.load = true
     this.http.post("http://localhost:5500/login", item).subscribe((result) => {
         if(result !== null){
           this.token = result
@@ -32,12 +34,14 @@ export class LoginComponent implements OnInit {
               Role: localStorage.getItem("Role")
             })
           })
-          
-          alert("Successully Logged in")
+
+          this.load = false
+          //alert("Successully Logged in")
           this.router.navigate(["/"])
         }
     },(error) => {
       if(error.status === 401){
+        this.load = false
         alert("Invalid login credentials.")
       }
     })

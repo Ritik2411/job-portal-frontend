@@ -18,7 +18,7 @@ export class VacancyComponent implements OnInit, DoCheck {
   copyData:any
   reload:boolean = false
 
-  constructor(private http:HttpClient, private router:Router, private route:ActivatedRoute) { }
+  constructor(private http:HttpClient, private router:Router, private route:Router) { }
   
   role:string = localStorage.getItem('Role')
 
@@ -66,6 +66,10 @@ export class VacancyComponent implements OnInit, DoCheck {
           window.location.reload()
         }
     })  
+  }
+
+  editvacancy(data){
+    this.route.navigateByUrl(`updateVacancy/${localStorage.getItem('UserId')}` , {state: data})
   }
 
   ngOnInit(): void {

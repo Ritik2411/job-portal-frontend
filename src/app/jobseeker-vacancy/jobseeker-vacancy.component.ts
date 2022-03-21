@@ -15,7 +15,9 @@ export class JobseekerVacancyComponent implements OnInit {
   vacancyReq:any
   applied:boolean = false
   copyData:any
-  
+  totalRecords:string
+  page:number = 1
+
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
 
   searchMinSalary(event){
@@ -31,6 +33,7 @@ export class JobseekerVacancyComponent implements OnInit {
   ngOnInit(): void {
     this.http.get('http://localhost:5500/VacancyDetail').subscribe(res => {
       this.vacancies = res
+      this.totalRecords = this.vacancies.length
 
       if(this.vacancies.length > 0){
         for(let i=0; i<this.vacancies.length; i++){

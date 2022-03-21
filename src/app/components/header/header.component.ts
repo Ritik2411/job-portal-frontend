@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit, DoCheck {
       if(res){
         localStorage.clear()
         this.userService.removeUser()
-        this.route.navigate(["/"])
+        this.route.navigate(["/"], {replaceUrl: true})
       }  
     })
   }

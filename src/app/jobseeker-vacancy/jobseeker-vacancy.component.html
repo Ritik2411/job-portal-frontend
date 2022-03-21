@@ -32,8 +32,26 @@
             </select>
         </div>
 
-        <div *ngFor="let vac_data of copyData" style="width: 70%;">
-            <app-vacancy [data]="vac_data"></app-vacancy>
+        <div *ngFor="let item of copyData | paginate: { id: 'all-vacancies',
+                                                        itemsPerPage: 4,
+                                                        currentPage: page,
+                                                        totalItems: totalRecords }" 
+            style="width: 70%;">
+            <app-vacancy [data]="item"></app-vacancy>
+        </div>
+
+        <div>
+            <pagination-controls  id="all-vacancies"
+                      (pageChange)="page = ($event)"
+                      (pageBoundsCorrection)="page = ($event)"
+                      directionLinks="true"
+                      maxSize="9"
+                      directionLinks="true"
+                      responsive="true"
+                      previousLabel="Previous"
+                      nextLabel="Next"
+                      >
+            </pagination-controls>
         </div>
    </div>
 </ng-template>

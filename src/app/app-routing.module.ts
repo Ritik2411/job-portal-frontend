@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { QulificationDetailsComponent } from './components/qulification-details/qulification-details.component';
 import { RegisterComponent } from './components/register/register.component';
 import { VacanciesComponent } from './components/vacancies/vacancies.component';
+import { EditVacancyComponent } from './edit-vacancy/edit-vacancy.component';
 import { JobseekerDetailsComponent } from './jobseeker-details/jobseeker-details.component';
 import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -92,6 +93,11 @@ const routes: Routes = [
   {
     path: ':id/cvuploaded',
     component: UploadedCVsComponent
+  },
+
+  {
+    path: 'updateVacancy/:id',
+    component: EditVacancyComponent
   },
 
   {
