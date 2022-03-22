@@ -9,7 +9,7 @@
 </ng-template>
 
 <ng-template #elseBlock>
-    <div *ngIf="vacancyDetail.length>0; then datablock else noDataBlock">adasd</div>
+    <div *ngIf="vacancyReq.length>0; then datablock else noDataBlock"></div>
 </ng-template>
 
 <ng-template #datablock>
@@ -40,8 +40,20 @@
                     </div>
                 </div>
             </div>
-            
         </div>
+
+        <div class="search-by-date">
+            <div style="width: fit-content;padding: 10px 10px 0px 10px;border-radius: 5px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+               
+                    <input type="checkbox" (change)="sortByDate()" [checked]="checkDate" style="margin-right: 5px;"/>
+                    <label style="color: gray;font-weight: 600;">Sort By Applied Date&nbsp;
+                        <span *ngIf="checkDate;">(Descending)</span>
+                        <span *ngIf="checkDate === false;">(Ascending)</span>
+                    </label>
+
+            </div>
+        </div>
+
         <div *ngFor="let data of copyData | paginate: { id: 'applied-vacancies',
                                                         itemsPerPage: 5,
                                                         currentPage: page,
@@ -59,7 +71,7 @@
                 <div class="vacancy-data-1">
                     <p>
                         <span style="font-size: 18px;font-weight: 600;">Published By</span><br/>
-                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.published_by}}</span>
+                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.publishedBy}}</span>
                     </p>
                     <p>
                         <span style="font-size: 18px;font-weight: 600;">Applied On</span><br/>
@@ -74,9 +86,9 @@
                         </div>
                         
                         <div>
-                            <button *ngIf="data.awating_approval" class="btn btn-secondary" disabled>Awaiting Approval</button>
-                            <button *ngIf="data.awating_approval === false && data.approved === true" class="btn btn-success" disabled>Approved</button>
-                            <button *ngIf="data.awating_approval === false && data.approved === false" class="btn btn-danger" disabled>Rejected</button>
+                            <button *ngIf="data.awaiting_approval" class="btn btn-secondary" disabled>Awaiting Approval</button>
+                            <button *ngIf="data.awaiting_approval === false && data.approved === true" class="btn btn-success" disabled>Approved</button>
+                            <button *ngIf="data.awaiting_approval === false && data.approved === false" class="btn btn-danger" disabled>Rejected</button>
                         </div>
                     </div>
     
@@ -89,7 +101,7 @@
         </div>
 
         <div>
-            <pagination-controls  id="applied-vacancies"
+            <pagination-controls id="applied-vacancies"
                 (pageChange)="page = ($event)"
                 (pageBoundsCorrection)="page = ($event)"
                 maxSize="9"

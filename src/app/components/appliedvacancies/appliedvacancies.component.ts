@@ -15,6 +15,8 @@ export class AppliedvacanciesComponent implements OnInit {
   copyData:any
   page:number = 1
   totalRecords:string
+  sort_order:string = ''
+  checkDate:boolean = false
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
@@ -26,54 +28,57 @@ export class AppliedvacanciesComponent implements OnInit {
     })
   }
 
+  sortByDate(){
+    if(this.checkDate){
+      this.checkDate = false
+      this.sort_order = ""
+      this.vacancyRequests(this.sort_order)
+    }
+    else{
+      this.vacancyDetail = []
+      this.checkDate = true
+      this.sort_order = "ascending"
+      this.vacancyRequests(this.sort_order)
+    }
+  }
+
   status(event){
     if(event.target.value === 'all'){
-      this.copyData = this.vacancyDetail
+      this.copyData = this.vacancyReq
     }
 
     if(event.target.value === 'approved'){
-      let newData = this.vacancyDetail.filter(data => data.approved === true && data.awating_approval === false)
+      let newData = this.vacancyReq.filter(data => data.approved === true && data.awaiting_approval === false)
       this.copyData = newData
     }
     
     if(event.target.value === 'rejected'){
-      let newData = this.vacancyDetail.filter(data => data.approved === false && data.awating_approval === false)
+      let newData = this.vacancyReq.filter(data => data.approved === false && data.awaiting_approval === false)
       this.copyData = newData
     }
 
     if(event.target.value === 'awaiting_approval'){
-      let newData = this.vacancyDetail.filter(data => data.awating_approval === true)
+      let newData = this.vacancyReq.filter(data => data.awaiting_approval === true)
       this.copyData = newData
     }
   }
   
   ngOnInit(): void {
-    this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}`).subscribe((res) => {
-        this.vacancyReq = res
-        if(this.vacancyReq.length > 0){
-          for(let i=0; i<this.vacancyReq.length; i++){
-            this.http.get(`http://localhost:5500/VacancyDetail/vacancy/${parseInt(this.vacancyReq[i].vacancy_id)}`).subscribe((res) => {          
-                if(res){
-                  this.vacancyDetail.push({
-                    id: this.vacancyReq[i].id,
-                    published_by: (res[0]?.publishedBy === undefined)?null:res[0]?.publishedBy,
-                    applied_on: new Date(this.vacancyReq[i].applied_on).toLocaleString(),
-                    description: (res[0]?.job_Description === undefined)?null:res[0]?.job_Description,
-                    awating_approval: this.vacancyReq[i].awaiting_approval,
-                    approved: this.vacancyReq[i].approved
-                  })
-                }
-            })
-          }
+      this.vacancyRequests(this.sort_order)
+  }
 
-          this.load = false
-          this.totalRecords = this.vacancyDetail.length
-          this.copyData = this.vacancyDetail
-        }
-         
-        else{
-          this.load = false
-        }
+  vacancyRequests(sort_order){
+    this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?sort_by_date=${sort_order}`).subscribe((res) => {
+      this.vacancyReq = res
+      if(this.vacancyReq?.length > 0){
+        this.load = false
+        this.totalRecords = this.vacancyReq.length
+        this.copyData = this.vacancyReq
+      }
+       
+      else{
+        this.load = false
+      }
     })
   }
 }

@@ -14,26 +14,27 @@
 
 <ng-template #datablock>
     <div class="all-vacancies-div">
-        <div class="search-salary">
-            <select class="select-salary" (change)="searchMinSalary($event)" style="margin-right: 10px;">
-                <option value="">Search by minimum salary</option>
-                <option value="30000">30,000</option>
-                <option value="45000">45,000</option>
-                <option value="60000">60,000</option>
-                <option value="75000">75,000</option>
-            </select>
 
-            <select class="select-salary" (change)="searchMaxSalary($event)" style="margin-left: 10px;">
-                <option value="">Search by maximum salary</option>
-                <option value="30000">30,000</option>
-                <option value="45000">45,000</option>
-                <option value="60000">60,000</option>
-                <option value="75000">75,000</option>
-            </select>
+        <div style="display: flex;align-items: center;width: 70%;margin-left: 20px;padding-left:10px">
+            <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;margin-right:10px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
+                <input type="checkbox" (change)="check()" [checked]="checked">&nbsp;
+                <label style="font-weight: 600;color: gray;">Sort by published date&nbsp;
+                    <span *ngIf="checked">(Descending)</span>
+                    <span *ngIf="checked === false">(Ascending)</span> 
+                </label>
+            </div>
+            
+            <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
+                <input type="checkbox" (change)="sortLastDate()" [checked]="checkLastDate">&nbsp;
+                <label style="font-weight: 600;color: gray;">Sort by last date&nbsp;
+                    <span *ngIf="checkLastDate">(Descending)</span>
+                    <span *ngIf="checkLastDate === false">(Ascending)</span> 
+                </label>
+            </div>
         </div>
 
-        <div *ngFor="let item of copyData | paginate: { id: 'all-vacancies',
-                                                        itemsPerPage: 4,
+        <div *ngFor="let item of vacancies | paginate: { id: 'all-vacancies',
+                                                        itemsPerPage: itemsPerPage,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 
             style="width: 70%;">
@@ -42,8 +43,8 @@
 
         <div>
             <pagination-controls  id="all-vacancies"
-                      (pageChange)="page = ($event)"
-                      (pageBoundsCorrection)="page = ($event)"
+                      (pageChange)="pageHandler($event)"
+                      (pageBoundsCorrection)="pageHandler($event)"
                       directionLinks="true"
                       maxSize="9"
                       directionLinks="true"

@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { VacancyService } from '../services/vacancy.service';
 
@@ -8,8 +8,9 @@ import { VacancyService } from '../services/vacancy.service';
   templateUrl: './jobseeker-vacancy.component.html',
   styleUrls: ['./jobseeker-vacancy.component.scss']
 })
-export class JobseekerVacancyComponent implements OnInit {
+export class JobseekerVacancyComponent implements OnInit{
   
+  data:any
   vacancies:any = []
   load:boolean = true
   vacancyReq:any
@@ -17,8 +18,13 @@ export class JobseekerVacancyComponent implements OnInit {
   copyData:any
   totalRecords:string
   page:number = 1
+  checked:boolean = false
+  sortOrder:string
+  checkLastDate:boolean = false
+  itemsPerPage:number = 5
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
+  
 
   searchMinSalary(event){
     let newData = this.vacancies.filter(data => data.min_Salary.toLowerCase().includes(event.target.value))
@@ -30,10 +36,48 @@ export class JobseekerVacancyComponent implements OnInit {
     this.copyData = newData
   }
 
+  check(){
+    if(this.checked){
+      this.checked = false
+      this.sortOrder ="default"
+      this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+    }
+
+    else{
+      this.checked = true
+      this.sortOrder = "ascending_publishDate"
+      this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+    }
+  }
+
+  sortLastDate(){
+    if(this.checkLastDate){
+      this.checkLastDate = false
+      this.sortOrder = "descending_lastDate"
+      this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+    }
+
+    else{
+      this.checkLastDate = true
+      this.sortOrder = "ascending_lastDate"
+      this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+    }
+  }
+
+  pageHandler(event){
+    this.page = event
+    this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+  }
+
   ngOnInit(): void {
-    this.http.get('http://localhost:5500/VacancyDetail').subscribe(res => {
-      this.vacancies = res
-      this.totalRecords = this.vacancies.length
+    this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+  }
+
+  vacancyDetail(sortOrder, page, itemsPerPage){
+    this.http.get(`http://localhost:5500/VacancyDetail?sortOrder=${sortOrder}&pageSize=${itemsPerPage}&page=${page}`).subscribe(res => {
+      this.data = res
+      this.vacancies = this.data.vacancyDetail
+      this.totalRecords = this.data.totalItems.toString()
 
       if(this.vacancies.length > 0){
         for(let i=0; i<this.vacancies.length; i++){
@@ -62,9 +106,5 @@ export class JobseekerVacancyComponent implements OnInit {
         this.load = false
       }
     })
-
-    setTimeout(()=>{
-      console.log(this.vacancies)
-    },2000)
   }
 }

@@ -61,6 +61,13 @@
         }
     }
 
+    .check-div{
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        margin: 10px;
+        padding: 10px 10px 0px 10px;
+        border-radius: 5px;
+    }
+
     .my-pagination {
         .ngx-pagination .current {
             background: #007bff !important;

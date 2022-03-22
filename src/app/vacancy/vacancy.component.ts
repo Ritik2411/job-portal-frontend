@@ -32,7 +32,10 @@ export class VacancyComponent implements OnInit, DoCheck {
         applied_on: new Date().toISOString(),
         awaiting_approval: true,
         approved: false,
-        user_name: localStorage.getItem('Username')
+        user_name: localStorage.getItem('Username'),
+        publishedBy: data.publishedBy,
+        description: data.job_Description
+
       }).subscribe(res => {
           if(res){
             this.http.patch(`http://localhost:5500/VacancyDetail/${data.id}`, [

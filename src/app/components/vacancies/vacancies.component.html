@@ -44,8 +44,25 @@
             </div>
         </div>
 
+        <div style="width: 70%;margin-left: 20px;padding: 10px;display: flex;">
+            <div class="check-div">
+                <input type="checkbox" (change)="sortByPd()" [checked]="checkedPD"/>
+                <label style="font-weight: 600;color: gray;">&nbsp;Sort by published date 
+                    <span *ngIf="checkedPD">(Descending)</span>
+                    <span *ngIf="checkedPD === false">(Ascending)</span>
+                </label>
+            </div>
+
+            <div class="check-div">
+                <input type="checkbox" (change)="sortByLd()" [checked]="checkedLD"/>
+                <label style="font-weight: 600;color: gray;">&nbsp;Sort by last date
+                    <span *ngIf="checkedLD">(Descending)</span>
+                    <span *ngIf="checkedLD === false">(Ascending)</span>
+                </label>
+            </div>
+        </div>
         <div *ngFor="let item of copyData | paginate: { id: 'employeer-vacancies',
-                                                itemsPerPage: 4,
+                                                itemsPerPage: itemPerPage,
                                                 currentPage: page,
                                                 totalItems: totalRecords }" 
         style="width: 70%;">
@@ -54,8 +71,8 @@
 
         <div>
             <pagination-controls class="my-pagination" id="employeer-vacancies"
-                      (pageChange)="page = ($event)"
-                      (pageBoundsCorrection)="page = ($event)"
+                      (pageChange)="pageHandler($event)"
+                      (pageBoundsCorrection)="pageHandler($event)"
                       maxSize="9"
                       directionLinks="true"
                       responsive="true"
