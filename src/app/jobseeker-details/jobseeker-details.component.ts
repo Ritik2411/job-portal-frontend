@@ -22,7 +22,7 @@ export class JobseekerDetailsComponent implements OnInit {
     const confirm = window.confirm('Add Details?')
     if(confirm){
       this.http.post('http://localhost:5500/JobSeeker', {
-        id: localStorage.getItem('UserId'),
+        user_id: localStorage.getItem('UserId'),
         first_name: data.first_name,
         last_name: data.last_name,
         email: data.email,

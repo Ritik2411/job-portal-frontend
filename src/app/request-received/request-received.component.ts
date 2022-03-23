@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 export class RequestReceivedComponent implements OnInit {
   vacancyData:any = []
   userVac:any = []
-  reqRec:any = []
+  data:any = []
   load:boolean = true
   userData:any = [] 
   vacancyDetail:any = []
@@ -18,47 +18,64 @@ export class RequestReceivedComponent implements OnInit {
   date:any
   page:number = 1
   totalRecords:string
+  sortOrder:string = 'default'
+  pageSize:number = 5
+  check:boolean = false
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
 
   dateSearch(data){
     this.date = data.target.value
-    let newData = this.reqRec.filter(data => data.vacancyDetail.applied_on.toLowerCase().includes(this.date.toLowerCase()))
+    let newData = this.vacancyData.filter(data => data.applied_on.toLowerCase().includes(this.date.toLowerCase()))
     this.copyData = newData
   }
 
   clearDate(){
     this.date = null
-    this.copyData = this.reqRec
+    this.copyData = this.vacancyData
   }
 
   selectStatus(event){
     console.log(event.target.value)
     if(event.target.value === 'all'){
-      let newData = this.reqRec
+      let newData = this.vacancyData
       this.copyData = newData
     }
 
     if(event.target.value === 'approved'){
-      let newData = this.reqRec.filter(data => data.vacancyDetail.awaiting_approval === false && data.vacancyDetail.approved === true)
+      let newData = this.vacancyData.filter(data => data.awaiting_approval === false && data.approved === true)
       this.copyData = newData
     }
 
     if(event.target.value === 'rejected'){
-      let newData = this.reqRec.filter(data => data.vacancyDetail.awaiting_approval === false && data.vacancyDetail.approved === false)
+      let newData = this.vacancyData.filter(data => data.awaiting_approval === false && data.approved === false)
       this.copyData = newData
     }
 
     if(event.target.value === 'awaiting_approval'){
-      let newData = this.reqRec.filter(data => data.vacancyDetail.awaiting_approval === true)
+      let newData = this.vacancyData.filter(data => data.awaiting_approval === true)
       this.copyData = newData
+    }
+  }
+
+  sortByDate(){
+    if(this.check){
+      this.sortOrder = "default"
+      this.check = false
+      this.vacancyRequests(this.sortOrder, this.pageSize, this.page)  
+    }
+
+    else{
+      this.sortOrder = "ascending"
+      this.check = true
+      this.vacancyRequests(this.sortOrder, this.pageSize, this.page)  
     }
   }
 
   approve(data:any){
     const approved = window.confirm("Continue to apporve this vacancy?") 
     if(approved){
-      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.vacancyDetail.id}`, [
+      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
         {
           op: 'replace',
           path: 'awaiting_approval',
@@ -84,7 +101,7 @@ export class RequestReceivedComponent implements OnInit {
   reject(data:any){
     const rejected = window.confirm("Continue to reject this vacancy?") 
     if(rejected){
-      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.vacancyDetail.id}`, [
+      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
         {
           op: 'replace',
           path: 'awaiting_approval',
@@ -108,51 +125,32 @@ export class RequestReceivedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.http.get('http://localhost:5500/VacancyRequests').subscribe(res => {
-      this.vacancyData = res
-      console.log(this.vacancyData)
-      if(this.vacancyData.length >= 0){
-        this.http.get(`http://localhost:5500/VacancyDetail/${this.route.snapshot.paramMap.get('id')}`).subscribe(res => {
-            this.userVac = res
-            if(this.userVac.length > this.vacancyData.length){
-              console.log("if")
-              for(let i=0; i<this.userVac.length; i++){
-                for(let j=0; j<this.vacancyData.length; j++){
-                  if(this.userVac[i].id === parseInt(this.vacancyData[j].vacancy_id)){
-                     this.reqRec.push({
-                       vacancyDetail: this.vacancyData[j],
-                       publisher_name: this.userVac[i].publishedBy
-                      }) 
-                  }
-                }
-              }
-
-              this.totalRecords = this.reqRec.length
-              this.copyData = this.reqRec
-              this.load = false
-            }
-
-            else{
-              for(let i=0; i<this.vacancyData.length; i++){
-                for(let j=0; j<this.userVac.length; j++){
-                  if(parseInt(this.vacancyData[i].vacancy_id) === this.userVac[j].id){
-                     this.reqRec.push({
-                      vacancyDetail: this.vacancyData[i],
-                      publisher_name: this.userVac[j].publishedBy
-                     })
-                  }
-                }
-              }
-             
-             this.copyData = this.reqRec
-             this.load = false
-            }
-        })
-      }
-    })
+    this.vacancyRequests(this.sortOrder, this.pageSize, this.page)
 
     setTimeout(()=>{
-      console.log(this.reqRec)
+      console.log(this.vacancyData)
     },2000)
+  }
+
+  pageChange(event){
+    this.page = event
+    this.vacancyDetail(this.sortOrder, this.pageSize, this.page)  
+  }
+
+  vacancyRequests(sort_order, page_size, page){
+    this.http.get(`http://localhost:5500/VacancyRequests/publisher_name/${localStorage.getItem('Username')}?sort_order=${sort_order}&page_size=${page_size}&page=${page}`).subscribe(res => {
+      this.data = res
+      this.vacancyData = this.data.vacancyRequest
+      this.totalRecords = this.data.totalItems
+      this.copyData = this.vacancyData      
+
+      if(this.vacancyData.length > 0){
+        this.load = false
+      }
+
+      else{
+        this.load = false
+      }
+    })
   }
 }

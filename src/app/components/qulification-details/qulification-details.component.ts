@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-qulification-details',
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class QulificationDetailsComponent implements OnInit {
 
-  constructor(private http:HttpClient, private route:ActivatedRoute) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router) { }
   userData:any
   load:boolean = true
   quaData:any = []
@@ -35,6 +35,11 @@ export class QulificationDetailsComponent implements OnInit {
       }).subscribe(res => {
         if(res){
           window.location.reload()
+        }
+      },(error) => {
+        if(error.status === 500){
+          alert("Enter jobseeker detail first")
+          this.router.navigate([this.id,"details"])
         }
       })
     }

@@ -5,7 +5,7 @@
             
             <span style="font-size: 16px;">Published on: 
                 <span style="color: gray;">
-                    {{vacancyData?.published_Date}}
+                    {{vacancyData?.published_Date | date:"short"}}
                 </span>
             </span>
         </div>
@@ -60,7 +60,7 @@
         </div>
         <div class="info-2">
             <span>Last Date</span><br/>
-            <span style="color: gray;">{{vacancyData?.last_Date}}</span>
+            <span style="color: gray;">{{vacancyData?.last_Date | date:"short"}}</span>
         </div>
     </div>
 

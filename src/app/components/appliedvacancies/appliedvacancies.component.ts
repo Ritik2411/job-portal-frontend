@@ -1,5 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, DoCheck, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -8,6 +8,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./appliedvacancies.component.scss']
 })
 export class AppliedvacanciesComponent implements OnInit {
+  
+  data:any
   vacancyReq:any = []
   vacancyDetail:any = []
   load:boolean = true
@@ -15,8 +17,9 @@ export class AppliedvacanciesComponent implements OnInit {
   copyData:any
   page:number = 1
   totalRecords:string
-  sort_order:string = ''
+  sort_order:string = 'default'
   checkDate:boolean = false
+  itemsPerPage:number = 10
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
@@ -31,14 +34,14 @@ export class AppliedvacanciesComponent implements OnInit {
   sortByDate(){
     if(this.checkDate){
       this.checkDate = false
-      this.sort_order = ""
-      this.vacancyRequests(this.sort_order)
+      this.sort_order = "default"
+      this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
     }
     else{
       this.vacancyDetail = []
       this.checkDate = true
       this.sort_order = "ascending"
-      this.vacancyRequests(this.sort_order)
+      this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
     }
   }
 
@@ -64,15 +67,17 @@ export class AppliedvacanciesComponent implements OnInit {
   }
   
   ngOnInit(): void {
-      this.vacancyRequests(this.sort_order)
+      this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
   }
 
-  vacancyRequests(sort_order){
-    this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?sort_by_date=${sort_order}`).subscribe((res) => {
-      this.vacancyReq = res
+  vacancyRequests(sort_order,page_size, page){
+    this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?sort_by_date=${sort_order}&page_size=${page_size}&page=${page}`).subscribe((res) => {
+      this.data = res
+      this.vacancyReq = this.data.vacancyRequest
+      this.totalRecords = this.data.totalItems
+
       if(this.vacancyReq?.length > 0){
         this.load = false
-        this.totalRecords = this.vacancyReq.length
         this.copyData = this.vacancyReq
       }
        

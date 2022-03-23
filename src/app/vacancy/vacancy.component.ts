@@ -7,16 +7,10 @@ import { ActivatedRoute, Router } from '@angular/router';
   templateUrl: './vacancy.component.html',
   styleUrls: ['./vacancy.component.scss']
 })
-export class VacancyComponent implements OnInit, DoCheck {
+export class VacancyComponent implements OnInit {
   @ Input() data = []
 
   vacancyData:any = []
-  vacancyReq:any = []
-  requestsData:any
-  copyVacancyData:any = []
-  getVacancyData:any
-  copyData:any
-  reload:boolean = false
 
   constructor(private http:HttpClient, private router:Router, private route:Router) { }
   
@@ -77,9 +71,5 @@ export class VacancyComponent implements OnInit, DoCheck {
 
   ngOnInit(): void {
       this.vacancyData = this.data      
-  }
-
-  ngDoCheck(): void {
-      this.copyData = this.vacancyData
   }
 }

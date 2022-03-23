@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-experience-details',
@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ExperienceDetailsComponent implements OnInit {
 
-  constructor(private http:HttpClient, private route:ActivatedRoute) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router) { }
   userData:any
   load:boolean = true
   id:string = this.route.snapshot.paramMap.get('id')
@@ -31,6 +31,11 @@ export class ExperienceDetailsComponent implements OnInit {
       }).subscribe(res => {
         if(res){
           window.location.reload()
+        }
+      },(error) => {
+        if(error.status === 500){
+          alert("Enter jobseeker details first")
+          this.router.navigate([this.route.snapshot.paramMap.get("id"), "details"])
         }
       })
     }

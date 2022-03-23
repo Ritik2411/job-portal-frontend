@@ -22,6 +22,7 @@ export class JobseekerVacancyComponent implements OnInit{
   sortOrder:string
   checkLastDate:boolean = false
   itemsPerPage:number = 5
+  vacancyRequest:any
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
@@ -66,11 +67,16 @@ export class JobseekerVacancyComponent implements OnInit{
 
   pageHandler(event){
     this.page = event
+    this.load = true
     this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
   }
 
   ngOnInit(): void {
     this.vacancyDetail(this.sortOrder, this.page, this.itemsPerPage)
+
+    setTimeout(()=>{
+      console.log(this.vacancies)
+    },1000)
   }
 
   vacancyDetail(sortOrder, page, itemsPerPage){
@@ -86,12 +92,15 @@ export class JobseekerVacancyComponent implements OnInit{
           }
         }
 
-        this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}`).subscribe(res => {
+        this.http.get(`http://localhost:5500/VacancyRequests/alluservacancy/${this.route.snapshot.paramMap.get('id')}`).subscribe(res => {
+            
             this.vacancyReq = res
+            console.log(this.vacancyReq)
             if(this.vacancyReq.length > 0){
               for(let i=0; i<this.vacancies.length; i++){
                 for(let j=0; j<this.vacancyReq.length; j++){
                   if(this.vacancies[i].id === parseInt(this.vacancyReq[j]?.vacancy_id)){
+                    console.log("asas")
                     this.vacancies[i]['applied'] = true
                   }
                 }

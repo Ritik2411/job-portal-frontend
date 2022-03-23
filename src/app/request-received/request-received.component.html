@@ -9,7 +9,7 @@
 </ng-template>
 
 <ng-template #elseBlock>
-    <div *ngIf="reqRec.length > 0; then reqrecblock else nodatablock"></div>
+    <div *ngIf="vacancyData.length > 0; then reqrecblock else nodatablock"></div>
 </ng-template>
 
 <ng-template #reqrecblock>
@@ -62,49 +62,64 @@
                 </div>
             </div>
         </div>
+
+        <div class="checkbox-date">
+            <div style="width: 30%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding-top: 10px;padding-left: 10px;border-radius: 5px;">
+                <input type="checkbox" (change)="sortByDate()" [checked]="check"/>
+                <label style="color: gray;font-weight: 600;">&nbsp;Sort by date
+                    <span *ngIf="check">&nbsp;(Descending)</span>
+                    <span *ngIf="check === false">&nbsp;(Ascending)</span>
+                </label>
+            </div>
+        </div>
+
         <div *ngFor="let data of copyData | paginate: { id: 'reqRec',
                                                         itemsPerPage: 6,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 
             class="reqRec-loop-div">
-            <div>
-                <span>Published By</span><br/>
-                <span style="font-size: 15px;color: gray;font-weight:600">{{data?.publisher_name}}</span>
+
+            <div style="display: flex;justify-content: space-between;">
+                <div>
+                    <span>Applied By</span><br/>
+                    <span style="font-size: 15px;color: gray;">{{data?.user_name}}</span>
+                </div>
+    
+                <div>
+                    <span>Applied On</span><br/>
+                    <span style="font-size: 15px;color: gray;">{{data?.applied_on}}</span>
+                </div>
+    
+                <div>
+                    <button *ngIf="data?.awaiting_approval === true" class="btn btn-success mr-2" (click)="approve(data)">
+                        Approve
+                    </button>
+    
+                    <button *ngIf="data?.awaiting_approval === true" class="btn btn-danger ml-2" (click)="reject(data)">
+                        Reject
+                    </button>
+    
+                    <button *ngIf="data?.awaiting_approval === false && data?.approved === true" class="btn btn-success" disabled>
+                        Approved
+                    </button>
+    
+                    <button *ngIf="data?.awaiting_approval === false && data?.approved === false" class="btn btn-danger" disabled>
+                        Rejected
+                    </button>
+                </div>
             </div>
 
-            <div>
-                <span>Applied By</span><br/>
-                <span style="font-size: 15px;color: gray;">{{data?.vacancyDetail?.user_name}}</span>
+            <div style="margin-top: 20px;">
+                <span>Description</span><br/>
+                <span style="color: gray;">{{data?.description}}</span>
             </div>
-
-            <div>
-                <span>Applied On</span><br/>
-                <span style="font-size: 15px;color: gray;">{{data?.vacancyDetail?.applied_on}}</span>
-            </div>
-
-            <div>
-                <button *ngIf="data?.vacancyDetail?.awaiting_approval === true" class="btn btn-success mr-2" (click)="approve(data)">
-                    Approve
-                </button>
-
-                <button *ngIf="data?.vacancyDetail?.awaiting_approval === true" class="btn btn-danger ml-2" (click)="reject(data)">
-                    Reject
-                </button>
-
-                <button *ngIf="data?.vacancyDetail?.awaiting_approval === false && data?.vacancyDetail?.approved === true" class="btn btn-success" disabled>
-                    Approved
-                </button>
-
-                <button *ngIf="data?.vacancyDetail?.awaiting_approval === false && data?.vacancyDetail?.approved === false" class="btn btn-danger" disabled>
-                    Rejected
-                </button>
-            </div>
+            
         </div>
 
         <div>
             <pagination-controls  id="reqRec"
-                      (pageChange)="page = ($event)"
-                      (pageBoundsCorrection)="page = ($event)"
+                      (pageChange)="pageChange($event)"
+                      (pageBoundsCorrection)="pageChange($event)"
                       maxSize="9"
                       directionLinks="true"
                       responsive="true"

@@ -55,7 +55,7 @@
         </div>
 
         <div *ngFor="let data of copyData | paginate: { id: 'applied-vacancies',
-                                                        itemsPerPage: 5,
+                                                        itemsPerPage: itemsPerPage,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 
         class="applied-vacancies-list">
@@ -75,7 +75,7 @@
                     </p>
                     <p>
                         <span style="font-size: 18px;font-weight: 600;">Applied On</span><br/>
-                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.applied_on}}</span>
+                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.applied_on | date: "short"}}</span>
                     </p>
                 </div>
         
