@@ -27,13 +27,15 @@ export class JobseekerVacancyComponent implements OnInit{
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
 
-  searchMinSalary(event){
+  sortByminimum(event){
     let newData = this.vacancies.filter(data => data.min_Salary.toLowerCase().includes(event.target.value))
+    console.log(newData)
     this.copyData = newData
   }
 
-  searchMaxSalary(event){
+  sortBymaximum(event){
     let newData = this.vacancies.filter(data => data.max_Salary.toLowerCase().includes(event.target.value))
+    console.log(newData)
     this.copyData = newData
   }
 

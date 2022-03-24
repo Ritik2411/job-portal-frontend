@@ -1,3 +1,64 @@
+<div class="filter-div">
+    <div class="search-div">
+        <div class="date-search-req">
+            <div style="display: flex;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 5px;margin-right: 20px;padding:10px;align-items: center;">
+                <div class="date-div-req">
+                    <label style="color: black;font-weight: 600;">Search by applied date</label>
+                    <input type="date" class="input-type-date" value={{date}} (change)="dateSearch($event)"/>
+                </div>
+    
+                <div>
+                    <button class="clear-btn" (click)="clearDate()">Clear</button>
+                </div>
+            </div>
+
+            <div style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 5px;padding:10px">
+                <div style="margin-bottom: 5px;font-weight: 600;">
+                    Search by filter
+                </div>
+                
+                <div style="display: flex;align-items: center;justify-content: space-between;"> 
+                    <div style="padding: 0px 10px;">
+                        <input type="radio" name="status" value="All" (change)="selectStatus($event)" checked/>
+                        <label style="color: gray;font-weight:600">&nbsp;All</label>
+                    </div>
+                    
+                    <div style="padding: 0px 10px;">
+                        <input type="radio" name="status" value="Approved" (change)="selectStatus($event)"/>
+                        <label style="color: gray;font-weight:600">&nbsp;Approved</label>
+                    </div>
+                    
+                    <div style="padding: 0px 10px;">
+                        <input type="radio" name="status" value="Rejected" (change)="selectStatus($event)"/>                       
+                        <label style="color: gray;font-weight:600">&nbsp;Rejected</label>
+                    </div>
+
+                    <div style="padding: 0px 10px;">
+                        <input type="radio" name="status" value="awaiting_approval" (change)="selectStatus($event)"/>
+                        <label style="color: gray;font-weight:600">&nbsp;Awaiting Approval</label>
+                    </div>
+                </div>
+
+                <!-- <div style="text-align: right;">
+                    <button class="clear-btn">
+                        Clear
+                    </button>
+                </div> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="checkbox-date">
+        <div style="width: 30%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding-top: 10px;padding-left: 10px;border-radius: 5px;">
+            <input type="checkbox" (change)="sortByDate()" [checked]="check"/>
+            <label style="color: gray;font-weight: 600;">&nbsp;Sort by date
+                <span *ngIf="check">&nbsp;(Descending)</span>
+                <span *ngIf="check === false">&nbsp;(Ascending)</span>
+            </label>
+        </div>
+    </div>
+</div>
+
 <div *ngIf="load; then ifBlock else elseBlock" ></div>
 
 <ng-template #ifBlock>
@@ -14,67 +75,9 @@
 
 <ng-template #reqrecblock>
     <div class="reqRec-div">
-        <div class="search-div">
-            <div class="date-search-req">
-                <div style="display: flex;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 5px;margin-right: 20px;width: 35%;padding:10px">
-                    <div class="date-div-req">
-                        <label style="color: black;font-weight: 600;">Search by applied date</label>
-                        <input type="date" class="input-type-date" value={{date}} (change)="dateSearch($event)"/>
-                    </div>
         
-                    <div>
-                        <button class="clear-btn" (click)="clearDate()">Clear</button>
-                    </div>
-                </div>
-
-                <div style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;border-radius: 5px;width: 65%;padding:10px">
-                    <div style="margin-bottom: 5px;font-weight: 600;">
-                        Search by filter
-                    </div>
-                    
-                    <div style="display: flex;align-items: center;justify-content: space-between;"> 
-                        <div>
-                            <input type="radio" name="status" value="all" (change)="selectStatus($event)" checked/>
-                            <label style="color: gray;font-weight:600">&nbsp;All</label>
-                        </div>
-                        
-                        <div>
-                            <input type="radio" name="status" value="approved" (change)="selectStatus($event)"/>
-                            <label style="color: gray;font-weight:600">&nbsp;Approved</label>
-                        </div>
-                        
-                        <div>
-                            <input type="radio" name="status" value="rejected" (change)="selectStatus($event)"/>                       
-                            <label style="color: gray;font-weight:600">&nbsp;Rejected</label>
-                        </div>
-    
-                        <div>
-                            <input type="radio" name="status" value="awaiting_approval" (change)="selectStatus($event)"/>
-                            <label style="color: gray;font-weight:600">&nbsp;Awaiting Approval</label>
-                        </div>
-                    </div>
-
-                    <!-- <div style="text-align: right;">
-                        <button class="clear-btn">
-                            Clear
-                        </button>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-
-        <div class="checkbox-date">
-            <div style="width: 30%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding-top: 10px;padding-left: 10px;border-radius: 5px;">
-                <input type="checkbox" (change)="sortByDate()" [checked]="check"/>
-                <label style="color: gray;font-weight: 600;">&nbsp;Sort by date
-                    <span *ngIf="check">&nbsp;(Descending)</span>
-                    <span *ngIf="check === false">&nbsp;(Ascending)</span>
-                </label>
-            </div>
-        </div>
-
-        <div *ngFor="let data of copyData | paginate: { id: 'reqRec',
-                                                        itemsPerPage: 6,
+        <div *ngFor="let data of vacancyData | paginate: { id: 'reqRec',
+                                                        itemsPerPage: pageSize,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 
             class="reqRec-loop-div">
@@ -82,12 +85,12 @@
             <div style="display: flex;justify-content: space-between;">
                 <div>
                     <span>Applied By</span><br/>
-                    <span style="font-size: 15px;color: gray;">{{data?.user_name}}</span>
+                    <span style="font-size: 15px;color: #007bff;cursor: pointer;" [routerLink]="['userData',data?.user_id]">{{data?.user_name}}</span>
                 </div>
     
                 <div>
                     <span>Applied On</span><br/>
-                    <span style="font-size: 15px;color: gray;">{{data?.applied_on}}</span>
+                    <span style="font-size: 15px;color: gray;">{{data?.applied_on | date: 'short'}}</span>
                 </div>
     
                 <div>
@@ -116,7 +119,7 @@
             
         </div>
 
-        <div>
+        <div style="margin-top: 15px;">
             <pagination-controls  id="reqRec"
                       (pageChange)="pageChange($event)"
                       (pageBoundsCorrection)="pageChange($event)"

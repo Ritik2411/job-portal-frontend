@@ -11,7 +11,6 @@ export class UploadedCVsComponent implements OnInit {
   cvData:any
   httpclient:any
   load:boolean = true
-  data:any
   filename:string = null
   copyData:any
   page:number = 1
@@ -48,19 +47,20 @@ export class UploadedCVsComponent implements OnInit {
   }
 
   deletecv(id,fname){
-    this.data = {
-      filename: fname
+    const confirm = window.confirm("Delete this document?")
+
+    if(confirm){
+      this.http.request('delete',`http://localhost:5500/Cv/${id}`, { 
+        body:{
+          filename: fname
+        } 
+      }).subscribe(res => {
+        if(res){
+          alert("Deleted Successfully")
+          window.location.reload()
+        }
+      })
     }
-    this.http.request('delete',`http://localhost:5500/Cv/${id}`, { 
-      body:{
-        filename: fname
-      } 
-    }).subscribe(res => {
-      if(res){
-        alert("Deleted Successfully")
-        window.location.reload()
-      }
-    })
   }
 
   ngOnInit(): void {

@@ -31,7 +31,7 @@ import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EditVacancyComponent } from './edit-vacancy/edit-vacancy.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-
+import { UserDataComponent } from './components/user-data/user-data.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +59,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     UpdatejobseekerDetailsComponent,
     UploadedCVsComponent,
     NotFoundComponent,
-    EditVacancyComponent    
+    EditVacancyComponent,
+    UserDataComponent   
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ export class AppliedvacanciesComponent implements OnInit {
   totalRecords:string
   sort_order:string = 'default'
   checkDate:boolean = false
-  itemsPerPage:number = 10
+  itemsPerPage:number = 5
 
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
@@ -70,6 +70,12 @@ export class AppliedvacanciesComponent implements OnInit {
       this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
   }
 
+  pagechange(event){
+    this.page = event
+    this.load = true
+    this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
+  }
+
   vacancyRequests(sort_order,page_size, page){
     this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?sort_by_date=${sort_order}&page_size=${page_size}&page=${page}`).subscribe((res) => {
       this.data = res
@@ -86,4 +92,6 @@ export class AppliedvacanciesComponent implements OnInit {
       }
     })
   }
+
+
 }

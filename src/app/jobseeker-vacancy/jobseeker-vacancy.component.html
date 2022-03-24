@@ -14,7 +14,32 @@
 
 <ng-template #datablock>
     <div class="all-vacancies-div">
-
+        <div style="display: flex;align-items: center;width: 70%;margin-left: 20px;padding-left:10px;margin-bottom: 10px;">
+            <div style="margin-top: 20px;margin-right:10px;width: fit-content;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;">
+                <p style="font-weight: 600;margin-bottom: 3px;">Search by minimum salary</p>
+                <select style="border-radius: 5px;padding: 5px 10px;color: gray;font-weight: 600;"
+                    (change)="sortByminimum($event)">
+                        <option value="">All</option>
+                        <option value="30000">{{30000 | currency:'INR'}}</option>
+                        <option value="45000">{{45000 | currency:'INR'}}</option>
+                        <option value="60000">{{60000 | currency:'INR'}}</option>
+                        <option value="75000">{{75000 | currency:'INR'}}</option>
+                </select>
+            </div>
+            
+            <div style="margin-top: 20px;width: fit-content;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px">
+                <p style="font-weight: 600;margin-bottom: 3px;">Search by maximum salary</p>
+                <select style="border-radius: 5px;padding: 5px 10px;color: gray;font-weight: 600;"
+                    (change)="sortBymaximum($event)">
+                        <option value="">All</option>
+                        <option value="30000">{{30000 | currency:'INR'}}</option>
+                        <option value="45000">{{45000 | currency:'INR'}}</option>
+                        <option value="60000">{{60000 | currency:'INR'}}</option>
+                        <option value="75000">{{75000 | currency:'INR'}}</option>
+                </select>
+            </div>
+        </div>
+        
         <div style="display: flex;align-items: center;width: 70%;margin-left: 20px;padding-left:10px">
             <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;margin-right:10px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
                 <input type="checkbox" (change)="check()" [checked]="checked">&nbsp;
@@ -33,7 +58,7 @@
             </div>
         </div>
 
-        <div *ngFor="let item of vacancies | paginate: { id: 'all-vacancies',
+        <div *ngFor="let item of copyData | paginate: { id: 'all-vacancies',
                                                         itemsPerPage: itemsPerPage,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 
@@ -41,7 +66,7 @@
             <app-vacancy [data]="item"></app-vacancy>
         </div>
 
-        <div>
+        <div style="margin-top: 15px">
             <pagination-controls  id="all-vacancies"
                       (pageChange)="pageHandler($event)"
                       (pageBoundsCorrection)="pageHandler($event)"

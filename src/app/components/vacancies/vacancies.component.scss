@@ -1,72 +1,76 @@
+.experience-filter{
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    padding: 10px;
+    border-radius: 5px;
+
+    .exp-select{
+        border: 1px solid gray;
+        border-radius: 5px;
+        padding: 5px 10px;
+        outline: none;
+        font-weight: 600;
+        color: gray;
+    }
+}
+
+.date-filter{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    
+    .date-search{
+        width: 100%;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        display: flex;
+        border-radius: 5px;
+        padding: 10px;
+        justify-content: space-between;
+
+        .input-type{   
+            padding-left: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            color: gray;
+            font-weight: 600;
+        }
+
+        .clear-btn{
+            background-color: #6c757d;
+            border: 1px solid #6c757d;
+            border-radius: 5px;
+            padding: 3px 10px;
+            margin-top: 10px;
+            color: white;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .clear-btn:hover{
+            background-color: #575e64;
+            border: 1px solid #575e64;
+        }
+    }
+}
+
+.check-div{
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin: 10px;
+    padding: 10px 10px 0px 10px;
+    border-radius: 5px;
+}
+
 .vacancies-div{
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
-
-    .experience-filter{
-        margin-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        display: flex;
-        flex-direction: column;
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        padding: 10px;
-        border-radius: 5px;
-
-        .exp-select{
-            border: 1px solid gray;
-            border-radius: 5px;
-            padding: 5px 10px;
-            outline: none;
-        }
-    }
-
-    .date-filter{
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-        
-        .date-search{
-            width: 100%;
-            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-            display: flex;
-            border-radius: 5px;
-            padding: 10px;
-            justify-content: space-between;
-
-            .input-type{   
-                padding-left: 10px;
-                border: 1px solid gray;
-                border-radius: 5px;
-            }
-
-            .clear-btn{
-                background-color: #6c757d;
-                border: 1px solid #6c757d;
-                border-radius: 5px;
-                padding: 3px 10px;
-                margin-top: 10px;
-                color: white;
-                cursor: pointer;
-                outline: none;
-            }
-
-            .clear-btn:hover{
-                background-color: #575e64;
-                border: 1px solid #575e64;
-            }
-        }
-    }
-
-    .check-div{
-        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-        margin: 10px;
-        padding: 10px 10px 0px 10px;
-        border-radius: 5px;
-    }
 
     .my-pagination {
         .ngx-pagination .current {

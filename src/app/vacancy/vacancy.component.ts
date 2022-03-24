@@ -58,11 +58,15 @@ export class VacancyComponent implements OnInit {
   }
 
   deleteVacancy(id:number){
-    this.http.delete(`http://localhost:5500/VacancyDetail/${id}`).subscribe(res => {
+    const confirm = window.confirm("Delete this vacancy?")
+    
+    if(confirm){
+      this.http.delete(`http://localhost:5500/VacancyDetail/${id}`).subscribe(res => {
         if(res){
           window.location.reload()
         }
-    })  
+    })
+    }  
   }
 
   editvacancy(data){

@@ -1,3 +1,52 @@
+<div style="width: 100%;display: flex;flex-direction: column;align-items: center;">
+    <div style="width: 70%;display: flex;align-items: center;margin-top: 40px;padding-left: 20px;">
+        <div class="experience-filter">
+            <label style="color: black;font-weight: 600;">Search by experience</label>
+            <select (change)="changeExp($event)" class='exp-select'>
+                <option value="">All</option>
+                <option value="Freshers">Hiring-Freshers</option>
+                <option value="1 Years">1 Years</option>
+                <option value="2 Years">2 Years</option>
+            </select>
+        </div>
+
+        <div class="date-filter">
+            <div class="date-search">
+                <div style="display:flex;flex-direction:column;margin-right: 30px;">
+                    <label style="color: black;font-weight: 600;">Search by Published date</label>
+                    <input type="date" 
+                        value={{date}}
+                        (change)="searchBydate($event)" 
+                        class="input-type"/>
+                </div>
+            
+                <div style="display: flex;align-items: center;">
+                    <button class="clear-btn" (click)="cleardate()">Clear</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="width: 70%;margin-left: 20px;padding: 10px;display: flex;">
+        <div class="check-div">
+            <input type="checkbox" (change)="sortByPd()" [checked]="checkedPD"/>
+            <label style="font-weight: 600;color: gray;">&nbsp;Sort by published date 
+                <span *ngIf="checkedPD">(Descending)</span>
+                <span *ngIf="checkedPD === false">(Ascending)</span>
+            </label>
+        </div>
+
+        <div class="check-div">
+            <input type="checkbox" (change)="sortByLd()" [checked]="checkedLD"/>
+            <label style="font-weight: 600;color: gray;">&nbsp;Sort by last date
+                <span *ngIf="checkedLD">(Descending)</span>
+                <span *ngIf="checkedLD === false">(Ascending)</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+
 <div>
     <div *ngIf="load; then ifBlock else elseBlock"></div>
 </div>
@@ -16,51 +65,7 @@
 
 <ng-template #vacancyBlock>
     <div class="vacancies-div">
-        <div style="width: 70%;display: flex;align-items: center;margin-top: 40px;padding-left: 20px;justify-content: space-between;">
-            <div class="experience-filter">
-                <label>Search by experience</label>
-                <select (change)="changeExp($event)" class='exp-select'>
-                    <option value="">Select Experience</option>
-                    <option value="Freshers">Hiring-Freshers</option>
-                    <option value="1 Years">1 Years</option>
-                    <option value="2 Years">2 Years</option>
-                </select>
-            </div>
-    
-            <div class="date-filter">
-                <div class="date-search">
-                    <div style="display:flex;flex-direction:column;margin-right: 30px;">
-                        <label style="color: black;font-weight: 600;">Search by Published date</label>
-                        <input type="date" 
-                            value={{date}}
-                            (change)="searchBydate($event)" 
-                            class="input-type"/>
-                    </div>
-                
-                    <div style="display: flex;align-items: center;">
-                        <button class="clear-btn" (click)="cleardate()">Clear</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div style="width: 70%;margin-left: 20px;padding: 10px;display: flex;">
-            <div class="check-div">
-                <input type="checkbox" (change)="sortByPd()" [checked]="checkedPD"/>
-                <label style="font-weight: 600;color: gray;">&nbsp;Sort by published date 
-                    <span *ngIf="checkedPD">(Descending)</span>
-                    <span *ngIf="checkedPD === false">(Ascending)</span>
-                </label>
-            </div>
-
-            <div class="check-div">
-                <input type="checkbox" (change)="sortByLd()" [checked]="checkedLD"/>
-                <label style="font-weight: 600;color: gray;">&nbsp;Sort by last date
-                    <span *ngIf="checkedLD">(Descending)</span>
-                    <span *ngIf="checkedLD === false">(Ascending)</span>
-                </label>
-            </div>
-        </div>
+        
         <div *ngFor="let item of copyData | paginate: { id: 'employeer-vacancies',
                                                 itemsPerPage: itemPerPage,
                                                 currentPage: page,
@@ -69,7 +74,7 @@
             <app-vacancy [data]="item"></app-vacancy>
         </div>
 
-        <div>
+        <div style="margin-top: 15px;">
             <pagination-controls class="my-pagination" id="employeer-vacancies"
                       (pageChange)="pageHandler($event)"
                       (pageBoundsCorrection)="pageHandler($event)"

@@ -19,7 +19,7 @@ export class VacanciesComponent implements OnInit {
   itemPerPage:number = 5
   checkedPD:boolean = false
   checkedLD:boolean = false
-  sortOrder:string = "dafault"
+  sortOrder:string = "default"
 
   constructor(private http:HttpClient, private router:ActivatedRoute) { }
 
@@ -29,11 +29,13 @@ export class VacanciesComponent implements OnInit {
     if(this.checkedPD === false){
       this.checkedPD = true
       this.sortOrder = "ascending_PD"
+      this.load = true
       this.vacancyDetail(this.sortOrder,this.itemPerPage, this.page)
     }
     else{
       this.checkedPD = false
       this.sortOrder = "default"
+      this.load = true
       this.vacancyDetail(this.sortOrder,this.itemPerPage, this.page)
     }
   }
@@ -42,34 +44,71 @@ export class VacanciesComponent implements OnInit {
     if(this.checkedLD === false){
       this.checkedLD = true
       this.sortOrder = "descending_LD"
+      this.load = true
       this.vacancyDetail(this.sortOrder,this.itemPerPage, this.page)
     }
     else{
       this.checkedLD = false
       this.sortOrder = "ascending_LD"
+      this.load = true
       this.vacancyDetail(this.sortOrder,this.itemPerPage, this.page)
     }
   }
 
   searchBydate(event){
     this.date = event.target.value
-    let newData = this.vacancies.filter(data => data.published_Date.toLowerCase().includes(this.date.toLowerCase()))
-    this.copyData = newData
+    let splited = this.date.toString().split("-")
+    let pubDate = splited[2] + "-" + splited[1] + "-" + splited[0]
+    this.load = true
+    
+    this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?pub_date=${pubDate}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=1`).subscribe(res => {
+      this.data = res
+      this.vacancies = this.data.vacancyDetail
+      this.totalRecords = this.data.totalItems.toString()
+      this.copyData = this.vacancies
+
+      if(this.vacancies.length > 0){
+        this.load = false
+      }
+      else{
+        this.load = false
+      }
+    })
   }
 
   cleardate(){
     this.date = null
-    this.copyData = this.vacancies
+    this.vacancyDetail(this.sortOrder, this.itemPerPage, this.page)
   }
   
   changeExp(event){
     let txt = event.target.value
-    let newData = this.vacancies.filter(data => data.experience.toLowerCase().includes(txt.toLowerCase()))
-    this.copyData = newData
+    //this.load = true
+    if(txt === 'Freshers' || txt === '1 Years' || txt === '2 Years'){
+      this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?experience=${txt}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=1`).subscribe(res => {
+        this.data = res
+        this.vacancies = this.data.vacancyDetail
+        this.totalRecords = this.data.totalItems.toString()
+        this.copyData = this.vacancies
+  
+        if(this.vacancies.length > 0){
+          this.load = false
+        }
+        else{
+          this.load = false
+        }
+      })
+    }
+    
+    else{
+      // this.load = true
+      this.vacancyDetail(this.sortOrder, this.itemPerPage, this.page)
+    }
   }
 
   pageHandler(event){
     this.page = event
+    this.load = true
     this.vacancyDetail(this.sortOrder, this.itemPerPage, this.page)
   }
 

@@ -1,4 +1,4 @@
-.reqRec-div{
+.filter-div{
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -8,7 +8,7 @@
         width: 70%;
         margin-top: 20px;
         margin-bottom: 10px;
-
+    
         .date-search-req{
             display: flex;
             align-items: center;
@@ -18,16 +18,15 @@
             .date-div-req{
                 display: flex;
                 flex-direction: column;
-                flex-grow: 1;
+                margin-right: 20px;
                 
                 .input-type-date{   
-                    width: 50%;
                     padding-left: 10px;
                     border: 1px solid gray;
                     border-radius: 5px;
                 }
             }
-
+    
             .clear-btn{
                 background-color: #6c757d;
                 border: 1px solid #6c757d;
@@ -38,14 +37,26 @@
                 cursor: pointer;
                 outline: none;
             }
-
+    
             .clear-btn:hover{
                 background-color: #575e64;
                 border: 1px solid #575e64;
             }
         }
     }
+    
+    .checkbox-date{
+        width: 70%;
+        margin-left: 10px;
+    }    
+}
 
+.reqRec-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
     .reqRec-loop-div{
         width: 70%;
         display: flex;
@@ -56,11 +67,6 @@
         border-radius: 5px;
         font-size: 18px;
         font-weight: 600;
-    }
-
-    .checkbox-date{
-        width: 70%;
-        margin-left: 10px;
     }
 }
 

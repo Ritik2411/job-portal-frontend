@@ -1,0 +1,295 @@
+<div *ngIf="load; then loadBlock else dataBlock"></div>
+
+<ng-template #loadBlock>
+    <div style="text-align: center;margin-top: 50px;">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+    </div>
+</ng-template>
+
+<ng-template #dataBlock>
+    <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;">
+        <div style="width: 70%;margin-bottom: 5px;">
+            <a [routerLink]="['/vacanciesRequests',id]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+                
+                Previous Page
+            </a>
+        </div>
+    </div>
+    
+    <div *ngIf="data?.Jobseeker?.length > 0 then jobseekerBlock else noJBDatablock" ></div>
+    
+    <ng-template #jobseekerBlock>
+        <div class="jobseeker-div">
+            <form class="jobseeker-input-div">
+                <div class="jobseeker-text">
+                    JobSeeker Details
+                </div>
+        
+                <div class="input-div">
+                    <div class="element-div-email">
+                        <label style="font-size: 15px;font-weight: 600;">Email</label>
+                        <input 
+                            type="text" 
+                            placeholder="Enter Email" 
+                            class="input-style"
+                            value={{data.Jobseeker[0].email}}
+                            disabled/>
+                    </div>
+                </div>
+                
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">First Name</label>
+                        <input 
+                            type="text" 
+                            class="input-style" 
+                            value={{data.Jobseeker[0].first_name}}
+                            disabled/>
+                    </div>
+        
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Last Name</label>
+                        <input
+                            type="text" 
+                            class="input-style" 
+                            value={{data.Jobseeker[0].last_name}}
+                            disabled/>
+                    </div>
+                </div>
+                
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Phone</label>
+                        <input
+                            type="tel" 
+                            class="input-style" 
+                            value={{data.Jobseeker[0].phone}}
+                            disabled/>
+                    </div>
+        
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Expected Salary</label>
+                        <input type="text" placeholder="Enter salary" class="input-style" value={{data.Jobseeker[0].expected_salary}} disabled/>
+                    </div>
+                </div>
+            
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Date of birth</label>
+                        <input 
+                            type="date" 
+                            class="input-style"
+                            value={{data.Jobseeker[0].dob}}
+                            disabled/>
+                    </div>
+                    
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Total Experience</label>
+                        <input type="text" placeholder="Enter Experience" class="input-style" value={{data.Jobseeker[0].total_expericence}} disabled/>
+                    </div>
+                </div>
+            
+                <div class="input-div">
+                    <div class="input-text-area">
+                        <label style="font-size: 15px;font-weight: 600;">Address</label>
+                        <textarea cols="50" rows="5" 
+                            class="input-style"
+                            name="address"
+                            value={{data.Jobseeker[0].address}}
+                            disabled
+                        ></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+    
+    <ng-template #noJBDatablock>
+        <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;margin-bottom: 20px;">
+        <div style="width: 70%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;font-weight: 600;">
+                No jobseeker data found.
+            </div>
+        </div>
+    </ng-template>
+
+    <div *ngIf="data?.Experience?.length > 0 then expBlock else noexpblock"></div>
+    
+    <ng-template #expBlock>
+        <div *ngIf="data?.Experience?.length > 0" class="jobseeker-div">
+            <form class="jobseeker-input-div">
+                <div class="jobseeker-text">
+                    Experience Details
+                </div>
+        
+                <div class="input-div">
+                    <div class="element-div-email">
+                        <label style="font-size: 15px;font-weight: 600;">Company Name</label>
+                        <input 
+                            type="text" 
+                            class="input-style"
+                            value={{data.Experience[0].company_name}}
+                            disabled/>
+                    </div>
+                </div>
+                
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Start Year</label>
+                        <input 
+                            type="text" 
+                            class="input-style" 
+                            value={{data.Experience[0].start_year}}
+                           disabled/>
+                    </div>
+        
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">End Year</label>
+                        <input
+                            type="text" 
+                            class="input-style" 
+                            value={{data.Experience[0].end_year}}
+                            disabled/>
+                    </div>
+                </div>
+                
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Company URL</label>
+                        <input
+                            type="tel" 
+                            class="input-style" 
+                            value={{data.Experience[0].companyUrl}}
+                            disabled/>
+                    </div>
+        
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Desgination</label>
+                        <input type="text" placeholder="Enter salary" class="input-style" disabled/>
+                    </div>
+                </div>
+            
+                <div class="input-div">
+                    <div class="input-text-area">
+                        <label style="font-size: 15px;font-weight: 600;">Job Description</label>
+                        <textarea cols="50" rows="5" 
+                            class="input-style"
+                            name="address"
+                            value={{data.Experience[0].jobDescription}}
+                            disabled
+                        ></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #noexpblock>
+        <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 20px;">
+            <div style="width: 70%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;font-weight: 600;">
+                No experience data found.
+            </div>
+            </div>
+    </ng-template>
+    
+    <div *ngIf="data?.Qualification?.length > 0 then quablock else noquablock"></div>
+
+    <ng-template #quablock>
+        <div class="jobseeker-div">
+            <form class="jobseeker-input-div">
+                <div class="jobseeker-text">
+                    Qualification Details
+                </div>
+        
+                <div class="input-div">
+                    <div class="element-div-email">
+                        <label style="font-size: 15px;font-weight: 600;">University</label>
+                        <input 
+                            type="email" 
+                            placeholder="Enter Email" 
+                            class="input-style"
+                            value={{data.Qualification[0].university}}
+                            disabled/>
+                    </div>
+                </div>
+                
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Email</label>
+                        <input 
+                            type="text" 
+                            class="input-style" 
+                            value={{data.Qualification[0].name}}
+                           disabled/>
+                    </div>
+        
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Qualification</label>
+                        <input
+                            type="text" 
+                            class="input-style" 
+                            value={{data.Qualification[0].qualification}}
+                            disabled/>
+                    </div>
+                </div>
+                
+                <div class="input-div">
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Year of completion</label>
+                        <input
+                            type="tel" 
+                            class="input-style" 
+                            placeholder="Enter your number"
+                            value={{data.Qualification[0].yearOfCompletion}}
+                            disabled/>
+                    </div>
+        
+                    <div class="element-div">
+                        <label style="font-size: 15px;font-weight: 600;">Grade</label>
+                        <input type="text" placeholder="Enter salary" class="input-style" value={{data.Qualification[0].grade}} disabled/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </ng-template>
+    
+    <ng-template #noquablock>
+        <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 20px;">
+            <div style="width: 70%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;font-weight: 600;">
+                    No qualification data found.
+                </div>
+            </div>
+    </ng-template>
+    
+    <div *ngIf="data?.docdata?.length > 0 then docBlock else nodocBlock"></div>
+
+    <ng-template #docBlock>
+        <div *ngIf="data?.docdata?.length > 0" class="cv-upload" style="width: 100%;display: flex;justify-content: center;">
+            <div class="upload-doc">
+                <p class="upload-doc-text">Uploaded CVs</p>
+    
+                <div class="name-div">
+                    <p>
+                        <span class="doc-name">{{data.docdata[0].name}}</span><br/>
+                        <span class="doc-name-size">{{(data.docdata[0].file_size/1000000).toFixed(2)}}MB</span>
+                    </p>
+                    <button class="btn btn-success" (click)="viewDoc(data.docdata[0].name, data.docdata[0].fileType)">View</button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    
+    <ng-template #nodocBlock>
+        <div style="width: 100%;display: flex;justify-content: center;margin-bottom: 20px;">
+            <div style="width: 70%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;font-weight: 600;">
+                    No CV uploaded.
+                </div>
+            </div>
+    </ng-template>
+
+</ng-template>
+
