@@ -1,11 +1,11 @@
 <div class="vacancy-div">
     <div class="publisher-info">
         <div class="publisher-name-div">
-            <span>{{vacancyData?.publishedBy}}</span><br/>
+            <div *ngIf="role === 'JobSeeker'" [routerLink]="['employeedetails',vacancyData.user_id]" style="color: #0d6efd;cursor: pointer;">{{vacancyData?.publishedBy}}</div>
             
             <span style="font-size: 16px;">Published on: 
                 <span style="color: gray;">
-                    {{vacancyData?.published_Date | date:"short"}}
+                    {{vacancyData?.published_Date | date}}
                 </span>
             </span>
         </div>
@@ -18,19 +18,14 @@
 
         <ng-template #elseBlock>
             <button *ngIf="vacancyData.No_more_requests === undefined && vacancyData?.applied === true" class='btn btn-secondary' disabled>Applied</button>
-            <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined"  class='btn btn-primary' (click)="apply(vacancyData)">Apply</button>
+            <ng-template *ngIf="todayDate > vacancyData.last_Date then disabledbtn else enabledbtn"></ng-template>
+            <ng-template #disabledbtn>
+                <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined" class="btn btn-info" disabled>Last date exceeded</button>
+            </ng-template>
+            <ng-template #enabledbtn>
+                <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined" class='btn btn-primary' (click)="apply(vacancyData)">Apply</button>
+            </ng-template>
             <button *ngIf="vacancyData.No_more_requests === true" class="btn btn-warning" disabled>Accepting no more requests</button>
-        </ng-template>
-
-        <ng-template #appliedBtn>
-            <button class='btn btn-secondary' disabled>Applied</button>
-        </ng-template>
-
-        <ng-template #unappliedbtn>
-            <button 
-                class='btn btn-primary'
-                (click)="apply(vacancyData)"
-                >Apply</button>
         </ng-template>
     </div>
 
@@ -60,7 +55,7 @@
         </div>
         <div class="info-2">
             <span>Last Date</span><br/>
-            <span style="color: gray;">{{vacancyData?.last_Date | date:"short"}}</span>
+            <span style="color: gray;">{{vacancyData?.last_Date | date}}</span>
         </div>
     </div>
 

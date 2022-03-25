@@ -43,7 +43,7 @@
             
             <div class="input-div">
                 <div class="element-div">
-                    <label style="font-size: 15px;font-weight: 600;">Start Year</label>
+                    <label style="font-size: 15px;font-weight: 600;">Start Date</label>
                     <input #startYear="ngModel"
                         type="date" 
                         class="input-style" 
@@ -55,7 +55,7 @@
                 </div>
 
                 <div class="element-div">
-                    <label style="font-size: 15px;font-weight: 600;">End Year</label>
+                    <label style="font-size: 15px;font-weight: 600;">End Date</label>
                     <input #endYear="ngModel"
                         type="date" 
                         placeholder="Enter End Year" 
@@ -114,10 +114,6 @@
             <div class="btn-div">
                 <button type="submit" class="btn btn-primary mr-2" [disabled]="experienceForm.invalid">
                     Save 
-                </button>
-    
-                <button type="reset" class="btn btn-primary">
-                    Clear
                 </button>
             </div>
         </form>

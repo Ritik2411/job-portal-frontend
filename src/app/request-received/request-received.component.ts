@@ -1,5 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AfterContentInit, Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import {  Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -59,7 +59,8 @@ export class RequestReceivedComponent implements OnInit {
   }
 
   approve(data:any){
-    const approved = window.confirm("Continue to apporve this vacancy?") 
+    console.log(data)
+    const approved = window.confirm("Continue to approve this vacancy?") 
     if(approved){
       this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
         {
@@ -72,10 +73,27 @@ export class RequestReceivedComponent implements OnInit {
           op: 'replace',
           path: 'approved',
           value: true
+        },
+
+        {
+          op: 'replace',
+          path: 'no_of_Vacancies',
+          value: data.no_of_Vacancies - 1
         }
       ]).subscribe(res => {
           if(res){
-            window.location.reload()
+            this.http.patch(`http://localhost:5500/VacancyDetail/${(data.vacancy_id)}`, [
+              {
+                op: 'replace',
+                path: 'no_of_Vacancies',
+                value: data.no_of_Vacancies - 1
+              }
+            ]).subscribe(res => {
+              if(res){
+                alert("Approved Successfully")
+                window.location.reload()
+              }
+            })
           }
       })
     }

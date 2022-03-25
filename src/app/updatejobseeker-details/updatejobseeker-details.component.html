@@ -17,7 +17,7 @@
                     <input #email="ngModel"
                         type="email" 
                         placeholder="Enter Email" 
-                        class="input-style"
+                        class="input-style-readonly"
                         [(ngModel)]="jobseekerData[0].email"
                         name="email"
                         readonly
@@ -31,7 +31,7 @@
                     <label style="font-size: 15px;font-weight: 600;">First Name</label>
                     <input #firstName="ngModel" 
                         type="text" 
-                        class="input-style" 
+                        class="input-style-readonly" 
                         placeholder='Get your First Name from account page'
                         [(ngModel)]="jobseekerData[0].first_name"
                         name="first_name"
@@ -44,7 +44,7 @@
                     <label style="font-size: 15px;font-weight: 600;">Last Name</label>
                     <input #lastName="ngModel"
                         type="text" 
-                        class="input-style" 
+                        class="input-style-readonly" 
                         placeholder='Get your last Name from account page'
                         [(ngModel)]="jobseekerData[0].last_name"
                         name="last_name"
@@ -78,9 +78,10 @@
                         [(ngModel)]="jobseekerData[0].expected_salary"
                         required>
                         <option value="">Select Salary</option>
-                        <option value="30000">30,000</option>
-                        <option value="45000">45,000</option>
-                        <option value="60000">60,000</option>
+                        <option value="30000">{{30000 | currency:"INR"}}&nbsp;-&nbsp;{{45000 | currency:"INR"}}</option>
+                        <option value="45000">{{45000 | currency:"INR"}}&nbsp;-&nbsp;{{60000 | currency:"INR"}}</option>
+                        <option value="60000">{{60000 | currency:"INR"}}&nbsp;-&nbsp;{{75000 | currency:"INR"}}</option>
+                        <option value="75000">{{75000 | currency:"INR"}}&nbsp;and above</option>
                     </select>
                     <span *ngIf="salary.invalid && salary.touched" style="color:red">This field is required</span>
                 </div>
@@ -133,10 +134,6 @@
             <div class="btn-div">
                 <button type="submit" class="btn btn-primary mr-2" [disabled]="updatejobSeekerForm.invalid">
                     Update
-                </button>
-    
-                <button type="reset" class="btn btn-primary">
-                    Clear
                 </button>
             </div>
         </form>

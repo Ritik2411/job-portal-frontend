@@ -12,12 +12,8 @@ export class AddVacancyComponent implements OnInit {
   constructor(private router:ActivatedRoute,private http:HttpClient,private route:Router) { }
 
   id:string = this.router.snapshot.paramMap.get('id')
-  publishedDate:string
-  text:String = new Date().toLocaleString()
+  text:String = new Date().toLocaleDateString()
   ISODate:any = new Date().toISOString().split('T')
-  ISOTime:any
-  ISOPattern:any
-  publisher_name:string
   userName:string = localStorage.getItem('Username')
 
   AddVacancy(data:any){
@@ -33,10 +29,12 @@ export class AddVacancyComponent implements OnInit {
     }
 
     else{
+      const last_date = new Date(data.last_Date).toLocaleString()
+
       this.http.post('http://localhost:5500/VacancyDetail', {
         experience: data.experience,
         job_Description: data.job_Description,
-        last_Date: data.last_Date,
+        last_Date: last_date,
         max_Salary: data.max_Salary,
         min_Salary: data.min_Salary,
         minimum_qualification: data.minimum_qualification,
@@ -54,7 +52,6 @@ export class AddVacancyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.ISOTime = this.ISODate[1].split('.')
-    this.ISOPattern = this.ISODate[0]+'T'+this.ISOTime[0]
+    
   }
 }

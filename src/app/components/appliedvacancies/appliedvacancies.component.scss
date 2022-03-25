@@ -1,8 +1,9 @@
-.applied-vacancies-div{
+.filter-div{
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    
+
     .radio-search{
         width: 70%;
         display: flex;
@@ -11,12 +12,19 @@
         padding: 10px;
         border-radius: 5px;
     }
-
+    
     .search-by-date{
         margin-top: 30px;
         width: 70%;
         margin-bottom: 20px;
     }
+}
+
+
+.applied-vacancies-div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;  
 
     .applied-vacancies-list{
         padding: 20px;

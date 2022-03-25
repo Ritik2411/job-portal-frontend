@@ -15,6 +15,7 @@ export class VacancyComponent implements OnInit {
   constructor(private http:HttpClient, private router:Router, private route:Router) { }
   
   role:string = localStorage.getItem('Role')
+  todayDate = new Date().toISOString()
 
   apply(data){
     var confirm = window.confirm(`Apply for this vacany?`)
@@ -28,27 +29,23 @@ export class VacancyComponent implements OnInit {
         approved: false,
         user_name: localStorage.getItem('Username'),
         publishedBy: data.publishedBy,
-        description: data.job_Description
+        description: data.job_Description,
+        no_of_Vacancies: data.no_of_Vacancies
 
       }).subscribe(res => {
           if(res){
             this.http.patch(`http://localhost:5500/VacancyDetail/${data.id}`, [
               {
-                "op": "replace",
-                "path": "no_of_vacancies",
-                "value": data.no_of_Vacancies - 1
-              },
-              {
-                "op": "replace",
-                "path": "no_of_applications",
-                "value": data.no_of_applications + 1
+                op: "replace",
+                path: "no_of_applications",
+                value: data.no_of_applications + 1
               }
             ]).subscribe(res => {
               if(res){
                 alert('Applied Successfully')
                 this.router.navigate(['/appliedvacancies', localStorage.getItem('UserId')])
               }
-            })        
+            })  
           }
       })
     }
@@ -58,7 +55,7 @@ export class VacancyComponent implements OnInit {
   }
 
   deleteVacancy(id:number){
-    const confirm = window.confirm("Delete this vacancy?")
+    const confirm = window.confirm("Are you sure you want to delete this vacancy?")
     
     if(confirm){
       this.http.delete(`http://localhost:5500/VacancyDetail/${id}`).subscribe(res => {
@@ -74,6 +71,6 @@ export class VacancyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      this.vacancyData = this.data      
+      this.vacancyData = this.data     
   }
 }

@@ -89,8 +89,13 @@
                 </div>
     
                 <div>
+                    <span>Vacancies</span><br/>
+                    <span style="font-size: 15px;color: gray;">{{data?.no_of_Vacancies}}</span>
+                </div>
+
+                <div>
                     <span>Applied On</span><br/>
-                    <span style="font-size: 15px;color: gray;">{{data?.applied_on | date: 'short'}}</span>
+                    <span style="font-size: 15px;color: gray;">{{data?.applied_on | date}}</span>
                 </div>
     
                 <div>

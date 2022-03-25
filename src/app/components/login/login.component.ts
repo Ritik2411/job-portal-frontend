@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
           })
 
           this.load = false
-          //alert("Successully Logged in")
           this.router.navigate(["/"])
         }
     },(error) => {

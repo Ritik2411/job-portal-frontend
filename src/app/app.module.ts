@@ -27,11 +27,11 @@ import { UpdatequlificationDetailsComponent } from './components/updatequlificat
 import { UpdateexperienceDetailsComponent } from './components/updateexperience-details/updateexperience-details.component';
 import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updatejobseeker-details.component';
 import { InterceptorService } from './services/interceptor.service';
-import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { EditVacancyComponent } from './edit-vacancy/edit-vacancy.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { UserDataComponent } from './components/user-data/user-data.component';
+import { EmployeeDataComponent } from './components/employee-data/employee-data.component';
 
 @NgModule({
   declarations: [
@@ -57,10 +57,10 @@ import { UserDataComponent } from './components/user-data/user-data.component';
     UpdatequlificationDetailsComponent,
     UpdateexperienceDetailsComponent,
     UpdatejobseekerDetailsComponent,
-    UploadedCVsComponent,
     NotFoundComponent,
     EditVacancyComponent,
-    UserDataComponent   
+    UserDataComponent,
+    EmployeeDataComponent   
   ],
   imports: [
     BrowserModule,

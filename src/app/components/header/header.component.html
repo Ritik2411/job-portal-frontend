@@ -59,7 +59,6 @@
             <a class="dropdown-item" [routerLink]="['account',userData?.UserId]">Account</a>
             <a *ngIf="userData?.Role === 'JobSeeker';" class="dropdown-item" [routerLink]="['appliedvacancies',userData?.UserId]">Applied Vacancies</a>
             <a *ngIf="userData?.Role === 'Employee';" class="dropdown-item" [routerLink]="['vacanciesRequests',userData?.UserId]">Vacancies Requests</a>
-            <a *ngIf="userData?.Role === 'JobSeeker';" class="dropdown-item" [routerLink]="[userData?.UserId,'cvuploaded']">Uploaded CVs</a>
             <a class="dropdown-item" (click)="signOut()" style="cursor: pointer;">Log Out</a>
           </div>
         </div>

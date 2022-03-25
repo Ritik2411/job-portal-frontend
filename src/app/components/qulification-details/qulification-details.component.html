@@ -30,7 +30,7 @@
                     <label style="font-size: 15px;font-weight: 600;">Email</label>
                     <input #userName="ngModel" 
                         type="text" 
-                        class="input-style" 
+                        class="input-style-readonly" 
                         placeholder='Enter User Name'
                         [(ngModel)]='userData.email'
                         name="name"
@@ -105,10 +105,6 @@
             <div class="btn-div">
                 <button type="submit" class="btn btn-primary mr-2" [disabled]="qualificationForm.invalid">
                     Save 
-                </button>
-    
-                <button type="reset" class="btn btn-primary">
-                    Clear
                 </button>
             </div>
         </form>

@@ -29,6 +29,8 @@
                 width: 100%;
                 margin: 10px 20px;
 
+                
+
                 .input-type{
                     padding:  5px 10px;
                 }
@@ -47,6 +49,14 @@
                 flex-direction: column;
                 width: 50%;
                 margin: 10px 20px;
+
+                .input-type-readonly{
+                    padding:  5px 10px;
+                    border-radius: 5px;
+                    border: 1px solid gray;
+                    background-color: #007bff2b;
+                    outline: none;
+                }
 
                 .input-type{
                     padding:  5px 10px;

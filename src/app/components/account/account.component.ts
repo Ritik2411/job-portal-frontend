@@ -13,6 +13,10 @@ export class AccountComponent implements OnInit {
   load:boolean = true
   private httpclient:HttpClient
   cvData:any
+  disable:boolean = true
+  firstName:string
+  lastName:string
+  filedata:any
 
   constructor(private route:ActivatedRoute,private http:HttpClient, private httpBackend:HttpBackend, private router:Router) {
     this.httpclient = new HttpClient(httpBackend)
@@ -29,18 +33,49 @@ export class AccountComponent implements OnInit {
     else{
      const formdata = new FormData()
      formdata.append('files', this.currentData)
+     
+     if(this.filedata.length === 0){
+      this.httpclient.post(`http://localhost:5500/Cv/${this.route.snapshot.paramMap.get('id')}`, formdata, {
+        headers: new HttpHeaders({
+          'enctype': 'multipart/form-data',
+          Authorization: 'Bearer ' + localStorage.getItem('TKN')
+        })
+      }).subscribe(res => {
+        if(res){
+           alert("Uploaded successfully")
+           window.location.reload() 
+         }
+      })
+     }
 
-     this.httpclient.post(`http://localhost:5500/Cv/${this.route.snapshot.paramMap.get('id')}`, formdata, {
-       headers: new HttpHeaders({
-         'enctype': 'multipart/form-data',
-         Authorization: 'Bearer ' + localStorage.getItem('TKN')
-       })
-     }).subscribe(res => {
-       if(res){
-         alert("Uploaded successfully")
-         this.router.navigate([this.route.snapshot.paramMap.get('id'),'cvuploaded'])
-       }
-     })
+     else{
+       alert("Delete previous CV to upload new one.")
+     }
+    }
+  }
+
+  enable(){
+    var firstName:any = document.getElementById("disableFN");
+    var lastName:any = document.getElementById("disableLN");
+    
+    if(firstName && lastName){
+      firstName.disabled = false;
+      lastName.disabled = false;
+      this.disable = false
+    } 
+  }
+
+  update(userData:any){
+    if(userData !== null){
+      this.http.put(`http://localhost:5500/updateUser/${userData.userName}`, {
+        first_name: this.firstName,
+        last_name: this.lastName
+      }).subscribe(res => {
+        if(res){
+          alert("Profile updated successfully")
+          window.location.reload()
+        }
+      })
     }
   }
 
@@ -48,17 +83,54 @@ export class AccountComponent implements OnInit {
     this.currentData = (event.target.files[0])
   }
 
+  view(filename:string, type:string){
+    this.http.get(`http://localhost:5500/Cv/${filename}`, {responseType: 'blob'}).subscribe((res:Blob)=>{
+        let blob = new Blob([res], {type: type})
+        let url = window.URL.createObjectURL(blob)
+        window.open(url)
+    })
+  }
+
+  deletefile(data:any){
+    this.http.request('delete', `http://localhost:5500/Cv/${data[0].id}`, {
+      body: {
+        filename: data[0].name
+      }
+    }).subscribe(res => {
+      if(res){
+        alert("Deleted successfully")
+        window.location.reload()
+      }
+    })
+  }
+
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')
     
     this.http.get(`http://localhost:5500/getUsersById/${this.id}`).subscribe(res => {
       this.userData = res
-      if(this.userData.length > 0){
-        this.load = false
+      this.firstName = this.userData.firstName
+      this.lastName = this.userData.lastName
+
+      if(this.userData !== null){
+        this.http.get(`http://localhost:5500/Cv/user/${this.id}`).subscribe(res => {
+          this.filedata = res
+          if(this.filedata.length > 0){
+              this.load = false  
+          }
+
+          else{
+            this.load = false
+          }
+        })
       }
       else{
         this.load = false
       }
     })
+
+    setTimeout(() => {
+      console.log(this.filedata)
+    },2000)
   }
 }

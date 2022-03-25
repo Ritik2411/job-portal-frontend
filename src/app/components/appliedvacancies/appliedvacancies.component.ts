@@ -35,34 +35,40 @@ export class AppliedvacanciesComponent implements OnInit {
     if(this.checkDate){
       this.checkDate = false
       this.sort_order = "default"
+      this.load = true
       this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
     }
     else{
       this.vacancyDetail = []
       this.checkDate = true
       this.sort_order = "ascending"
+      this.load = true
       this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
     }
   }
 
   status(event){
-    if(event.target.value === 'all'){
-      this.copyData = this.vacancyReq
+    if(event.target.value === 'All'){
+      this.load = true
+      this.vacancyRequests(this.sort_order, this.itemsPerPage, this.page)
     }
+    else{
+      this.load = true
 
-    if(event.target.value === 'approved'){
-      let newData = this.vacancyReq.filter(data => data.approved === true && data.awaiting_approval === false)
-      this.copyData = newData
-    }
-    
-    if(event.target.value === 'rejected'){
-      let newData = this.vacancyReq.filter(data => data.approved === false && data.awaiting_approval === false)
-      this.copyData = newData
-    }
-
-    if(event.target.value === 'awaiting_approval'){
-      let newData = this.vacancyReq.filter(data => data.awaiting_approval === true)
-      this.copyData = newData
+      this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?status=${event.target.value}&sort_by_date=${this.sort_order}&page_size=${this.itemsPerPage}&page=1`).subscribe((res) => {
+        this.data = res
+        this.vacancyReq = this.data.vacancyRequest
+        this.totalRecords = this.data.totalItems
+  
+        if(this.vacancyReq?.length > 0){
+          this.load = false
+          this.copyData = this.vacancyReq
+        }
+         
+        else{
+          this.load = false
+        }
+      })
     }
   }
   
@@ -92,6 +98,4 @@ export class AppliedvacanciesComponent implements OnInit {
       }
     })
   }
-
-
 }

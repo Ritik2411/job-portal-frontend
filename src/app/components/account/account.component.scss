@@ -1,93 +1,114 @@
-.cv-upload-div{
-    width: 60%;
-    padding: 18px 30px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: white;
-    border-radius: 5px;
-
-    .cv-upload-form{
-        .cv-text{
-            font-size: 24px;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 10px;
+.account-div{
+    .cv-upload-div{
+        width: 70%;
+        padding: 18px 30px;
+        margin: 50px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        background-color: white;
+        border-radius: 5px;
+    
+        .cv-upload-form{
+            .cv-text{
+                font-size: 24px;
+                font-weight: 600;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+    
+            .upload-input{
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 15px;
+    
+                .input-type{
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    cursor: pointer;
+                }
+    
+                input[type=file]::file-selector-button {
+                    border: 1px solid #6c757d;
+                    color: white;
+                    padding: 5px 7px;
+                    background-color: #6c757d;
+                    cursor: pointer;
+                }
+            }
         }
-
-        .upload-input{
+    }
+    
+    .account-form-div{
+        width: 70%;
+        padding: 18px 30px;
+        margin: 50px auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        background-color: white;
+        border-radius: 5px;
+    
+        .account-text{
+            margin-bottom: 15px;
+            font-weight: 600;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    
+        .input-div{
+            width: 100%;
             display: flex;
             flex-direction: column;
             margin-bottom: 15px;
-
-            .input-type{
-                border: 1px solid gray;
+            
+            .account-input{
+                width: 100%;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;
                 border-radius: 5px;
-                cursor: pointer;
+                border: 1px solid gray;
+                outline: none;
             }
-
-            input[type=file]::file-selector-button {
-                border: 1px solid #6c757d;
-                color: white;
-                padding: 5px 7px;
-                background-color: #6c757d;
-                cursor: pointer;
+    
+            .account-input:focus{
+                outline: none;
             }
         }
-    }
-}
-
-.account-form-div{
-    width: 60%;
-    padding: 18px 30px;
-    margin: 50px auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    background-color: white;
-    border-radius: 5px;
-
-    .account-text{
-        margin-bottom: 15px;
-        font-weight: 600;
-        font-size: 24px;
-        text-align: center;
-        margin-bottom: 20px;
-    }
-
-    .input-div{
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
-        
-        .account-input{
+    
+        .div-role{
+            display: flex;
+            margin-top: 2px;
+            margin-bottom: 12px;
+        }
+    
+        .account-form-btn{
             width: 100%;
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 10px;
+            display: flex;
+            align-items: center;
+        }
+    }
+    
+    .uploaded-cv{
+        display: flex;
+        justify-content:  center;
+        margin-bottom: 30px;
+
+        .uploaded-cv-div{
+            width: 70%;
+            box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+            padding: 10px 20px;
             border-radius: 5px;
-            border: 1px solid gray;
-            outline: none;
+
+            .doc-info{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
         }
-
-        .account-input:focus{
-            outline: none;
-        }
-    }
-
-    .div-role{
-        display: flex;
-        margin-top: 2px;
-        margin-bottom: 12px;
-    }
-
-    .account-form-btn{
-        width: 100%;
-        display: flex;
-        align-items: center;
     }
 }

@@ -1,3 +1,45 @@
+<div class="filter-div">
+    <div class="radio-search">
+        <div style="display: flex;flex-direction: column">
+            <label style="font-weight: 600;font-size: 18px;">Search by status</label>
+            
+            <div style="display:flex;">
+                <div style="margin: 0px 10px;">
+                    <input type="radio" value="All" name="status" (change)="status($event)" style="cursor: pointer;" checked/>
+                    <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;All</label>
+                </div>
+
+                <div style="margin: 0px 10px;">
+                    <input type="radio" value="Approved" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                    <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Approved</label>
+                </div>
+    
+                <div style="margin: 0px 10px;">
+                    <input type="radio" value="Rejected" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                    <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Rejected</label>
+                </div>
+    
+                <div style="margin: 0px 10px;">
+                    <input type="radio" value="awaiting_approval" name="status" (change)="status($event)" style="cursor: pointer;"/>
+                    <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Awaiting Approval</label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="search-by-date">
+        <div style="width: fit-content;padding: 10px 10px 0px 10px;border-radius: 5px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
+           
+                <input type="checkbox" (change)="sortByDate()" [checked]="checkDate" style="margin-right: 5px;"/>
+                <label style="color: gray;font-weight: 600;">Sort By Applied Date&nbsp;
+                    <span *ngIf="checkDate;">(Descending)</span>
+                    <span *ngIf="checkDate === false;">(Ascending)</span>
+                </label>
+
+        </div>
+    </div>
+</div>
+
 <div *ngIf="load; then ifBlock else elseBlock"></div>
 
 <ng-template #ifBlock>
@@ -14,47 +56,9 @@
 
 <ng-template #datablock>
     <div class="applied-vacancies-div">
-        <div class="radio-search">
-            <div style="display: flex;flex-direction: column">
-                <label style="font-weight: 600;font-size: 18px;">Search by status</label>
-                
-                <div style="display:flex;">
-                    <div style="margin: 0px 10px;">
-                        <input type="radio" value="all" name="status" (change)="status($event)" style="cursor: pointer;" checked/>
-                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;All</label>
-                    </div>
-
-                    <div style="margin: 0px 10px;">
-                        <input type="radio" value="approved" name="status" (change)="status($event)" style="cursor: pointer;"/>
-                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Approved</label>
-                    </div>
         
-                    <div style="margin: 0px 10px;">
-                        <input type="radio" value="rejected" name="status" (change)="status($event)" style="cursor: pointer;"/>
-                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Rejected</label>
-                    </div>
-        
-                    <div style="margin: 0px 10px;">
-                        <input type="radio" value="awaiting_approval" name="status" (change)="status($event)" style="cursor: pointer;"/>
-                        <label style="font-weight: 600;color: gray;font-size: 15px;">&nbsp;Awaiting Approval</label>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <div class="search-by-date">
-            <div style="width: fit-content;padding: 10px 10px 0px 10px;border-radius: 5px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
-               
-                    <input type="checkbox" (change)="sortByDate()" [checked]="checkDate" style="margin-right: 5px;"/>
-                    <label style="color: gray;font-weight: 600;">Sort By Applied Date&nbsp;
-                        <span *ngIf="checkDate;">(Descending)</span>
-                        <span *ngIf="checkDate === false;">(Ascending)</span>
-                    </label>
-
-            </div>
-        </div>
-
-        <div *ngFor="let data of copyData | paginate: { id: 'applied-vacancies',
+        <div *ngFor="let data of vacancyReq | paginate: { id: 'applied-vacancies',
                                                         itemsPerPage: itemsPerPage,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 
@@ -73,9 +77,15 @@
                         <span style="font-size: 18px;font-weight: 600;">Published By</span><br/>
                         <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.publishedBy}}</span>
                     </p>
+
+                    <p>
+                        <span style="font-size: 18px;font-weight: 600;">Vacancies</span><br/>
+                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.no_of_Vacancies}}</span>
+                    </p>
+
                     <p>
                         <span style="font-size: 18px;font-weight: 600;">Applied On</span><br/>
-                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.applied_on | date: "short"}}</span>
+                        <span style="font-size: 15px;font-weight: 600;color: gray;">{{data.applied_on | date}}</span>
                     </p>
                 </div>
         

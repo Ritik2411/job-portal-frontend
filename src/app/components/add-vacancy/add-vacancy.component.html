@@ -10,7 +10,7 @@
                 <input #publisherName="ngModel"
                     type="text" 
                     placeholder="Refresh page to get Publisher Name" 
-                    class="input-type"
+                    class="input-type-readonly"
                     name="publishedBy"
                     minlength="3"
                     pattern="[A-Za-z0-9 ]{3,60}"
@@ -24,7 +24,7 @@
                 <label>Published Date</label>
                 <input #publishedDate="ngModel"
                     type="text"
-                    class="input-type"
+                    class="input-type-readonly"
                     name="published_Date"
                     placeholder="Reload the page to get current date"
                     [(ngModel)]="text"
@@ -42,15 +42,10 @@
                     name="minimum_qualification"
                     ngModel
                     required>
-                     <option value="">
-                        Select Qualification
-                     </option>
-                     <option value="type-1">
-                        Type-1
-                    </option>
-                    <option value="type-2">
-                        Type-2
-                    </option>
+                     <option value="">Select Qualification</option>
+                     <option value="B.Tech">B.Tech</option>
+                     <option value="M.Tech">M.Tech</option>                    
+                     <option value="M.B.A">M.B.A</option>
                  </select>
                  <span class="error-message" *ngIf="minqualification.invalid && minqualification.touched">Qualification is required</span>
              </div>
@@ -70,7 +65,7 @@
                         Hiring Freshers
                      </option>
 
-                     <option value="1 Years">
+                     <option value="1 Year">
                         1 Year
                      </option>
                      
@@ -100,13 +95,13 @@
             <div class="input-box">
                 <label>Last Date</label>
                 <input #lastDate="ngModel"
-                    type="datetime-local" 
+                    type="date" 
                     class="input-type"
                     name="last_Date"
-                    min={{ISOPattern}}
+                    min={{ISODate[0]}}
                     ngModel
                     required/>
-                <span class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last data is required</span>
+                <span class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last date is required</span>
             </div>
          </div>
 
@@ -123,15 +118,15 @@
                     </option>
    
                     <option value="30000">
-                       30,000
+                       {{30000 | currency:"INR"}}
                     </option>
    
                     <option value="45000">
-                       45,000
+                        {{45000 | currency:"INR"}}
                     </option>
    
                     <option value="60000">
-                       60,000
+                        {{60000 | currency:"INR"}}
                     </option>
                 </select>
                 <span class="error-message" *ngIf="minSalary.invalid && minSalary.touched">This field is required</span>
@@ -149,15 +144,15 @@
                     </option>
    
                     <option value="45000">
-                       45,000
+                       {{45000 | currency:"INR"}}
                     </option>
    
                     <option value="60000">
-                       60,000
+                        {{60000 | currency:"INR"}}
                     </option>
    
                     <option value="75000">
-                       75,000
+                        {{75000 | currency:"INR"}}
                     </option>
                 </select>
                 <span class="error-message" *ngIf="maxSalary.invalid && maxSalary.touched">This field is required</span> 
@@ -180,7 +175,6 @@
 
          <div class="vacancy-post">
              <button class="btn btn-primary mr-3" [disabled]="AddVacancyForm.invalid">Post</button>
-             <button class="btn btn-primary" type="reset">Cancel</button>
          </div>
     </form>
 </div>

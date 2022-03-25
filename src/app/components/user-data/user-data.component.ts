@@ -14,6 +14,7 @@ export class UserDataComponent implements OnInit {
   constructor(private http:HttpClient, private route:ActivatedRoute) { }
   
   id:string = this.route.snapshot.paramMap.get("id")
+  employeeId:string = localStorage.getItem("UserId")
   
   viewDoc(name:string,contentType:string){
     this.http.get(`http://localhost:5500/Cv/${name}`, {responseType:'blob'}).subscribe((res:Blob) => {

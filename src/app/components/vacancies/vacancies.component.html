@@ -66,7 +66,7 @@
 <ng-template #vacancyBlock>
     <div class="vacancies-div">
         
-        <div *ngFor="let item of copyData | paginate: { id: 'employeer-vacancies',
+        <div *ngFor="let item of vacancies | paginate: { id: 'employeer-vacancies',
                                                 itemsPerPage: itemPerPage,
                                                 currentPage: page,
                                                 totalItems: totalRecords }" 

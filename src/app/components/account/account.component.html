@@ -12,7 +12,7 @@
     <div class="account-div">
         <form class="account-form-div">
             <div class="account-text">
-                Your Account
+                My Account
             </div>
     
             <div class="input-div">
@@ -28,22 +28,22 @@
     
             <div class="input-div">
                 <label>First Name</label>
-                <input type="text" 
+                <input type="text" id="disableFN"
                     placeholder="Enter First Name" 
                     name="firstName"
                     class="account-input"
-                    value={{userData?.firstName}}
+                    [(ngModel)]="firstName"
                     disabled
                     required/>
             </div>
     
             <div class="input-div">
                 <label>Last Name</label>
-                <input type="text" 
+                <input type="text" id="disableLN"
                     placeholder="Enter Last Name"
                     name="lastName" 
                     class="account-input"
-                    value={{userData?.lastName}}
+                    [(ngModel)]="lastName"
                     disabled
                     required/> 
             </div>
@@ -59,31 +59,9 @@
                     required/>
             </div>
     
-            <div class="input-div"> 
-                <label>Role</label>
-                <input type="text" 
-                placeholder="Enter Role"
-                name="Role" 
-                class="account-input"
-                value={{userData?.role}}
-                disabled
-                required/>
-            </div>
-    
-            <div class="input-div">
-                <label>Password</label>
-                <input type="password" 
-                    placeholder="Enter Password"
-                    name="password"
-                    maxlength="10"
-                    class="account-input"
-                    value={{userData?.passwordHash.toString().slice(0,20)}}
-                    disabled
-                    required/>
-            </div>
-    
             <div>
-                <button class="btn btn-primary mr-3" routerLink="/">Go Back</button>
+                <button *ngIf="disable" class="btn btn-primary mr-3" (click)="enable()">Update</button>
+                <button *ngIf="disable === false" class="btn btn-primary mr-3" (click)="update(userData)">Save</button>
                 <button class="btn btn-primary change-password" [routerLink]="['/changepassword',userData?.id]">Change Password</button>
             </div>
         </form>
@@ -113,6 +91,36 @@
                     </button>
                 </div>
             </form>
+        </div>
+
+        <div *ngIf="role === 'JobSeeker'" class="uploaded-cv">
+            
+            <div class="uploaded-cv-div">
+                <div style="font-size: 24px;font-weight: 600;text-align: center;margin-bottom: 20px;">Uploaded CV</div>
+
+                <div *ngIf="filedata.length > 0; then fileblock else nofileblock"></div>
+
+                <ng-template #fileblock>
+                    <div *ngIf="filedata.length > 0" class="doc-info">
+                        <div>
+                            <span style="font-weight: 600;font-size: 18px;">{{filedata[0]?.name}}</span><br/>
+                            <span style="font-weight: 600;font-size: 15px;color: gray;">{{(filedata[0]?.file_size / 1000000).toFixed(2)}}MB</span>
+                        </div>
+        
+                        <div>
+                            <button class="btn btn-success mr-1" (click)="view(filedata[0]?.name,filedata[0]?.fileType)">View</button>
+                            <button class="btn btn-danger ml-1" (click)="deletefile(filedata)">Delete</button>
+                        </div>
+                    </div>
+                </ng-template>
+
+                <ng-template #nofileblock>
+                    <div style="font-weight: 600;font-size: 18px;">
+                        No CV uploaded
+                    </div>
+                </ng-template>
+
+            </div>
         </div>
     </div>
 </ng-template>

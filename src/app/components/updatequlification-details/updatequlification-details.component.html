@@ -39,8 +39,8 @@
                     <label style="font-size: 15px;font-weight: 600;">Email</label>
                     <input #userName="ngModel" 
                         type="text" 
-                        class="input-style" 
-                        placeholder='Enter User Name'
+                        class="input-style-readonly" 
+                        placeholder='Enter Email'
                         [(ngModel)]='quaData[0].name'
                         name="name"
                         readonly
@@ -98,10 +98,6 @@
             <div class="btn-div">
                 <button type="submit" class="btn btn-primary mr-2" [disabled]="updatequalificationForm.invalid">
                     Update 
-                </button>
-    
-                <button type="reset" class="btn btn-primary">
-                    Clear
                 </button>
             </div>
         </form>

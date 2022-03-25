@@ -1,0 +1,124 @@
+<div *ngIf="load; then loadblock else dataBlock"></div>
+
+<ng-template #loadblock>
+    <div style="text-align: center;margin-top: 50px;">
+        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+    </div>
+</ng-template>
+
+<ng-template #dataBlock>
+    <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;">
+        <div style="width: 70%;margin-bottom: 5px;">
+            <a [routerLink]="['/allvacancies',jobseekerID]">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"/>
+                </svg>
+                
+                Previous Page
+            </a>
+        </div>
+    </div>
+
+    <div *ngIf="data.length > 0 then empblock else nodataBlock"></div>
+
+    <ng-template #empblock>
+        
+        <div class="employee-div"> 
+            <form class="employee-form">
+                <div class="details-text">
+                    Employee Details
+                </div>
+        
+                <div style="display: flex;">
+                    <div class="input-box-companyname">
+                        <label>Organization Name</label>
+                        <input type="text" 
+                            name="organization"
+                            class="input-type"
+                            value={{data[0].organization}}
+                            disabled
+                            />
+                    </div>
+                </div>
+        
+                <div style="display: flex;">
+                    <div class="input-box">
+                        <label>Select Organization Type</label>
+                        <input type="text" 
+                            class="input-type"
+                            value={{data[0].organizationType}}
+                            disabled
+                        />
+                    </div>
+                    
+                    <div class="input-box">
+                        <label>Company Email</label>
+                        <input type="text" 
+                            class="input-type" 
+                            value={{data[0].companyEmail}}
+                            disabled
+                        />
+                    </div>    
+                </div>
+                
+                <div style="display: flex;">
+                    <div class="input-box">
+                        <label>Company Phone Number</label>
+                        <input type="text" 
+                            class="input-type"
+                            value={{data[0].companyPhone}}
+                            disabled
+                            />
+                    </div>
+                
+                    <div class="input-box">
+                        <label>Number Of Employees</label>
+                        <input type="text" 
+                            class="input-type"
+                            value={{data[0].noOfEmployee}}
+                            disabled
+                            />
+                    </div>
+                </div>
+        
+                <div style="display: flex;">
+                    <div class="input-box">
+                        <label>Start Year</label>
+                        <input type="text" class="input-type" value={{data[0].startYear}} disabled/>
+                    </div>
+        
+                    <div class="input-box">
+                        <label>Created By</label>
+                        <input type="text" 
+                            class="input-type"
+                            value={{data[0].createdBy}}
+                            disabled
+                            />
+                    </div>
+                </div>
+                
+        
+                <div class="input-text-area">
+                    <label>About</label>
+                    <textarea cols="50" rows="5" 
+                        class="input-text-type"
+                        value={{data[0].about}}
+                        disabled
+                    ></textarea>
+                </div>
+        
+            </form>
+        </div>
+    </ng-template>
+
+    <ng-template #nodataBlock>
+        <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;margin-bottom: 20px;">
+            <div style="width: 70%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;font-weight: 600;">
+                No employeer data found.
+            </div>
+        </div>
+    </ng-template>
+</ng-template>
+

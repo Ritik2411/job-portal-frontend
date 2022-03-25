@@ -6,6 +6,7 @@ import { AddEmployeerDetailComponent } from './components/add-employeer-detail/a
 import { AddVacancyComponent } from './components/add-vacancy/add-vacancy.component';
 import { AppliedvacanciesComponent } from './components/appliedvacancies/appliedvacancies.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
+import { EmployeeDataComponent } from './components/employee-data/employee-data.component';
 import { ExperienceDetailsComponent } from './components/experience-details/experience-details.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,7 +19,6 @@ import { JobseekerDetailsComponent } from './jobseeker-details/jobseeker-details
 import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { RequestReceivedComponent } from './request-received/request-received.component';
-import { UploadedCVsComponent } from './uploaded-cvs/uploaded-cvs.component';
 
 const routes: Routes = [
   {
@@ -63,7 +63,18 @@ const routes: Routes = [
 
   {
     path: 'allvacancies/:id',
-    component: JobseekerVacancyComponent
+
+    children: [
+      {
+        path: '',
+        component: JobseekerVacancyComponent,
+      },
+      
+      {
+        path: 'employeedetails/:id',
+        component: EmployeeDataComponent
+      }
+    ]
   },
 
   {
@@ -99,11 +110,6 @@ const routes: Routes = [
   {
     path: ':id/qualification',
     component: QulificationDetailsComponent
-  },
-
-  {
-    path: ':id/cvuploaded',
-    component: UploadedCVsComponent
   },
 
   {

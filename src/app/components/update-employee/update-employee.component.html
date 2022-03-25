@@ -14,10 +14,10 @@
                     name="organization"
                     class="input-type"
                     [(ngModel)]="data[0].organization"
-                    pattern="[A-Za-z ]{2,50}"
+                    pattern="[A-Za-z ]{2,60}"
                     ngModel
                     required/>
-                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Invalid Organization Name</span>
+                <span class="error-msg" *ngIf="organization.invalid && organization.touched">Organization Name must contain 2 or more and less than 60 characters</span>
             </div>
         </div>
 
@@ -107,7 +107,7 @@
             </div>
 
             <div class="input-box">
-                <label>Created By</label>
+                <label>Founded By</label>
                 <input type="text" 
                     #createdBy="ngModel"
                     placeholder="Enter Founders name" 

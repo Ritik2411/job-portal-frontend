@@ -7,7 +7,7 @@
         <div class="input-div">
             <input #username="ngModel" 
                 type="email" 
-                placeholder="Enter Username" 
+                placeholder="Enter User name" 
                 name="UserName"
                 minlength="2"
                 pattern="[A-Za-z0-9]{2,30}"
@@ -15,7 +15,7 @@
                 ngModel 
                 required/>
             
-            <span *ngIf="username.invalid && username.touched" class="error-message">UserName must contain lowercase aplhabets, uppercase aplhabets and must not contain any space</span>
+            <span *ngIf="username.invalid && username.touched" class="error-message">User name must contain lowercase aplhabets, uppercase aplhabets and must not contain any space</span>
         </div>
 
         <div class="input-div">
@@ -28,7 +28,7 @@
                 ngModel
                 required/>
 
-            <span *ngIf="firstName.invalid && firstName.touched" class="error-message">FirstName should contain only aplhabets</span>
+            <span *ngIf="firstName.invalid && firstName.touched" class="error-message">First name should contain only aplhabets</span>
         </div>
 
         <div class="input-div">
@@ -41,7 +41,7 @@
                 ngModel
                 required/>
 
-            <span *ngIf="lastName.invalid && lastName.touched"  class="error-message">LastName should contain only aplhabets</span>    
+            <span *ngIf="lastName.invalid && lastName.touched"  class="error-message">Last name should contain only aplhabets</span>    
         </div>
 
         <div class="input-div">

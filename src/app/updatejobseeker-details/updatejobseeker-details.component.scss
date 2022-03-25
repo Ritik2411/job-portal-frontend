@@ -39,6 +39,15 @@
                 width: 50%;
             }
 
+            .input-style-readonly{
+                width: 100%;
+                border-radius: 5px;
+                border: 1px solid gray;
+                padding: 5px 10px;
+                background-color: #007bff2b;
+                outline: none;
+            }
+
             .input-style{
                 width: 100%;
                 border-radius: 5px;

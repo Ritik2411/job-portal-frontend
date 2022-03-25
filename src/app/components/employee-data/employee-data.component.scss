@@ -1,0 +1,77 @@
+.employee-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .employee-form{
+        margin-top: 30px;
+        box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+        width: 70%;
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 30px;
+        
+        .details-text{
+            font-weight: 600;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .input-box-companyname{
+            display: flex;
+            flex-direction: column;
+            margin: 10px 20px;
+            width: 100%;
+
+            .input-type{
+                border-radius: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+                border: 1px solid gray;
+                outline: none;
+            }
+    
+            .input-type:focus{
+                outline: none;    
+            }
+        }
+
+        .input-box{
+            display: flex;
+            flex-direction: column;
+            margin: 10px 20px;
+            width: 50%; 
+            
+            .input-type{
+                border-radius: 5px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-left: 10px;
+                border: 1px solid gray;
+                outline: none;
+            }
+    
+            .input-type:focus{
+                outline: none;    
+            }
+        }
+
+        .input-text-area{
+            display: flex;
+            flex-direction: column;
+            margin: 10px 20px;
+
+            .input-text-type{
+                border-radius: 5px;
+                border: 1px solid gray;
+                padding: 10px;
+            }
+        }
+
+        .employee-btn{
+            margin: 10px 20px;
+        }
+    }
+}

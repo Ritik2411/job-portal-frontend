@@ -1,20 +1,14 @@
-<div *ngIf="load; then ifBlock else elseBlock"></div>
-
-<ng-template #ifBlock>
-    <div style="text-align: center;margin:100px auto">
-        <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-</ng-template>
-
-<ng-template #elseBlock>
-    <div *ngIf="vacancies.length > 0; then datablock else noDataBlock"></div>
-</ng-template>
-
-<ng-template #datablock>
-    <div class="all-vacancies-div">
-        <div style="display: flex;align-items: center;width: 70%;margin-left: 20px;padding-left:10px;margin-bottom: 10px;">
+<div style="width: 100%;display: flex;flex-direction: column;align-items: center;">
+    <div style="display: flex;falign-items: center;width: 70%;margin-left: 20px;padding-left:10px;margin-bottom: 10px;">
+        <!-- <div style="display: flex;width: 100%;margin-top: 20px;">
+            <div style="border: 1px solid gray;border-top-left-radius: 5px;border-bottom-left-radius: 5px;">
+                <input type="text" placeholder="Search by publisher name" style="height: 100%;border: none;border-top-left-radius: 5px;border-bottom-left-radius: 5px;outline :none;padding-left: 10px;"/>
+            </div>
+            <div>
+                <button class="btn btn-secondary">Search</button>
+            </div>
+        </div> -->
+        <!-- <div style="width: 100%;"> -->
             <div style="margin-top: 20px;margin-right:10px;width: fit-content;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;">
                 <p style="font-weight: 600;margin-bottom: 3px;">Search by minimum salary</p>
                 <select style="border-radius: 5px;padding: 5px 10px;color: gray;font-weight: 600;"
@@ -38,27 +32,46 @@
                         <option value="75000">{{75000 | currency:'INR'}}</option>
                 </select>
             </div>
+        <!-- </div> -->
+    </div>
+    
+    <div style="display: flex;align-items: center;width: 70%;margin-left: 20px;padding-left:10px">
+        <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;margin-right:10px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
+            <input type="checkbox" (change)="check()" [checked]="checked">&nbsp;
+            <label style="font-weight: 600;color: gray;">Sort by published date&nbsp;
+                <span *ngIf="checked">(Descending)</span>
+                <span *ngIf="checked === false">(Ascending)</span> 
+            </label>
         </div>
         
-        <div style="display: flex;align-items: center;width: 70%;margin-left: 20px;padding-left:10px">
-            <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;margin-right:10px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
-                <input type="checkbox" (change)="check()" [checked]="checked">&nbsp;
-                <label style="font-weight: 600;color: gray;">Sort by published date&nbsp;
-                    <span *ngIf="checked">(Descending)</span>
-                    <span *ngIf="checked === false">(Ascending)</span> 
-                </label>
-            </div>
-            
-            <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
-                <input type="checkbox" (change)="sortLastDate()" [checked]="checkLastDate">&nbsp;
-                <label style="font-weight: 600;color: gray;">Sort by last date&nbsp;
-                    <span *ngIf="checkLastDate">(Descending)</span>
-                    <span *ngIf="checkLastDate === false">(Ascending)</span> 
-                </label>
-            </div>
+        <div style="margin-top: 20px;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding-top: 10px;padding-left: 10px;padding-right:10px;width: fit-content;border-radius: 5px;">
+            <input type="checkbox" (change)="sortLastDate()" [checked]="checkLastDate">&nbsp;
+            <label style="font-weight: 600;color: gray;">Sort by last date&nbsp;
+                <span *ngIf="checkLastDate">(Descending)</span>
+                <span *ngIf="checkLastDate === false">(Ascending)</span> 
+            </label>
         </div>
+    </div>
+</div>
 
-        <div *ngFor="let item of copyData | paginate: { id: 'all-vacancies',
+<div *ngIf="load; then ifBlock else elseBlock"></div>
+
+<ng-template #ifBlock>
+    <div style="text-align: center;margin:100px auto">
+        <div class="spinner-border text-primary" style="width: 3rem;height:3rem;" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #elseBlock>
+    <div *ngIf="vacancies.length > 0; then datablock else noDataBlock"></div>
+</ng-template>
+
+<ng-template #datablock>
+    <div class="all-vacancies-div">
+
+        <div *ngFor="let item of vacancies | paginate: { id: 'all-vacancies',
                                                         itemsPerPage: itemsPerPage,
                                                         currentPage: page,
                                                         totalItems: totalRecords }" 

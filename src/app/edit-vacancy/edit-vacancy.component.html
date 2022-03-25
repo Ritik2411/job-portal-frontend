@@ -45,11 +45,14 @@
                      <option value="">
                         Select Qualification
                      </option>
-                     <option value="type-1">
-                        Type-1
+                     <option value="B.Tech">
+                        B.Tech
                     </option>
-                    <option value="type-2">
-                        Type-2
+                    <option value="M.Tech">
+                        M.Tech
+                    </option>
+                    <option value="M.B.A">
+                        M.B.A
                     </option>
                  </select>
                  <span class="error-message" *ngIf="minqualification.invalid && minqualification.touched">Qualification is required</span>
@@ -70,11 +73,11 @@
                         Hiring Freshers
                      </option>
 
-                     <option value="Freshers">
+                     <option value="1 Year">
                         1 Year
                      </option>
                      
-                     <option value="Freshers">
+                     <option value="2 Years">
                         2 Years
                      </option>
                  </select>
@@ -100,11 +103,10 @@
             <div class="input-box">
                 <label>Last Date</label>
                 <input #lastDate="ngModel"
-                    type="datetime-local" 
+                    type="date" 
                     class="input-type"
                     name="last_Date"
-                    [(ngModel)]="data.last_Date"
-                    disabled
+                    [(ngModel)]="last_date[0]"
                     required/>
                 <span class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last data is required</span>
             </div>
@@ -180,7 +182,6 @@
 
          <div class="vacancy-post">
              <button class="btn btn-primary mr-3" [disabled]="updateVacancyForm.invalid">Update</button>
-             <button class="btn btn-primary" type="reset">Cancel</button>
          </div>
     </form>
 </div>

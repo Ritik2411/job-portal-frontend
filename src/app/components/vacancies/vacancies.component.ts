@@ -12,7 +12,6 @@ export class VacanciesComponent implements OnInit {
   data:any
   vacancies:any
   load:boolean = true
-  copyData:any
   date:any
   page:number = 1
   totalRecords:string
@@ -65,8 +64,7 @@ export class VacanciesComponent implements OnInit {
       this.data = res
       this.vacancies = this.data.vacancyDetail
       this.totalRecords = this.data.totalItems.toString()
-      this.copyData = this.vacancies
-
+    
       if(this.vacancies.length > 0){
         this.load = false
       }
@@ -83,13 +81,12 @@ export class VacanciesComponent implements OnInit {
   
   changeExp(event){
     let txt = event.target.value
-    //this.load = true
+    this.load = true
     if(txt === 'Freshers' || txt === '1 Years' || txt === '2 Years'){
       this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?experience=${txt}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=1`).subscribe(res => {
         this.data = res
         this.vacancies = this.data.vacancyDetail
         this.totalRecords = this.data.totalItems.toString()
-        this.copyData = this.vacancies
   
         if(this.vacancies.length > 0){
           this.load = false
@@ -101,7 +98,7 @@ export class VacanciesComponent implements OnInit {
     }
     
     else{
-      // this.load = true
+      this.load = true
       this.vacancyDetail(this.sortOrder, this.itemPerPage, this.page)
     }
   }
@@ -121,7 +118,6 @@ export class VacanciesComponent implements OnInit {
       this.data = res
       this.vacancies = this.data.vacancyDetail
       this.totalRecords = this.data.totalItems.toString()
-      this.copyData = this.vacancies
 
       if(this.vacancies.length > 0){
         this.load = false
