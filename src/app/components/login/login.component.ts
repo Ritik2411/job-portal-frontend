@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, DoCheck, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { RolesService } from 'src/app/services/roles.service';
 
 @Component({
@@ -12,12 +13,14 @@ export class LoginComponent implements OnInit {
 
   data:any = {}
   token:any = {}
-  load:any = false
+  load:boolean = false
+  logged:boolean = false
 
-  constructor(private http:HttpClient, private userInfo:RolesService,private router:Router) { }
-
+  constructor(private http:HttpClient, private userInfo:RolesService, private router:Router, private toast:ToastrService) { }
+  
   login(item:any){
     this.load = true
+
     this.http.post("http://localhost:5500/login", item).subscribe((result) => {
         if(result !== null){
           this.token = result
@@ -36,17 +39,17 @@ export class LoginComponent implements OnInit {
           })
 
           this.load = false
-          this.router.navigate(["/"])
+          this.toast.success('Successfully logged in',null)
+          this.router.navigate(["/"], {replaceUrl: true})
         }
     },(error) => {
       if(error.status === 401){
         this.load = false
-        alert("Invalid login credentials.")
+        this.toast.error('Invalid Credentails', 'Error')
       }
     })
   }
 
   ngOnInit(): void {
   }
-
 }

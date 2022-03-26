@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {  Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-request-received',
@@ -18,8 +19,10 @@ export class RequestReceivedComponent implements OnInit {
   pageSize:number = 5
   check:boolean = false
   search:string = 'All'
+  jobseekerData:any = {}
+  loadJD:boolean = true
 
-  constructor(private http:HttpClient, private route:ActivatedRoute) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private toast:ToastrService) { }
 
   dateSearch(data){
     this.date = data.target.value
@@ -58,6 +61,43 @@ export class RequestReceivedComponent implements OnInit {
     }
   }
 
+  getJobseekerData(user_id:string){
+    this.http.get(`http://localhost:5500/JobSeeker/${user_id}`).subscribe(res => {
+      this.jobseekerData["Jobseeker"] = res
+      if(this.jobseekerData["Jobseeker"] !== null || this.jobseekerData["Jobseeker"] !== undefined){
+        this.http.get(`http://localhost:5500/Experience/${user_id}`).subscribe(res => {
+          this.jobseekerData["Experience"] = res
+          
+          if(this.jobseekerData["Experience"] !== null || this.jobseekerData["Experience"] !== undefined){
+                this.http.get(`http://localhost:5500/Qualification/${user_id}`).subscribe(res => {
+                  this.jobseekerData["Qualification"] = res
+                  
+                  if(this.jobseekerData["Qualification"] !== null || this.jobseekerData["Qualification"] !== undefined){
+                    this.http.get(`http://localhost:5500/Cv/user/${user_id}`).subscribe(res => {
+                      this.jobseekerData["docjobseekerData"] = res
+                      this.loadJD = false
+                    })
+                  }
+                  else{
+                    this.loadJD = false
+                  }
+                })   
+          }
+          else{
+            this.loadJD = false
+          }
+        })
+      }
+      else{
+        this.loadJD = false
+      }
+   })
+
+   setTimeout(()=>{
+    console.log(this.jobseekerData)
+   },2000)
+  }
+
   approve(data:any){
     console.log(data)
     const approved = window.confirm("Continue to approve this vacancy?") 
@@ -90,7 +130,6 @@ export class RequestReceivedComponent implements OnInit {
               }
             ]).subscribe(res => {
               if(res){
-                alert("Approved Successfully")
                 window.location.reload()
               }
             })
@@ -134,6 +173,15 @@ export class RequestReceivedComponent implements OnInit {
     setTimeout(()=>{
       console.log(this.vacancyData)
     },2000)
+  }
+
+  viewCv(fileData){
+    console.log(fileData)
+    this.http.get(`http://localhost:5500/Cv/${fileData.name}`, {responseType: 'blob'}).subscribe((res:Blob) => {
+        var blob = new Blob([res], {type: fileData.fileType})
+        var url = window.URL.createObjectURL(blob)
+        window.open(url)
+    })
   }
 
   pageChange(event){

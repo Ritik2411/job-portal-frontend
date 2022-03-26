@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-updateexperience-details',
@@ -10,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 export class UpdateexperienceDetailsComponent implements OnInit {
   @ Input() expData
 
-  constructor(private http:HttpClient, private route:ActivatedRoute) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private toast:ToastrService) { }
   load:boolean = true
 
   updateexperience(data:any, id:number){
@@ -23,7 +24,6 @@ export class UpdateexperienceDetailsComponent implements OnInit {
       jobDescription: data.jobDescription
     }).subscribe(res => {
       if(res){
-        alert("Updated Successfully")
         window.location.reload()
       }
     })

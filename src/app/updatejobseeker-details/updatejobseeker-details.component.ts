@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { format } from 'url';
 
 @Component({
@@ -12,7 +13,7 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
   @ Input() jobseekerData
   data:any
 
-  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router, private toast:ToastrService) { }
 
   id:string = this.route.snapshot.paramMap.get('id')
   load:boolean = true
@@ -30,7 +31,6 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
       dob: new Date(data.dob).toISOString()
     }).subscribe(res => {
       if(res){
-        alert("Updated Successfully")
         window.location.reload()
       }
     })

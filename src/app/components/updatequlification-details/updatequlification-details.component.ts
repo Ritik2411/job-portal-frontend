@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-updatequlification-details',
@@ -11,7 +12,7 @@ export class UpdatequlificationDetailsComponent implements OnInit {
   @ Input() quaData
   data:any
 
-  constructor(private http:HttpClient, private route:ActivatedRoute) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private toast:ToastrService) { }
   load:boolean = true
 
   updatequalifications(data:any, id:number){
@@ -23,7 +24,6 @@ export class UpdatequlificationDetailsComponent implements OnInit {
       grade: data.grade
     }).subscribe(res => {
       if(res){
-        alert('Updated Succesfully')
         window.location.reload()
       }
     })

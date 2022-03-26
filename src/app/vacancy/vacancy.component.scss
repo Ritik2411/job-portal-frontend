@@ -12,6 +12,12 @@
 
         .publisher-name-div{
             flex: 1;
+
+            .employee-div{
+                border-radius: 5px;
+                border: 1px solid #6c757d;
+                margin: 10px;
+            }
         }
     }
 
@@ -51,5 +57,24 @@
         font-size: 15px;
         font-weight: 600;
         
+        .input-div{
+            margin: 10px 0px 18px 0px;
+
+            .input-type{
+                outline: none;
+                border-radius: 5px;
+                border: 1.2px solid #6c757d;
+                padding: 5px;
+            }
+
+            .input-type:focus{
+                outline: none;
+            }
+
+            .error-message{
+                color: red;
+            }
+        }
+
     }
 }

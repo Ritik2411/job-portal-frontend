@@ -27,11 +27,43 @@
                 ngModel 
                 required/>
             
-            <span *ngIf="password.invalid && password.touched" class="error-message">At least one uppercase letter(A-Z), one lowercase letter(a-z). At least one numeric value(0-9).At least one special symbol(!@#$%^&*=+-_). The total length should be greater than or equal to 8 and less or equal to 16.</span>
+            <span *ngIf="password.invalid && password.touched" class="error-message">At least one uppercase letter(A-Z), one lowercase letter(a-z). At least one numeric value(0-9). At least one special symbol(!@#$%^&*=+-_). The total length should be greater than or equal to 8 and less or equal to 16.</span>
         </div>
 
         <div class="login-form-btn">
             <button [disabled]="loginForm.invalid || load" class="btn btn-primary">Login</button>
+
+            <!-- Error Modal   
+             
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Message</h5>
+                        <button *ngIf="logged" type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="home()">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        
+                        <button *ngIf="logged === false" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+
+                    <ng-component *ngIf="logged; then loginBlock else errorBlock"></ng-component>
+                    <ng-template #loginBlock>
+                        <div class="modal-body">
+                            Successfully Logged in
+                        </div>
+                    </ng-template>
+                    
+                    <ng-template #errorBlock>
+                        <div class="modal-body">
+                            Invalid Credentails
+                        </div>
+                    </ng-template>
+                </div>
+                </div>
+            </div>             -->
         </div>
     </form>
 
@@ -41,3 +73,4 @@
         </div>
     </div>
 </div>
+

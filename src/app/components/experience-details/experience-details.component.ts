@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-experience-details',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class ExperienceDetailsComponent implements OnInit {
 
-  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router, private toast:ToastrService) { }
   userData:any
   load:boolean = true
   id:string = this.route.snapshot.paramMap.get('id')
@@ -34,7 +35,7 @@ export class ExperienceDetailsComponent implements OnInit {
         }
       },(error) => {
         if(error.status === 500){
-          alert("Enter jobseeker details first")
+          this.toast.info("Enter jobseeker details first")
           this.router.navigate([this.route.snapshot.paramMap.get("id"), "details"])
         }
       })

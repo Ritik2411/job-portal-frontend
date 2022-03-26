@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-qulification-details',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class QulificationDetailsComponent implements OnInit {
 
-  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private router:Router, private toast:ToastrService) { }
   userData:any
   load:boolean = true
   quaData:any = []
@@ -38,7 +39,7 @@ export class QulificationDetailsComponent implements OnInit {
         }
       },(error) => {
         if(error.status === 500){
-          alert("Enter jobseeker detail first")
+          this.toast.info("Enter jobseeker detail first")
           this.router.navigate([this.id,"details"])
         }
       })

@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserDataComponent } from './user-data.component';
+import { EmployedetailmodalComponent } from './employedetailmodal.component';
 
-describe('UserDataComponent', () => {
-  let component: UserDataComponent;
-  let fixture: ComponentFixture<UserDataComponent>;
+describe('EmployedetailmodalComponent', () => {
+  let component: EmployedetailmodalComponent;
+  let fixture: ComponentFixture<EmployedetailmodalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UserDataComponent ]
+      declarations: [ EmployedetailmodalComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserDataComponent);
+    fixture = TestBed.createComponent(EmployedetailmodalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

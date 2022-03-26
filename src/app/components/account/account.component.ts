@@ -1,6 +1,7 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-account',
@@ -18,7 +19,7 @@ export class AccountComponent implements OnInit {
   lastName:string
   filedata:any
 
-  constructor(private route:ActivatedRoute,private http:HttpClient, private httpBackend:HttpBackend, private router:Router) {
+  constructor(private route:ActivatedRoute,private http:HttpClient, private httpBackend:HttpBackend, private router:Router, private toast:ToastrService) {
     this.httpclient = new HttpClient(httpBackend)
   }
 
@@ -28,7 +29,7 @@ export class AccountComponent implements OnInit {
   
   cvformData(){
     if(this.currentData.type !== 'application/pdf'){
-      alert("Upload a PDF file")
+      this.toast.warning("Upload a PDF file")
     }
     else{
      const formdata = new FormData()
@@ -42,14 +43,13 @@ export class AccountComponent implements OnInit {
         })
       }).subscribe(res => {
         if(res){
-           alert("Uploaded successfully")
            window.location.reload() 
          }
       })
      }
 
      else{
-       alert("Delete previous CV to upload new one.")
+       this.toast.warning("Delete previous CV to upload new one.")
      }
     }
   }
@@ -72,7 +72,6 @@ export class AccountComponent implements OnInit {
         last_name: this.lastName
       }).subscribe(res => {
         if(res){
-          alert("Profile updated successfully")
           window.location.reload()
         }
       })
@@ -98,7 +97,6 @@ export class AccountComponent implements OnInit {
       }
     }).subscribe(res => {
       if(res){
-        alert("Deleted successfully")
         window.location.reload()
       }
     })

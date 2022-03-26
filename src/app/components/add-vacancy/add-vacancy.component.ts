@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-vacancy',
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddVacancyComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute,private http:HttpClient,private route:Router) { }
+  constructor(private router:ActivatedRoute,private http:HttpClient,private route:Router, private toast:ToastrService) { }
 
   id:string = this.router.snapshot.paramMap.get('id')
   text:String = new Date().toLocaleDateString()
@@ -18,14 +19,14 @@ export class AddVacancyComponent implements OnInit {
 
   AddVacancy(data:any){
     if(data.min_Salary > data.max_Salary){
-      alert("Minimum salary must be smaller than maximum salary.")
+      this.toast.info("Minimum salary must be smaller than maximum salary.")
     }
     else if(data.max_Salary < data.min_Salary){
-      alert("Maximum salary must be greater than minimum salary.")
+      this.toast.info("Maximum salary must be greater than minimum salary.")
     }
 
     else if(data.max_Salary === data.min_Salary){
-      alert("Minimum and maximum salary cannot be same.")
+      this.toast.info("Minimum and maximum salary cannot be same.")
     }
 
     else{
@@ -44,7 +45,7 @@ export class AddVacancyComponent implements OnInit {
         user_id: localStorage.getItem('UserId')
       }).subscribe(res => {
           if(res){
-            alert("Vacancy posted successfully")
+            this.toast.success("Vacancy posted successfully")
             this.route.navigate(['/vacancies',this.id])
           }
       })

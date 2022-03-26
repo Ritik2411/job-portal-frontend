@@ -27,88 +27,56 @@
         
         <div class="employee-div"> 
             <form class="employee-form">
-                <div class="details-text">
-                    Employee Details
-                </div>
-        
-                <div style="display: flex;">
-                    <div class="input-box-companyname">
-                        <label>Organization Name</label>
-                        <input type="text" 
-                            name="organization"
-                            class="input-type"
-                            value={{data[0].organization}}
-                            disabled
-                            />
+                <div style="border: 1px solid #6c757d;border-radius: 5px;">
+                    <div class="details-text">
+                        Employee Organization Details
                     </div>
-                </div>
-        
-                <div style="display: flex;">
-                    <div class="input-box">
-                        <label>Select Organization Type</label>
-                        <input type="text" 
-                            class="input-type"
-                            value={{data[0].organizationType}}
-                            disabled
-                        />
-                    </div>
-                    
-                    <div class="input-box">
-                        <label>Company Email</label>
-                        <input type="text" 
-                            class="input-type" 
-                            value={{data[0].companyEmail}}
-                            disabled
-                        />
-                    </div>    
-                </div>
-                
-                <div style="display: flex;">
-                    <div class="input-box">
-                        <label>Company Phone Number</label>
-                        <input type="text" 
-                            class="input-type"
-                            value={{data[0].companyPhone}}
-                            disabled
-                            />
-                    </div>
-                
-                    <div class="input-box">
-                        <label>Number Of Employees</label>
-                        <input type="text" 
-                            class="input-type"
-                            value={{data[0].noOfEmployee}}
-                            disabled
-                            />
-                    </div>
-                </div>
-        
-                <div style="display: flex;">
-                    <div class="input-box">
-                        <label>Start Year</label>
-                        <input type="text" class="input-type" value={{data[0].startYear}} disabled/>
-                    </div>
-        
-                    <div class="input-box">
-                        <label>Created By</label>
-                        <input type="text" 
-                            class="input-type"
-                            value={{data[0].createdBy}}
-                            disabled
-                            />
+            
+                    <div style="display: flex;">
+                        <div class="input-box">
+                            <p class="box-text">
+                                <span>Organization Name:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].organization | titlecase}}</span>
+                            </p>    
+    
+                            <p class="box-text">
+                                <span>Organization Type:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].organizationType | titlecase}}</span>
+                            </p>  
+    
+                            <p class="box-text">
+                                <span>Company Email:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].companyEmail}}</span>
+                            </p> 
+                            
+                            <p class="box-text">
+                                <span>Company Phone Number:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].companyPhone}}</span>
+                            </p> 
+    
+                            <p class="box-text">
+                                <span>Number Of Employees:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].noOfEmployee}}</span>
+                            </p> 
+    
+                            <p class="box-text">
+                                <span>Start Year:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].startYear}}</span>
+                            </p>
+    
+                            <p class="box-text">
+                                <span>Created By:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].createdBy}}</span>
+                            </p>
+    
+                            <p class="box-text">
+                                <span>About:&nbsp;</span>
+                                <span style="color: gray;">{{data[0].about | titlecase}}</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 
-        
-                <div class="input-text-area">
-                    <label>About</label>
-                    <textarea cols="50" rows="5" 
-                        class="input-text-type"
-                        value={{data[0].about}}
-                        disabled
-                    ></textarea>
-                </div>
-        
             </form>
         </div>
     </ng-template>

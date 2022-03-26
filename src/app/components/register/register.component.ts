@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -9,17 +10,17 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private http:HttpClient, private router:Router) { }
+  constructor(private http:HttpClient, private router:Router, private toast:ToastrService) { }
 
   registerUser(data:any){
     if(data.password !== data.conformPassword){
-      alert("Password and Confirm Password must be same")
+      this.toast.warning("Password and Confirm Password must be same",null)
     }
 
     else{
       this.http.post('http://localhost:5500/register', data).subscribe(res=>{
         if(res){
-          alert("Registerd Successfully")
+          this.toast.success("Registerd Successfully")
           this.router.navigate(['/login'])
         }
       })

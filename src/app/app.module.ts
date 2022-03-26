@@ -28,10 +28,10 @@ import { UpdateexperienceDetailsComponent } from './components/updateexperience-
 import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updatejobseeker-details.component';
 import { InterceptorService } from './services/interceptor.service';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { EditVacancyComponent } from './edit-vacancy/edit-vacancy.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { UserDataComponent } from './components/user-data/user-data.component';
 import { EmployeeDataComponent } from './components/employee-data/employee-data.component';
+import { ToastrModule } from 'ngx-toastr';
+import { EmployedetailmodalComponent } from './components/employedetailmodal/employedetailmodal.component';
 
 @NgModule({
   declarations: [
@@ -58,9 +58,8 @@ import { EmployeeDataComponent } from './components/employee-data/employee-data.
     UpdateexperienceDetailsComponent,
     UpdatejobseekerDetailsComponent,
     NotFoundComponent,
-    EditVacancyComponent,
-    UserDataComponent,
-    EmployeeDataComponent   
+    EmployeeDataComponent,
+    EmployedetailmodalComponent   
   ],
   imports: [
     BrowserModule,
@@ -68,7 +67,12 @@ import { EmployeeDataComponent } from './components/employee-data/employee-data.
     HttpClientModule,
     FormsModule,
     RouterModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ToastrModule.forRoot({
+      timeOut: 1000,
+      progressBar: true,
+      preventDuplicates: true
+    })
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

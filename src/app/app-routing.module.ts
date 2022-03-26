@@ -12,9 +12,7 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { QulificationDetailsComponent } from './components/qulification-details/qulification-details.component';
 import { RegisterComponent } from './components/register/register.component';
-import { UserDataComponent } from './components/user-data/user-data.component';
 import { VacanciesComponent } from './components/vacancies/vacancies.component';
-import { EditVacancyComponent } from './edit-vacancy/edit-vacancy.component';
 import { JobseekerDetailsComponent } from './jobseeker-details/jobseeker-details.component';
 import { JobseekerVacancyComponent } from './jobseeker-vacancy/jobseeker-vacancy.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -84,17 +82,7 @@ const routes: Routes = [
 
   {
     path: 'vacanciesRequests/:id',
-
-    children: [
-      {
-        path: '',
-        component: RequestReceivedComponent,
-      },
-      {
-        path: 'userData/:id',
-        component: UserDataComponent
-      }
-    ]
+    component: RequestReceivedComponent
   },
 
   {
@@ -110,11 +98,6 @@ const routes: Routes = [
   {
     path: ':id/qualification',
     component: QulificationDetailsComponent
-  },
-
-  {
-    path: 'updateVacancy/:id',
-    component: EditVacancyComponent
   },
 
   {
