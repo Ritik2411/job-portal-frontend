@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, DoCheck, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -10,13 +11,15 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class VacancyComponent implements OnInit {
   @ Input() data = []
-
+  
+  closeResult = '';
   vacancyData:any = []
   employeeData:any = []
   loadED:boolean = true
   currentData:any = null
+  lastDate:any
 
-  constructor(private http:HttpClient, private router:Router, private route:Router, private toast:ToastrService) { }
+  constructor(private http:HttpClient, private router:Router, private route:Router, private toast:ToastrService,private modalService: NgbModal) { }
   
   role:string = localStorage.getItem('Role')
   todayDate = new Date().toISOString()
@@ -49,7 +52,9 @@ export class VacancyComponent implements OnInit {
           ]).subscribe(res => {
             if(res){
               this.toast.success('Applied Successfully')
-              this.router.navigate(['/appliedvacancies', localStorage.getItem('UserId')])
+              setTimeout(() => {
+                window.location.reload()
+              },1000)
             }
           })  
         }
@@ -68,7 +73,7 @@ export class VacancyComponent implements OnInit {
   }
 
   editvacancy(data){
-     this.currentData = data
+     
      console.log(this.currentData)
   }
 
@@ -102,5 +107,48 @@ export class VacancyComponent implements OnInit {
         this.loadED = false
         
     })
+  }
+
+  open(content, userId) {
+    this.http.get(`http://localhost:5500/EmployeeDetail/${userId}`).subscribe(res => {
+        this.employeeData = res
+        if(this.employeeData.length > 0){
+          this.loadED = false
+          console.log(this.employeeData)
+        }
+        
+        this.loadED = false
+        
+    })
+
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+    }, (reason) => {
+      console.log(reason)
+    });
+  }
+
+  openapplymodel(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      console.log(result);
+    }, (reason) => {
+      console.log(reason)
+    });
+  }
+
+  openEditModel(content,vacancyData){
+    this.currentData =  vacancyData
+    this.modalService.open(content, {ariaLabelledBy: 'modal-edit-vacancy', centered: true}, ).result.then((result) => {
+      console.log(this.currentData)
+    }, (reason) => {
+        console.log(reason)
+    });
+  }
+
+  opendeleteModal(content){
+    this.modalService.open(content, {ariaLabelledBy: 'modal-delete'}).result.then((result) => {
+      console.log(result)
+    }, (reason) => {
+      console.log(reason)
+    });
   }
 }

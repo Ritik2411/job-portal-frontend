@@ -29,9 +29,8 @@ import { UpdatejobseekerDetailsComponent } from './updatejobseeker-details/updat
 import { InterceptorService } from './services/interceptor.service';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { EmployeeDataComponent } from './components/employee-data/employee-data.component';
 import { ToastrModule } from 'ngx-toastr';
-import { EmployedetailmodalComponent } from './components/employedetailmodal/employedetailmodal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -58,8 +57,6 @@ import { EmployedetailmodalComponent } from './components/employedetailmodal/emp
     UpdateexperienceDetailsComponent,
     UpdatejobseekerDetailsComponent,
     NotFoundComponent,
-    EmployeeDataComponent,
-    EmployedetailmodalComponent   
   ],
   imports: [
     BrowserModule,
@@ -72,7 +69,8 @@ import { EmployedetailmodalComponent } from './components/employedetailmodal/emp
       timeOut: 1000,
       progressBar: true,
       preventDuplicates: true
-    })
+    }),
+    NgbModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

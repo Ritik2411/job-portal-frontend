@@ -38,12 +38,6 @@
                         <label style="color: gray;font-weight:600">&nbsp;Awaiting Approval</label>
                     </div>
                 </div>
-
-                <!-- <div style="text-align: right;">
-                    <button class="clear-btn">
-                        Clear
-                    </button>
-                </div> -->
             </div>
         </div>
     </div>
@@ -85,183 +79,178 @@
             <div style="display: flex;justify-content: space-between;">
                 <div>
                     <span>Applied By</span><br/>
-                    <span style="font-size: 15px;color: #007bff;cursor: pointer;" data-toggle="modal" data-target="#exampleModal" (click)="getJobseekerData(data?.user_id)">{{data?.user_name}}</span>
+                    <!-- Trigger Jobseeker modal -->
+                    <span style="font-size: 15px;color: #007bff;cursor: pointer;" (click)="openJSmodal(JScontent,data?.user_id)">{{data?.user_name}}</span>
                 
-                    <!-- Modal -->
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-xl" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">{{"JobSeeker profile" | titlecase}}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body profile-data">
-                                <div *ngIf="loadJD then loadBlock else dataBlock"></div>
-                                    <ng-template #loadBlock>
-                                        <div class="spinner-border" role="status">
-                                            <span class="sr-only">Loading...</span>
-                                          </div>
+                    <!-- JobSeeker Modal -->
+                    <ng-template #JScontent let-modal>
+                        <div class="modal-header">
+                          <h4 class="modal-title" id="modal-JS">{{"Jobseeker Profile" | titlecase}}</h4>
+                          <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+                        </div>
+                        <div class="modal-body profile-data">
+                            <div *ngIf="loadJD then loadBlock else dataBlock"></div>
+                            <ng-template #loadBlock>
+                                <div class="spinner-border" role="status">
+                                    <span class="sr-only">Loading...</span>
+                                  </div>
+                            </ng-template>
+
+                            <ng-template #dataBlock>
+                                <div class="profile-data-div">
+                                    <div class="data-per-div">
+                                        <p style="text-align: center;font-weight: 600;background-color: #6c757da1;color: white;padding: 5px 10px;">Jobseeker details</p>
+                                        
+                                        <ng-component *ngIf="jobseekerData?.Jobseeker.length > 0 then profileBlock else nopb"></ng-component>
+
+                                        <ng-template #profileBlock>
+                                            <div style="padding: 5px 10px;">
+                                                <p style="font-weight: 600;">
+                                                    <span>Full Name:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.first_name +" "+jobseekerData?.Jobseeker[0]?.last_name | titlecase}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>DOB:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.dob}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Email:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.email}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Phone:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.phone}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Experience:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.total_expericence | titlecase}}</span>
+                                                </p>
+
+                                                <p style="font-weight: 600;">
+                                                    <span>Address:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.address | titlecase}}</span>
+                                                </p>
+                                            </div>
+                                        </ng-template>
+                                        
+                                        <ng-template #nopb>
+                                            <p style="padding: 10px;font-weight: 600;">Jobseeker details are not added by this user.</p>
+                                        </ng-template>
+                                        
+                                    </div>
+    
+                                    <div class="data-per-div">
+                                        <p style="text-align: center;font-weight: 600;background-color: #6c757da1;color: white;padding: 5px 10px;">Qualification</p>    
+                                         
+                                        <ng-component *ngIf="jobseekerData?.Qualification.length > 0 then qd else noqd"></ng-component>
+                                        
+                                        <ng-template #qd>
+                                            <div style="padding: 5px 10px;">
+                                                <p style="font-weight: 600;">
+                                                    <span>Grade:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Qualification[0]?.grade}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Qualification:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Qualification[0]?.qualification | uppercase}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>University:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Qualification[0]?.university}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Year Of Completion:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Qualification[0]?.yearOfCompletion}}</span>
+                                                </p>
+                                            </div>
+                                        </ng-template>
+                                        
+                                        <ng-template #noqd>
+                                            <p style="padding: 10px;font-weight: 600;">Qualification details are not added by this user.</p>
+                                        </ng-template>
+
+                                    </div>
+    
+                                    <div class="data-per-div">
+                                        <p style="text-align: center;font-weight: 600;background-color: #6c757da1;color: white;padding: 5px 10px;">Experience</p>    
+                                        
+                                        <ng-component *ngIf="jobseekerData?.Experience.length > 0 then ed else noed"></ng-component>
+                                        
+                                        <ng-template #ed>
+                                            <div style="padding: 5px 10px;">
+                                                <p style="font-weight: 600;">
+                                                    <span>Company Name:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Experience[0]?.company_name}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Company URL:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Experience[0]?.companyUrl}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Designation:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Experience[0]?.designation}}</span>
+                                                </p>
+    
+                                                <p style="font-weight: 600;">
+                                                    <span>Start Date:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Experience[0]?.start_year}}</span>
+                                                </p>
+
+                                                <p style="font-weight: 600;">
+                                                    <span>End Date:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Experience[0]?.end_year}}</span>
+                                                </p>
+
+                                                <p style="font-weight: 600;">
+                                                    <span>Job Description:&nbsp;</span>
+                                                    <span style="color: gray;">{{jobseekerData?.Experience[0]?.jobDescription}}</span>
+                                                </p>
+                                            </div>
+                                        </ng-template>
+                                        
+                                        <ng-template #noed>
+                                            <p style="padding: 10px;font-weight: 600;">Experience details are not added by this user.</p>
+                                        </ng-template>
+
+                                    </div>
+                                </div>
+
+                                <div class="cv-data">
+                                    <p style="text-align: center;font-weight: 600;background-color: #6c757da1;color: white;padding: 5px 10px;">Uploaded CV</p>
+                                    
+                                    <ng-component *ngIf="jobseekerData?.docjobseekerData.length > 0 then cvdata else nocvdata"></ng-component>
+                                    
+                                    <ng-template #cvdata>
+                                        <div class="cv">
+                                            <div>
+                                                <p style="font-weight: 600;">
+                                                    <span style="font-size: 15px;">{{jobseekerData?.docjobseekerData[0]?.name}}</span><br/>
+                                                    <span style="color: gray;font-size: 14px;">{{(jobseekerData?.docjobseekerData[0]?.file_size / 1000000).toFixed(2)}}MB</span>
+                                                </p>
+                                            </div>
+
+                                            <div>
+                                                <button class="btn btn-success" (click)="viewCv(jobseekerData?.docjobseekerData[0])">View</button>
+                                            </div>
+                                        </div>
                                     </ng-template>
-
-                                    <ng-template #dataBlock>
-                                        <div class="profile-data-div">
-                                            <div class="data-per-div">
-                                                <p style="text-align: center;background-color: #6c757da1;color: white;padding: 5px 10px;">Jobseeker details</p>
-                                                
-                                                <ng-component *ngIf="jobseekerData?.Jobseeker.length > 0 then profileBlock else nopb"></ng-component>
-
-                                                <ng-template #profileBlock>
-                                                    <div style="padding: 5px 10px;">
-                                                        <p>
-                                                            <span>Full Name:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.first_name +" "+jobseekerData?.Jobseeker[0]?.last_name | titlecase}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>DOB:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.dob}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Email:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.email}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Phone:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.phone}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Experience:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.total_expericence | titlecase}}</span>
-                                                        </p>
-    
-                                                        <p>
-                                                            <span>Address:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Jobseeker[0]?.address | titlecase}}</span>
-                                                        </p>
-                                                    </div>
-                                                </ng-template>
-                                                
-                                                <ng-template #nopb>
-                                                    <p style="padding: 10px;">Jobseeker details are not added by this user.</p>
-                                                </ng-template>
-                                                
-                                            </div>
-            
-                                            <div class="data-per-div">
-                                                <p style="text-align: center;background-color: #6c757da1;color: white;padding: 5px 10px;">Qualification</p>    
-                                                 
-                                                <ng-component *ngIf="jobseekerData?.Qualification.length > 0 then qd else noqd"></ng-component>
-                                                
-                                                <ng-template #qd>
-                                                    <div style="padding: 5px 10px;">
-                                                        <p>
-                                                            <span>Grade:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Qualification[0]?.grade}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Qualification:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Qualification[0]?.qualification | uppercase}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>University:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Qualification[0]?.university}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Year Of Completion:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Qualification[0]?.yearOfCompletion}}</span>
-                                                        </p>
-                                                    </div>
-                                                </ng-template>
-                                                
-                                                <ng-template #noqd>
-                                                    <p style="padding: 10px;">Qualification details are not added by this user.</p>
-                                                </ng-template>
-
-                                            </div>
-            
-                                            <div class="data-per-div">
-                                                <p style="text-align: center;background-color: #6c757da1;color: white;padding: 5px 10px;">Experience</p>    
-                                                
-                                                <ng-component *ngIf="jobseekerData?.Experience.length > 0 then ed else noed"></ng-component>
-                                                
-                                                <ng-template #ed>
-                                                    <div style="padding: 5px 10px;">
-                                                        <p>
-                                                            <span>Company Name:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Experience[0]?.company_name}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Company URL:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Experience[0]?.companyUrl}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Designation:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Experience[0]?.designation}}</span>
-                                                        </p>
-            
-                                                        <p>
-                                                            <span>Start Date:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Experience[0]?.start_year}}</span>
-                                                        </p>
-    
-                                                        <p>
-                                                            <span>End Date:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Experience[0]?.end_year}}</span>
-                                                        </p>
-    
-                                                        <p>
-                                                            <span>Job Description:&nbsp;</span>
-                                                            <span style="color: gray;">{{jobseekerData?.Experience[0]?.jobDescription}}</span>
-                                                        </p>
-                                                    </div>
-                                                </ng-template>
-                                                
-                                                <ng-template #noed>
-                                                    <p style="padding: 10px;">Experience details are not added by this user.</p>
-                                                </ng-template>
-
-                                            </div>
-                                        </div>
-
-                                        <div class="cv-data">
-                                            <p style="text-align: center;background-color: #6c757da1;color: white;padding: 5px 10px;">Uploaded CV</p>
-                                            
-                                            <ng-component *ngIf="jobseekerData?.docjobseekerData.length > 0 then cvdata else nocvdata"></ng-component>
-                                            
-                                            <ng-template #cvdata>
-                                                <div class="cv">
-                                                    <div>
-                                                        <p>
-                                                            <span style="font-size: 15px;">{{jobseekerData?.docjobseekerData[0]?.name}}</span><br/>
-                                                            <span style="color: gray;font-size: 14px;">{{(jobseekerData?.docjobseekerData[0]?.file_size / 1000000).toFixed(2)}}MB</span>
-                                                        </p>
-                                                    </div>
-    
-                                                    <div>
-                                                        <button class="btn btn-success" (click)="viewCv(jobseekerData?.docjobseekerData[0])">View</button>
-                                                    </div>
-                                                </div>
-                                            </ng-template>
-                                            
-                                            <ng-template #nocvdata>
-                                                <p style="padding: 10px;">CV is not added by this user.</p>
-                                            </ng-template>
-                                        </div>
+                                    
+                                    <ng-template #nocvdata>
+                                        <p style="padding: 10px;font-weight: 600;">CV is not added by this user.</p>
                                     </ng-template>
                                 </div>
+                            </ng-template>
                         </div>
-                        </div>
-                    </div>
+                      </ng-template>
                 </div>
     
                 <div>
@@ -275,14 +264,47 @@
                 </div>
     
                 <div>
-                    <button *ngIf="data?.awaiting_approval === true" class="btn btn-success mr-2" (click)="approve(data)">
+                    <!-- Trigger Approve modal -->
+                    <button *ngIf="data?.awaiting_approval === true" class="btn btn-success mr-2" (click)="openApproveModal(approvecontent)">
                         Approve
                     </button>
-    
-                    <button *ngIf="data?.awaiting_approval === true" class="btn btn-danger ml-2" (click)="reject(data)">
+
+                    <!-- Approve Modal -->
+                    <ng-template #approvecontent let-modal>
+                        <div class="modal-header">
+                            <h4 class="modal-title" id="modal-approve">Approve Vacancy</h4>
+                            <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+                        </div>
+                        <div class="modal-body">
+                            <span style="font-weight: 600;">Are you sure you want to approve this vacancy?</span>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+                            <button type="button" class="btn btn-success" (click)="approve(data)">Approve</button>
+                        </div>
+                        </ng-template>
+
+                    <!-- Trigger Reject Modal -->
+                    <button *ngIf="data?.awaiting_approval === true" class="btn btn-danger ml-2" (click)="openRejectModal(content)">
                         Reject
                     </button>
-    
+
+                    <!-- Reject Modal -->
+                    
+                    <ng-template #content let-modal>
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modal-reject">Reject Vacancy</h4>
+                        <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <span style="font-weight: 600;">Are you sure you want to reject this vacancy?</span>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" (click)="modal.close('Save click')">Cancel</button>
+                        <button type="button" class="btn btn-danger" (click)="reject(data)">Reject</button>
+                    </div>
+                    </ng-template>
+
                     <button *ngIf="data?.awaiting_approval === false && data?.approved === true" class="btn btn-success" disabled>
                         Approved
                     </button>

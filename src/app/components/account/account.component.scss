@@ -112,3 +112,15 @@
         }
     }
 }
+
+.symbol{
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-weight: 600;
+    color: #6c757d;
+}
+
+.symbol:hover{
+    color: black;
+}

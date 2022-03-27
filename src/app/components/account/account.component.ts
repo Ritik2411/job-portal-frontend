@@ -1,6 +1,7 @@
 import { HttpBackend, HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -19,7 +20,7 @@ export class AccountComponent implements OnInit {
   lastName:string
   filedata:any
 
-  constructor(private route:ActivatedRoute,private http:HttpClient, private httpBackend:HttpBackend, private router:Router, private toast:ToastrService) {
+  constructor(private route:ActivatedRoute,private http:HttpClient, private httpBackend:HttpBackend, private router:Router, private toast:ToastrService,private modalService: NgbModal) {
     this.httpclient = new HttpClient(httpBackend)
   }
 
@@ -110,6 +111,15 @@ export class AccountComponent implements OnInit {
       }
     })
   }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-delete'}).result.then((result) => {
+      console.log(result)
+    }, (reason) => {
+      console.log(reason)
+    });
+  }
+
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id')

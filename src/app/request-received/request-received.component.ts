@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import {  Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -22,7 +23,7 @@ export class RequestReceivedComponent implements OnInit {
   jobseekerData:any = {}
   loadJD:boolean = true
 
-  constructor(private http:HttpClient, private route:ActivatedRoute, private toast:ToastrService) { }
+  constructor(private http:HttpClient, private route:ActivatedRoute, private toast:ToastrService,private modalService: NgbModal) { }
 
   dateSearch(data){
     this.date = data.target.value
@@ -61,7 +62,7 @@ export class RequestReceivedComponent implements OnInit {
     }
   }
 
-  getJobseekerData(user_id:string){
+  openJSmodal(content,user_id) {
     this.http.get(`http://localhost:5500/JobSeeker/${user_id}`).subscribe(res => {
       this.jobseekerData["Jobseeker"] = res
       if(this.jobseekerData["Jobseeker"] !== null || this.jobseekerData["Jobseeker"] !== undefined){
@@ -93,78 +94,73 @@ export class RequestReceivedComponent implements OnInit {
       }
    })
 
-   setTimeout(()=>{
-    console.log(this.jobseekerData)
-   },2000)
+    this.modalService.open(content, {ariaLabelledBy: 'modal-JS', size: 'xl'}).result.then((result) => {
+      console.log(result)
+    }, (reason) => {
+      console.log(reason)
+    });
   }
 
   approve(data:any){
-    console.log(data)
-    const approved = window.confirm("Continue to approve this vacancy?") 
-    if(approved){
-      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
-        {
-          op: 'replace',
-          path: 'awaiting_approval',
-          value: false
-        },
+    this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
+      {
+        op: 'replace',
+        path: 'awaiting_approval',
+        value: false
+      },
 
-        {
-          op: 'replace',
-          path: 'approved',
-          value: true
-        },
+      {
+        op: 'replace',
+        path: 'approved',
+        value: true
+      },
 
-        {
-          op: 'replace',
-          path: 'no_of_Vacancies',
-          value: data.no_of_Vacancies - 1
+      {
+        op: 'replace',
+        path: 'no_of_Vacancies',
+        value: data.no_of_Vacancies - 1
+      }
+    ]).subscribe(res => {
+        if(res){
+          this.http.patch(`http://localhost:5500/VacancyDetail/${(data.vacancy_id)}`, [
+            {
+              op: 'replace',
+              path: 'no_of_Vacancies',
+              value: data.no_of_Vacancies - 1
+            }
+          ]).subscribe(res => {
+            if(res){
+              this.toast.success("Approved successfully")
+              setTimeout(() => {
+               window.location.reload()
+              },1000)
+            }
+          })
         }
-      ]).subscribe(res => {
-          if(res){
-            this.http.patch(`http://localhost:5500/VacancyDetail/${(data.vacancy_id)}`, [
-              {
-                op: 'replace',
-                path: 'no_of_Vacancies',
-                value: data.no_of_Vacancies - 1
-              }
-            ]).subscribe(res => {
-              if(res){
-                window.location.reload()
-              }
-            })
-          }
-      })
-    }
-    else{
-      console.log("op c")
-    }
+    })
   }
 
   reject(data:any){
-    const rejected = window.confirm("Continue to reject this vacancy?") 
-    if(rejected){
-      this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
-        {
-          op: 'replace',
-          path: 'awaiting_approval',
-          value: false
-        },
+    this.http.patch(`http://localhost:5500/VacancyRequests/vacancies/${data.id}`, [
+      {
+        op: 'replace',
+        path: 'awaiting_approval',
+        value: false
+      },
 
-        {
-          op: 'replace',
-          path: 'approved',
-          value: false
-        }
-      ]).subscribe(res => {
-          if(res){
+      {
+        op: 'replace',
+        path: 'approved',
+        value: false
+      }
+    ]).subscribe(res => {
+        if(res){
+          this.toast.error("Request Rejected")
+          setTimeout(() => {
             window.location.reload()
-          }
-      })
-    }
-    else{
-      console.log("op c")
-    }
+          },1000)
+        }
+    })
   }
 
   ngOnInit(): void {
@@ -205,4 +201,21 @@ export class RequestReceivedComponent implements OnInit {
       }
     })
   }
+
+  openApproveModal(content){
+    this.modalService.open(content, {ariaLabelledBy: 'modal-approve'}).result.then((result) => {
+      console.log(result)
+    }, (reason) => {
+      console.log(reason)
+    });
+  }
+
+  openRejectModal(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-reject'}).result.then((result) => {
+      console.log(result)
+    }, (reason) => {
+      console.log(reason)
+    });
+  }
+
 }

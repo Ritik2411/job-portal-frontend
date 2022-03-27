@@ -6,7 +6,6 @@ import { AddEmployeerDetailComponent } from './components/add-employeer-detail/a
 import { AddVacancyComponent } from './components/add-vacancy/add-vacancy.component';
 import { AppliedvacanciesComponent } from './components/appliedvacancies/appliedvacancies.component';
 import { ChangepasswordComponent } from './components/changepassword/changepassword.component';
-import { EmployeeDataComponent } from './components/employee-data/employee-data.component';
 import { ExperienceDetailsComponent } from './components/experience-details/experience-details.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -61,18 +60,7 @@ const routes: Routes = [
 
   {
     path: 'allvacancies/:id',
-
-    children: [
-      {
-        path: '',
-        component: JobseekerVacancyComponent,
-      },
-      
-      {
-        path: 'employeedetails/:id',
-        component: EmployeeDataComponent
-      }
-    ]
+    component: JobseekerVacancyComponent
   },
 
   {

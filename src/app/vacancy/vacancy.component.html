@@ -1,93 +1,86 @@
 <div class="vacancy-div">
     <div class="publisher-info">
         <div class="publisher-name-div">
-            <div *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" [routerLink]="['employeedetails',vacancyData?.user_id]">{{vacancyData?.publishedBy}}</div>
+            <!-- <div *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" [routerLink]="['employeedetails',vacancyData?.user_id]">{{vacancyData?.publishedBy}}</div> -->
             
             <!-- Trigger Model -->
-            <!-- <p *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" data-toggle="modal" data-target="#publisherModal" (click)="employeeDetails(vacancyData.user_id)">{{vacancyData?.publishedBy}}</p> -->
+            <p *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" data-toggle="modal" data-target="#publisherModal" (click)="open(content,vacancyData.user_id)">{{vacancyData?.publishedBy}}</p>
             
             <!-- Modal -->
 
-            <!-- <div class="modal fade" id="publisherModal" tabindex="-1" role="dialog" aria-labelledby="publisherModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="publisherModalLabel">Employer Details</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div *ngIf="loadED; then loadBlock else datablock"></div>
+            <ng-template #content let-modal>
+                <div class="modal-header">
+                  <h4 class="modal-title" id="modal-basic-title">Employee Profile</h4>
+                  <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+                </div>
+                <div class="modal-body">
+                    <div *ngIf="loadED; then loadBlock else datablock"></div>
                         
-                        <ng-template #loadBlock>
-                            <div class="spinner-border text-secondary p-2" role="status">
-                                <span class="sr-only">Loading...</span>
+                    <ng-template #loadBlock>
+                        <div class="spinner-border text-secondary p-2" role="status">
+                            <span class="sr-only">Loading...</span>
+                        </div>
+                    </ng-template>
+
+                    <ng-template #datablock>
+                        <ng-component *ngIf="employeeData?.length > 0 then organizationBlock else nodatablock"></ng-component>
+                        
+                        <ng-template #organizationBlock> 
+                            <div class="employee-div" style="border: 1px solid #6c757d;border-radius: 5px;">
+                                <p style="background-color: #6c757d;color: white;padding: 5px 10px;font-weight: 600;">Employee organization details</p>
+                                <div style="padding: 5px 10px;font-weight: 600;">
+                                    <p>
+                                        <span>Organization Name:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].organization}}</span>
+                                    </p>
+    
+                                    <p>
+                                        <span>Founded By:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].createdBy}}</span>
+                                    </p>
+    
+                                    <p>
+                                        <span>Company Email:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].companyEmail}}</span>
+                                    </p>
+    
+                                    <p>
+                                        <span>Phone:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].companyPhone}}</span>
+                                    </p>
+    
+                                    <p>
+                                        <span>Number Of Employee:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].noOfEmployee}}</span>
+                                    </p>
+                                    
+                                    <p>
+                                        <span>Organization Type:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].organizationType}}</span>
+                                    </p>
+    
+                                    <p>
+                                        <span>Start Year:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].startYear}}</span>
+                                    </p>
+
+                                    <p>
+                                        <span>About:&nbsp;</span>
+                                        <span style="color: gray;">{{employeeData[0].about}}</span>
+                                    </p>
+                                </div>
+                            </div>
+                            
+                        </ng-template>
+                        
+                        <ng-template #nodatablock>
+                            <div style="padding: 5px 10px;font-weight: 600;color: gray;">
+                                Organization details are not added by this employer.
                             </div>
                         </ng-template>
-
-                        <ng-template #datablock>
-                            <ng-component *ngIf="employeeData?.length > 0 then organizationBlock else nodatablock"></ng-component>
-                            
-                            <ng-template #organizationBlock> 
-                                <div class="employee-div">
-                                    <p style="background-color: #6c757d;color: white;padding: 5px 10px;">Employee organization details</p>
-                                    <div style="padding: 5px 10px;">
-                                        <p>
-                                            <span>Organization Name:&nbsp;</span>
-                                            <span>{{employeeData[0].organization}}</span>
-                                        </p>
-        
-                                        <p>
-                                            <span>Founded By:&nbsp;</span>
-                                            <span>{{employeeData[0].createdBy}}</span>
-                                        </p>
-        
-                                        <p>
-                                            <span>Company Email:&nbsp;</span>
-                                            <span>{{employeeData[0].companyEmail}}</span>
-                                        </p>
-        
-                                        <p>
-                                            <span>Phone:&nbsp;</span>
-                                            <span>{{employeeData[0].companyPhone}}</span>
-                                        </p>
-        
-                                        <p>
-                                            <span>Number Of Employee:&nbsp;</span>
-                                            <span>{{employeeData[0].noOfEmployee}}</span>
-                                        </p>
-                                        
-                                        <p>
-                                            <span>Organization Type:&nbsp;</span>
-                                            <span>{{employeeData[0].organizationType}}</span>
-                                        </p>
-        
-                                        <p>
-                                            <span>Start Year:&nbsp;</span>
-                                            <span>{{employeeData[0].startYear}}</span>
-                                        </p>
-
-                                        <p>
-                                            <span>About:&nbsp;</span>
-                                            <span>{{employeeData[0].about}}</span>
-                                        </p>
-                                    </div>
-                                </div>
-                                
-                            </ng-template>
-                            
-                            <ng-template #nodatablock>
-                                <div style="padding: 5px 10px;">
-                                    Organization details are not added by this employer.
-                                </div>
-                            </ng-template>
-                        </ng-template>
-                    </div>
+                    </ng-template>
                 </div>
-                </div>
-            </div> -->
+              </ng-template>
 
             <span style="font-size: 16px;">Published on: 
                 <span style="color: gray;">
@@ -109,31 +102,25 @@
                 <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined" class="btn btn-info" disabled>Last date exceeded</button>
             </ng-template>
             <ng-template #enabledbtn>
-                <!-- Trigger Modal -->
-                <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined" class='btn btn-primary' data-toggle="modal" data-target="#exampleModal">Apply</button>
+                <!-- Trigger Apply Modal -->
+                <button *ngIf="vacancyData.applied === undefined && vacancyData.No_more_requests === undefined" class='btn btn-primary' (click)="openapplymodel(applycontent)">Apply</button>
             </ng-template>
             <button *ngIf="vacancyData.No_more_requests === true" class="btn btn-warning" disabled>Accepting no more requests</button>
             
-            <!-- Modal -->
-            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title" id="exampleModalLabel">Apply for Vacancy</h5>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                    <div class="modal-body">
-                      Are you sure you want to apply for this vacancy?
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="apply(vacancyData)">Apply</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <!--Apply Modal -->
+            
+              <ng-template #applycontent let-modal>
+            <div class="modal-header">
+                <h4 class="modal-title" id="modal-apply">Apply for vacancy</h4>
+                <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+            </div>
+            <div class="modal-body">
+                <span style="font-weight: 600;">Are you sure you want to apply for this vacancy?</span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="apply(vacancyData)">Apply</button>
+            </div>
+            </ng-template>  
         </ng-template>
     </div>
 
@@ -172,152 +159,139 @@
             <div>Description</div>
             <div *ngIf="role === 'Employee'">
                 <!--Trigger Edit Model-->
-                <button class="btn btn-warning mr-2" data-toggle="modal" data-target="#editModalCenter" (click)="editvacancy(vacancyData)">Edit</button>
+                <button class="btn btn-warning mr-2" (click)="openEditModel(editcontent,vacancyData)">Edit</button>
 
                 <!-- Edit Modal -->
-                <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="editModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLongTitle">Edit Vacancy</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            <form *ngIf="currentData !== null" #updateVacancyform="ngForm" (submit)="updateVacancy(updateVacancyform.value, currentData.id)"> 
-                                <div class="input-div">
-                                    <label>Experience:&nbsp;</label>
-                                    <select #experience="ngModel"
-                                        class="input-type"
-                                        name="experience"
-                                        [(ngModel)] = "currentData.experience"
-                                        required>
-                                        <option value="">Select Experience</option>
-                                        <option value="Freshers">Hiring Freshers</option>
-                                        <option value="1 Year">1 Year</option> 
-                                        <option value="2 Years">2 Years</option>
-                                    </select>
-                                    <div class="error-message" *ngIf="experience.invalid && experience.touched">Experience is required</div>
-                                </div>
-    
-                                <div class="input-div">
-                                    <label>Minimum Qualification:&nbsp;</label>
-                                    <select #minqualification="ngModel"
-                                        class="input-type"
-                                        name="minimum_qualification"
-                                        [(ngModel)] = "currentData.minimum_qualification"
-                                        required>
-                                        <option value="">Select Qualification</option>
-                                        <option value="B.Tech">B.Tech</option>
-                                        <option value="M.Tech">M.Tech</option>
-                                        <option value="M.B.A">M.B.A</option>
-                                    </select>
-                                    <div class="error-message" *ngIf="minqualification.invalid && minqualification.touched">Qualification is required</div>
-                                </div>
-    
-                                <div class="input-div">
-                                    <label>Number of vacancy:&nbsp;</label>
-                                    <input #numofvacancy="ngModel" 
-                                        type="number" 
-                                        placeholder="Enter number of vacancy" 
-                                        class="input-type"
-                                        min="2"
-                                        max="50"
-                                        name="no_of_Vacancies"
-                                        [(ngModel)] = "currentData.no_of_Vacancies"
-                                        required/>
-                                    <div class="error-message" *ngIf="numofvacancy.invalid && numofvacancy.touched">Number of vacancies must be more than 1 and less than 50</div>
-                                </div>
-    
-                                <div class="input-div">
-                                    <label>Last Date:&nbsp;</label>
-                                    <input #lastDate="ngModel"
-                                        type="date" 
-                                        class="input-type"
-                                        name="last_Date"
-                                        min={{min_date[0]}}
-                                        [(ngModel)] = "lastDate[0]"
-                                        required/>
-                                    <div class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last data is required</div>
-                                </div>
-    
-                                <div class="input-div">
-                                    <label>Minimum Salary:&nbsp;</label>
-                                    <select #minSalary="ngModel"
-                                        class="input-type"
-                                        name="min_Salary"
-                                        [(ngModel)] = "currentData.min_Salary"
-                                        required>
-                                        <option value="">Select Minimum Salary</option>
-                                        <option value="30000">30,000</option>
-                                        <option value="45000">45,000</option>
-                                        <option value="60000">60,000</option>
-                                    </select>
-                                    <div class="error-message" *ngIf="minSalary.invalid && minSalary.touched">This field is required</div>
-                                </div>
-    
-                                <div class="input-div">
-                                    <label>Maximum Salary:&nbsp;</label>
-                                    <select #maxSalary="ngModel"
-                                        class="input-type"
-                                        name="max_Salary"
-                                        [(ngModel)] = "currentData.max_Salary"
-                                        required>
-                                        <option value="">Select Maximum Salary</option>
-                                        <option value="45000">45,000</option>
-                                        <option value="60000">60,000</option>
-                                        <option value="75000">75,000</option>
-                                    </select>
-                                    <div class="error-message" *ngIf="maxSalary.invalid && maxSalary.touched">This field is required</div> 
-                                </div>
-    
-                                <div class="input-div">
-                                    <label>Job description:</label>
-                                    <textarea cols="50" rows="5" 
-                                    #jobdescription="ngModel"
-                                    placeholder="Enter Job Description" 
+                <ng-template #editcontent let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-edit-vacancy">Edit Vacancy</h4>
+                      <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
+                    </div>
+                    <div class="modal-body">
+                        <form *ngIf="currentData !== null" #updateVacancyform="ngForm" (submit)="updateVacancy(updateVacancyform.value, currentData.id)"> 
+                            <div class="input-div">
+                                <label class="label">Experience:&nbsp;</label>
+                                <select #experience="ngModel"
                                     class="input-type"
-                                    name="job_Description"
-                                    minlength="5"
-                                    maxlength="500"
-                                    [(ngModel)] = "currentData.job_Description"
-                                    required></textarea>
-                                    <div class="error-message" *ngIf="jobdescription.invalid && jobdescription.touched">Job description must contain more than 5 and less than 500 character</div>
-                                </div>
+                                    name="experience"
+                                    [(ngModel)] = "currentData.experience"
+                                    required>
+                                    <option value="">Select Experience</option>
+                                    <option value="Freshers">Hiring Freshers</option>
+                                    <option value="1 Year">1 Year</option> 
+                                    <option value="2 Years">2 Years</option>
+                                </select>
+                                <div class="error-message" *ngIf="experience.invalid && experience.touched">Experience is required</div>
+                            </div>
 
-                                <div class="input-div">
-                                    <button type="submit" class="btn btn-success" [disabled]="updateVacancyform.invalid">Update</button>
-                                </div>
-                            </form>
-                        </div>
+                            <div class="input-div">
+                                <label class="label">Minimum Qualification:&nbsp;</label>
+                                <select #minqualification="ngModel"
+                                    class="input-type"
+                                    name="minimum_qualification"
+                                    [(ngModel)] = "currentData.minimum_qualification"
+                                    required>
+                                    <option value="">Select Qualification</option>
+                                    <option value="B.Tech">B.Tech</option>
+                                    <option value="M.Tech">M.Tech</option>
+                                    <option value="M.B.A">M.B.A</option>
+                                </select>
+                                <div class="error-message" *ngIf="minqualification.invalid && minqualification.touched">Qualification is required</div>
+                            </div>
+
+                            <div class="input-div">
+                                <label class="label">Number of vacancy:&nbsp;</label>
+                                <input #numofvacancy="ngModel" 
+                                    type="number" 
+                                    placeholder="Enter number of vacancy" 
+                                    class="input-type"
+                                    min="2"
+                                    max="50"
+                                    name="no_of_Vacancies"
+                                    [(ngModel)] = "currentData.no_of_Vacancies"
+                                    required/>
+                                <div class="error-message" *ngIf="numofvacancy.invalid && numofvacancy.touched">Number of vacancies must be more than 1 and less than 50</div>
+                            </div>
+
+                            <div class="input-div">
+                                <label class="label">Last Date:&nbsp;</label>
+                                <input #lastDate="ngModel"
+                                    type="date" 
+                                    class="input-type"
+                                    name="last_Date"
+                                    min={{min_date[0]}}
+                                    ngModel
+                                    required/>
+                                <div class="error-message" *ngIf="lastDate.invalid && lastDate.touched">Last date is required</div>
+                            </div>
+
+                            <div class="input-div">
+                                <label class="label">Minimum Salary:&nbsp;</label>
+                                <select #minSalary="ngModel"
+                                    class="input-type"
+                                    name="min_Salary"
+                                    [(ngModel)] = "currentData.min_Salary"
+                                    required>
+                                    <option value="">Select Minimum Salary</option>
+                                    <option value="30000">30,000</option>
+                                    <option value="45000">45,000</option>
+                                    <option value="60000">60,000</option>
+                                </select>
+                                <div class="error-message" *ngIf="minSalary.invalid && minSalary.touched">This field is required</div>
+                            </div>
+
+                            <div class="input-div">
+                                <label class="label">Maximum Salary:&nbsp;</label>
+                                <select #maxSalary="ngModel"
+                                    class="input-type"
+                                    name="max_Salary"
+                                    [(ngModel)] = "currentData.max_Salary"
+                                    required>
+                                    <option value="">Select Maximum Salary</option>
+                                    <option value="45000">45,000</option>
+                                    <option value="60000">60,000</option>
+                                    <option value="75000">75,000</option>
+                                </select>
+                                <div class="error-message" *ngIf="maxSalary.invalid && maxSalary.touched">This field is required</div> 
+                            </div>
+
+                            <div class="input-div">
+                                <label class="label">Job description:</label>
+                                <textarea cols="50" rows="5" 
+                                #jobdescription="ngModel"
+                                placeholder="Enter Job Description" 
+                                class="input-type"
+                                name="job_Description"
+                                minlength="5"
+                                maxlength="500"
+                                [(ngModel)] = "currentData.job_Description"
+                                required></textarea>
+                                <div class="error-message" *ngIf="jobdescription.invalid && jobdescription.touched">Job description must contain more than 5 and less than 500 character</div>
+                            </div>
+
+                            <div class="input-div">
+                                <button type="submit" class="btn btn-success" [disabled]="updateVacancyform.invalid">Update</button>
+                            </div>
+                        </form>
                     </div>
-                    </div>
-                </div>
+                  </ng-template>
 
                 <!-- trigger delete modal -->
-                <button class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">Delete</button>
+                <button class="btn btn-danger" (click)="opendeleteModal(deletecontent)">Delete</button>
 
                 <!-- Delete Modal -->
-                <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Delete Vacancy</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to delete this vacancy?
-                        </div>
-                        <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-danger" (click)="deleteVacancy(vacancyData?.id)" data-dismiss="modal">Delete</button>
-                        </div>
+                <ng-template #deletecontent let-modal>
+                    <div class="modal-header">
+                      <h4 class="modal-title" id="modal-delete">Delete Vacancy</h4>
+                      <button type="button" class="btn-close symbol" aria-label="Close" (click)="modal.dismiss('Cross click')">X</button>
                     </div>
+                    <div class="modal-body">
+                        <span style="font-weight: 600;">Are you sure you want to delete this vacancy?</span>
                     </div>
-                </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-danger" (click)="deleteVacancy(vacancyData?.id)">Delete</button>
+                    </div>
+                  </ng-template>                  
             </div>
         </div>
         

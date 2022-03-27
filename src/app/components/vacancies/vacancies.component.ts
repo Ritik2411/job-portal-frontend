@@ -82,7 +82,7 @@ export class VacanciesComponent implements OnInit {
   changeExp(event){
     let txt = event.target.value
     this.load = true
-    if(txt === 'Freshers' || txt === '1 Years' || txt === '2 Years'){
+    if(txt === 'Freshers' || txt === '1 Year' || txt === '2 Years'){
       this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?experience=${txt}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=1`).subscribe(res => {
         this.data = res
         this.vacancies = this.data.vacancyDetail
