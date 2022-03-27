@@ -59,8 +59,8 @@ export class VacanciesComponent implements OnInit {
     let splited = this.date.toString().split("-")
     let pubDate = splited[2] + "-" + splited[1] + "-" + splited[0]
     this.load = true
-    
-    this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?pub_date=${pubDate}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=1`).subscribe(res => {
+    this.page = 1
+    this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?pub_date=${pubDate}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=${this.page}`).subscribe(res => {
       this.data = res
       this.vacancies = this.data.vacancyDetail
       this.totalRecords = this.data.totalItems.toString()
@@ -82,8 +82,9 @@ export class VacanciesComponent implements OnInit {
   changeExp(event){
     let txt = event.target.value
     this.load = true
+    this.page = 1
     if(txt === 'Freshers' || txt === '1 Year' || txt === '2 Years'){
-      this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?experience=${txt}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=1`).subscribe(res => {
+      this.http.get(`http://localhost:5500/VacancyDetail/${this.id}?experience=${txt}&sortOrder=${this.sortOrder}&page_size=${this.itemPerPage}&page=${this.page}`).subscribe(res => {
         this.data = res
         this.vacancies = this.data.vacancyDetail
         this.totalRecords = this.data.totalItems.toString()

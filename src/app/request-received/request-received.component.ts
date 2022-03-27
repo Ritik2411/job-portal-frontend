@@ -30,7 +30,8 @@ export class RequestReceivedComponent implements OnInit {
     let convertedDate = this.date.split("-")
     let searchdate = convertedDate[2] + "-" + convertedDate[1] + "-" + convertedDate[0]
     this.load = true
-    this.vacancyRequests(searchdate,this.sortOrder, this.pageSize, 1) 
+    this.page = 1
+    this.vacancyRequests(searchdate,this.sortOrder, this.pageSize, this.page) 
   }
 
   clearDate(){
@@ -44,7 +45,16 @@ export class RequestReceivedComponent implements OnInit {
     console.log(event.target.value)
     this.search = event.target.value
     this.load = true
-    this.vacancyRequests(this.search,this.sortOrder, this.pageSize, 1) 
+
+    if(this.search === "All"){
+      this.vacancyRequests(this.search,this.sortOrder, this.pageSize, this.page) 
+
+    }
+
+    else{
+      this.page = 1
+      this.vacancyRequests(this.search,this.sortOrder, this.pageSize, this.page) 
+    }
   }
 
   sortByDate(){

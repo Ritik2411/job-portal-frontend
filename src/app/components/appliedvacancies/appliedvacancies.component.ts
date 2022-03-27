@@ -54,8 +54,8 @@ export class AppliedvacanciesComponent implements OnInit {
     }
     else{
       this.load = true
-
-      this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?status=${event.target.value}&sort_by_date=${this.sort_order}&page_size=${this.itemsPerPage}&page=1`).subscribe((res) => {
+      this.page = 1
+      this.http.get(`http://localhost:5500/VacancyRequests/${this.route.snapshot.paramMap.get('id')}?status=${event.target.value}&sort_by_date=${this.sort_order}&page_size=${this.itemsPerPage}&page=${this.page}`).subscribe((res) => {
         this.data = res
         this.vacancyReq = this.data.vacancyRequest
         this.totalRecords = this.data.totalItems

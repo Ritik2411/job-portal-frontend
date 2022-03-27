@@ -11,7 +11,7 @@
         <!-- <div style="width: 100%;"> -->
             <div style="margin-top: 20px;margin-right:10px;width: fit-content;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;">
                 <p style="font-weight: 600;margin-bottom: 3px;">Search by minimum salary</p>
-                <select style="border-radius: 5px;padding: 5px 10px;color: gray;font-weight: 600;"
+                <select style="border-radius: 5px;padding: 5px 10px;color: gray;font-weight: 600;" value={{min_salary}}
                     (change)="sortByminimum($event)">
                         <option value="">All</option>
                         <option value="30000">{{30000 | currency:'INR'}}</option>
@@ -24,6 +24,7 @@
             <div style="margin-top: 20px;width: fit-content;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px">
                 <p style="font-weight: 600;margin-bottom: 3px;">Search by maximum salary</p>
                 <select style="border-radius: 5px;padding: 5px 10px;color: gray;font-weight: 600;"
+                    value={{max_salaty}}
                     (change)="sortBymaximum($event)">
                         <option value="">All</option>
                         <option value="30000">{{30000 | currency:'INR'}}</option>
