@@ -9,8 +9,8 @@
 </ng-template>
 
 <ng-template #dataBlock>
-    <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;">
-        <div style="width: 70%;margin-bottom: 5px;">
+    <div style="width: 100%;display: flex;justify-content: center;margin-top: 40px;">
+        <div style="width: 70%">
             <a [routerLink]="['/allvacancies',jobseekerID]">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-left" viewBox="0 0 16 16">
                     <path fill-rule="evenodd" d="M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5zM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5z"/>
@@ -84,7 +84,7 @@
     <ng-template #nodataBlock>
         <div style="width: 100%;display: flex;justify-content: center;margin-top: 20px;margin-bottom: 20px;">
             <div style="width: 70%;box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;padding: 10px;border-radius: 5px;font-weight: 600;">
-                No employeer data found.
+                Organization details are not added by this employer.
             </div>
         </div>
     </ng-template>

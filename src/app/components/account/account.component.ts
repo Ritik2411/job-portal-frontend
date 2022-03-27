@@ -43,7 +43,10 @@ export class AccountComponent implements OnInit {
         })
       }).subscribe(res => {
         if(res){
-           window.location.reload() 
+           this.toast.success("Uploaded successfully")
+           setTimeout(()=>{
+            window.location.reload() 
+           },1000)
          }
       })
      }
@@ -72,7 +75,10 @@ export class AccountComponent implements OnInit {
         last_name: this.lastName
       }).subscribe(res => {
         if(res){
-          window.location.reload()
+          this.toast.success("Profile updated successfully")
+          setTimeout(() => {
+            window.location.reload()
+          },1000)
         }
       })
     }
@@ -97,7 +103,10 @@ export class AccountComponent implements OnInit {
       }
     }).subscribe(res => {
       if(res){
-        window.location.reload()
+        this.toast.error("Deleted successfully")
+        setTimeout(()=>{
+          window.location.reload()
+        },1000)
       }
     })
   }

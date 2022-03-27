@@ -31,7 +31,10 @@ export class UpdatejobseekerDetailsComponent implements OnInit {
       dob: new Date(data.dob).toISOString()
     }).subscribe(res => {
       if(res){
-        window.location.reload()
+        this.toast.success("Updated sucessfully")
+        setTimeout(() => {
+          window.location.reload()
+        },1000)
       }
     })
   }

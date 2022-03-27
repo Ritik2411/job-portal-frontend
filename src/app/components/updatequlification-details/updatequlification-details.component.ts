@@ -24,7 +24,10 @@ export class UpdatequlificationDetailsComponent implements OnInit {
       grade: data.grade
     }).subscribe(res => {
       if(res){
-        window.location.reload()
+        this.toast.success('Updated successfully')
+        setTimeout(()=> {
+          window.location.reload()
+        },1000)
       }
     })
   }

@@ -33,7 +33,10 @@ export class UpdateEmployeeComponent implements OnInit {
       createdBy: data.createdBy
     }).subscribe(res => {
       if(res){
-        window.location.reload()
+        this.toast.success("Updated successfully")
+        setTimeout(() => {
+          window.location.reload()
+        },1000)
       }
     })
   }

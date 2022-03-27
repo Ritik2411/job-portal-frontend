@@ -12,9 +12,9 @@ export class VacancyComponent implements OnInit {
   @ Input() data = []
 
   vacancyData:any = []
-  employeeData:any
-  loadED:boolean
-  currentData:any
+  employeeData:any = []
+  loadED:boolean = true
+  currentData:any = null
 
   constructor(private http:HttpClient, private router:Router, private route:Router, private toast:ToastrService) { }
   
@@ -24,10 +24,6 @@ export class VacancyComponent implements OnInit {
 
   ngOnInit(): void {
     this.vacancyData = this.data    
-
-    setTimeout(()=>{
-      this.loadED = false
-    },4000)
   }
 
   apply(data){
@@ -63,7 +59,10 @@ export class VacancyComponent implements OnInit {
   deleteVacancy(id:number){
       this.http.delete(`http://localhost:5500/VacancyDetail/${id}`).subscribe(res => {
         if(res){
-          window.location.reload()
+          this.toast.error("Deleted successfully")
+          setTimeout(() => {
+            window.location.reload()
+          },1000)
         }
     })
   }
@@ -93,7 +92,6 @@ export class VacancyComponent implements OnInit {
   }
 
   employeeDetails(userId:string){
-    this.loadED = true
     this.http.get(`http://localhost:5500/EmployeeDetail/${userId}`).subscribe(res => {
         this.employeeData = res
         if(this.employeeData.length > 0){

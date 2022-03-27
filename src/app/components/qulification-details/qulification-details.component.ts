@@ -18,32 +18,31 @@ export class QulificationDetailsComponent implements OnInit {
   update:boolean = false
 
   qualifications(qualificationForm:any){
-    const confirm = window.confirm('Save Changes?')
-    
-    if(confirm){
-      this.http.post('http://localhost:5500/Qualification', {
-        grade: qualificationForm.grade,
-        name: qualificationForm.name,
-        qualification: qualificationForm.qualification,
-        university: qualificationForm.university,
-        userId: localStorage.getItem('UserId'),
-        yearOfCompletion: qualificationForm.yearOfCompletion
-      }, {
-        headers: new HttpHeaders({
-          'Content-Type': 'application/json',
-          Authorization: 'Bearer ' + localStorage.getItem('TKN')
-        })
-      }).subscribe(res => {
-        if(res){
-          window.location.reload()
-        }
-      },(error) => {
-        if(error.status === 500){
-          this.toast.info("Enter jobseeker detail first")
-          this.router.navigate([this.id,"details"])
-        }
+    this.http.post('http://localhost:5500/Qualification', {
+      grade: qualificationForm.grade,
+      name: qualificationForm.name,
+      qualification: qualificationForm.qualification,
+      university: qualificationForm.university,
+      userId: localStorage.getItem('UserId'),
+      yearOfCompletion: qualificationForm.yearOfCompletion
+    }, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('TKN')
       })
-    }
+    }).subscribe(res => {
+      if(res){
+        this.toast.success("Data saved successfully")
+        setTimeout(() => {
+          window.location.reload()
+        },1000)
+      }
+    },(error) => {
+      if(error.status === 500){
+        this.toast.info("Enter jobseeker detail first")
+        this.router.navigate([this.id,"details"])
+      }
+    })
   }
 
   ngOnInit(): void {

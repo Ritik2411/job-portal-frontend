@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-employeer-detail',
@@ -9,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddEmployeerDetailComponent implements OnInit {
 
-  constructor(private router:ActivatedRoute, private http:HttpClient) { }
+  constructor(private router:ActivatedRoute, private http:HttpClient, private toast:ToastrService) { }
   
   employeeData:any
 
@@ -28,7 +29,10 @@ export class AddEmployeerDetailComponent implements OnInit {
       createdBy: data.createdBy
     }).subscribe(res => {
       if(res){
-        window.location.reload()
+        this.toast.success("Data saved successsfully")
+        setTimeout(() => {
+          window.location.reload()
+        },1000)
       }
     })
   }

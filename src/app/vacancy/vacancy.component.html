@@ -1,14 +1,14 @@
 <div class="vacancy-div">
     <div class="publisher-info">
         <div class="publisher-name-div">
-            <!-- <div *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" [routerLink]="['employeedetails',vacancyData?.user_id]">{{vacancyData?.publishedBy}}</div> -->
+            <div *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" [routerLink]="['employeedetails',vacancyData?.user_id]">{{vacancyData?.publishedBy}}</div>
             
             <!-- Trigger Model -->
-            <p *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" data-toggle="modal" data-target="#publisherModal" (click)="employeeDetails(vacancyData.user_id)">{{vacancyData?.publishedBy}}</p>
+            <!-- <p *ngIf="role === 'JobSeeker'" style="color: #0d6efd;cursor: pointer;" data-toggle="modal" data-target="#publisherModal" (click)="employeeDetails(vacancyData.user_id)">{{vacancyData?.publishedBy}}</p> -->
             
             <!-- Modal -->
 
-            <div class="modal fade" id="publisherModal" tabindex="-1" role="dialog" aria-labelledby="publisherModalLabel" aria-hidden="true">
+            <!-- <div class="modal fade" id="publisherModal" tabindex="-1" role="dialog" aria-labelledby="publisherModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -28,7 +28,7 @@
                         </ng-template>
 
                         <ng-template #datablock>
-                            <div *ngIf="employeeData?.length > 0 then organizationBlock else nodatablock"></div>
+                            <ng-component *ngIf="employeeData?.length > 0 then organizationBlock else nodatablock"></ng-component>
                             
                             <ng-template #organizationBlock> 
                                 <div class="employee-div">
@@ -36,37 +36,42 @@
                                     <div style="padding: 5px 10px;">
                                         <p>
                                             <span>Organization Name:&nbsp;</span>
-                                            <span></span>
+                                            <span>{{employeeData[0].organization}}</span>
                                         </p>
         
                                         <p>
                                             <span>Founded By:&nbsp;</span>
-                                            <span>Name</span>
+                                            <span>{{employeeData[0].createdBy}}</span>
                                         </p>
         
                                         <p>
                                             <span>Company Email:&nbsp;</span>
-                                            <span>Name</span>
+                                            <span>{{employeeData[0].companyEmail}}</span>
                                         </p>
         
                                         <p>
                                             <span>Phone:&nbsp;</span>
-                                            <span>Name</span>
+                                            <span>{{employeeData[0].companyPhone}}</span>
                                         </p>
         
                                         <p>
                                             <span>Number Of Employee:&nbsp;</span>
-                                            <span>Name</span>
+                                            <span>{{employeeData[0].noOfEmployee}}</span>
                                         </p>
                                         
                                         <p>
                                             <span>Organization Type:&nbsp;</span>
-                                            <span>Name</span>
+                                            <span>{{employeeData[0].organizationType}}</span>
                                         </p>
         
                                         <p>
                                             <span>Start Year:&nbsp;</span>
-                                            <span>Name</span>
+                                            <span>{{employeeData[0].startYear}}</span>
+                                        </p>
+
+                                        <p>
+                                            <span>About:&nbsp;</span>
+                                            <span>{{employeeData[0].about}}</span>
                                         </p>
                                     </div>
                                 </div>
@@ -82,7 +87,7 @@
                     </div>
                 </div>
                 </div>
-            </div>
+            </div> -->
 
             <span style="font-size: 16px;">Published on: 
                 <span style="color: gray;">
@@ -180,7 +185,7 @@
                         </button>
                         </div>
                         <div class="modal-body">
-                            <form *ngIf="currentData !== undefined" #updateVacancyform="ngForm" (submit)="updateVacancy(updateVacancyform.value, currentData.id)"> 
+                            <form *ngIf="currentData !== null" #updateVacancyform="ngForm" (submit)="updateVacancy(updateVacancyform.value, currentData.id)"> 
                                 <div class="input-div">
                                     <label>Experience:&nbsp;</label>
                                     <select #experience="ngModel"

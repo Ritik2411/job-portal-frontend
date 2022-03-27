@@ -18,9 +18,11 @@ export class ExperienceDetailsComponent implements OnInit {
   expData:any 
 
   experience(data:any){
-    const confirm = window.confirm('Add Details?')
-    
-    if(confirm){
+    if(data.start_year > data.end_year){
+      this.toast.info("Start date cannot be greater than end date")
+    }
+
+    else{
       this.http.post('http://localhost:5500/Experience', {
         user_id: localStorage.getItem('UserId'),
         company_name: data.company_name,
@@ -31,7 +33,10 @@ export class ExperienceDetailsComponent implements OnInit {
         jobDescription: data.jobDescription
       }).subscribe(res => {
         if(res){
-          window.location.reload()
+          this.toast.success("Data saved successfully")
+          setTimeout(() => {
+            window.location.reload()
+          },1000)
         }
       },(error) => {
         if(error.status === 500){

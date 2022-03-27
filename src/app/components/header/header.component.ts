@@ -9,10 +9,8 @@ import { RolesService } from 'src/app/services/roles.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, DoCheck {
-  title = 'ABC'
   userData:any
   userInfo:any
-  load:boolean = true
 
   constructor(private userService:RolesService, private http:HttpClient, private route:Router) { }
   
@@ -37,10 +35,6 @@ export class HeaderComponent implements OnInit, DoCheck {
         
         this.userData = (this.userService.getUser())
       }
-
-      setTimeout(()=>{
-        this.load = false
-      },2000)
   }
 
   ngDoCheck(): void {

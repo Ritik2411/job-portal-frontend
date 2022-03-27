@@ -15,18 +15,26 @@ export class UpdateexperienceDetailsComponent implements OnInit {
   load:boolean = true
 
   updateexperience(data:any, id:number){
-    this.http.put(`http://localhost:5500/Experience/${id}`, {
-      company_name: data.company_name,
-      start_year: data.start_year,
-      end_year: data.end_year,
-      companyUrl: data.companyUrl,
-      designation: data.designation,
-      jobDescription: data.jobDescription
-    }).subscribe(res => {
-      if(res){
-        window.location.reload()
-      }
-    })
+    if(data.start_year > data.end_year){
+      this.toast.info("Start date cannot be greater than end date")
+    }
+    else{
+      this.http.put(`http://localhost:5500/Experience/${id}`, {
+        company_name: data.company_name,
+        start_year: data.start_year,
+        end_year: data.end_year,
+        companyUrl: data.companyUrl,
+        designation: data.designation,
+        jobDescription: data.jobDescription
+      }).subscribe(res => {
+        if(res){
+          this.toast.success("Updated successfully")
+          setTimeout(() => {
+            window.location.reload()
+          },1000)
+        }
+      })
+    }
   }
 
   ngOnInit(): void {
